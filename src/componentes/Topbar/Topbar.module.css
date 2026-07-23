@@ -5,11 +5,27 @@
     top: 0;
     bottom: 0;
 
-    width: 100%;
+    width: 80%;
     height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+
+
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0, 0.445);
 }
 
 
 .pagina_conteudo{
     margin-top: 10vh;
+}
+
+.botao_deslogar {
+    text-decoration: none;
+    color: #070b3b;
+    font-size: 3.5vh;
+
+    display: flex;
+    align-items: center;
+
+    margin-right: 20px;
 }
