@@ -1,0 +1,25 @@
+.sidebar_item {
+    text-decoration: none;
+
+    display: flex;
+    margin: 20px;
+
+
+    color: #e7e7e7;
+
+
+    & svg {
+        width: 30px;
+        height: 44px;
+    }
+
+
+    & .texto_link {
+        margin: 10px;
+    }
+
+    &:hover {
+        color: #f08830;
+        /* quando passar o mouse encima, muda de cor */
+    }
+}
