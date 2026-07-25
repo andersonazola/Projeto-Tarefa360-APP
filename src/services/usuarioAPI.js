@@ -29,7 +29,7 @@ const UsuarioAPI = {
                 Email: email,
                 Senha: senha
             };
-            const response = await HTTTPCliente.post(`/Usuario/Criar`, usuarioCriar);
+            const response = await HTTTPClient.post(`/Usuario/Criar`, usuarioCriar);
             return response.data;
         } catch (error) {
             console.error("Erro ao criar usuário:", error);
@@ -102,3 +102,5 @@ const UsuarioAPI = {
     },
 
 }
+
+export default UsuarioAPI;
