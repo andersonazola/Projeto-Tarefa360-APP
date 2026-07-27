@@ -14,16 +14,16 @@ export function Usuarios() {
 
     async function carregarUsuarios() {
         try {
-            const listarUsuarios = await UsuarioAPI.listarAsync(true);
+            const listaUsuarios = await UsuarioAPI.listarAsync(true);
             setUsuarios(listaUsuarios);
         } catch (erro) {
             console.error("Erro ao carregar usuários:", error);
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { // Para toda vez que a página for redenrizada chama a função e a lista seja carregue novamente.
         carregarUsuarios();
-    })
+    }, []);
 
 
     return (
