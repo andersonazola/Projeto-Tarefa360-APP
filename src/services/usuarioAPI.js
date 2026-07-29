@@ -22,14 +22,15 @@ const UsuarioAPI = {
         }
     },
     //POST
-    async criarAsync(nome, email, senha) {
+    async criarAsync(nome, email, senha, tipousuarioId) {
         try {
             const usuarioCriar = {
+                TipoUsuarioId: tipousuarioId,
                 Nome: nome,
                 Email: email,
                 Senha: senha
             };
-            const response = await HTTTPClient.post(`/Usuario/Criar`, usuarioCriar);
+            const response = await HTTPClient.post(`/Usuario/Criar`, usuarioCriar);
             return response.data;
         } catch (error) {
             console.error("Erro ao criar usuário:", error);
@@ -37,12 +38,13 @@ const UsuarioAPI = {
         }
     },
     //PUT
-    async atualizarAsync(id, nome, email) {
+    async atualizarAsync(id, nome, email, tipoUsuarioId) {
         try {
             const usuarioAtualizar = {
                 Id: id,
                 Nome: nome,
-                Email: email
+                Email: email,
+                TipoUsuarioId: tipoUsuarioId
             };
             const response = await HTTPClient.put(`/Usuario/Atualizar`, usuarioAtualizar);
             return response.data;

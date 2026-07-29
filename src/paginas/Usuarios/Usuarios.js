@@ -16,7 +16,7 @@ export function Usuarios() {
         try {
             const listaUsuarios = await UsuarioAPI.listarAsync(true);
             setUsuarios(listaUsuarios);
-        } catch (erro) {
+        } catch (error) {
             console.error("Erro ao carregar usuários:", error);
         }
     }
@@ -68,3 +68,4 @@ export function Usuarios() {
         </Sidebar>
     )
 }
+
