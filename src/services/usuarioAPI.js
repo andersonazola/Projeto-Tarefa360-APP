@@ -19,7 +19,7 @@ const UsuarioAPI = {
         } catch (error) {
             console.error("Erro ao listar usuários:", error);
             throw error;
-        }
+        } 
     },
     //POST
     async criarAsync(nome, email, senha, tipousuarioId) {
