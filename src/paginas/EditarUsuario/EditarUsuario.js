@@ -36,7 +36,8 @@ export function EditarUsuario() {
         const buscarTiposUsuarios = async () => {
             try {
                 const tipos = await UsuarioAPI.listarTiposUsuarioAsync();
-                setTipoUsuario(tipos);
+                console.log(tipos)
+                setTipoUsuarios(tipos);
             } catch (error) {
                 console.error('Erro ao buscar tipos de usuários:', error);
             }
