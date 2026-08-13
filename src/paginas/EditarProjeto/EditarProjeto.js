@@ -47,7 +47,7 @@ export function EditarProjeto() {
             <Topbar>
                 <div className={style.pagina_conteudo}>
                     <h3>Projetos</h3>
-                    <Form onsubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formNome" className="mb-3">
                             <Form.Label>Nome</Form.Label>
                             <Form.Control 
