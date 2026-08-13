@@ -1,10 +1,10 @@
-import {HTTPClient} from ".client";
+import { HTTPClient } from "./client";
 
 const ProjetoAPI = {
     //GET - Busca 1 único projeto pelo ID
-    async obterAsync(projetoId){
+    async obterAsync(projetoId) {
         try {
-            const response = await HTTPClient.get('/api/Projeto/Obter${projetoId}');
+            const response = await HTTPClient.get(`/api/Projeto/Obter/${projetoId}`);
             return response.data;
         } catch (error) {
             console.error("Erro ao obter projeto:", error);
@@ -46,7 +46,7 @@ const ProjetoAPI = {
                 Nome: nome,
                 Descricao: descricao
             };
-            const response = await HTTPClient.put('api/Projeto/Atualizar', projetoAtualizar);
+            const response = await HTTPClient.put('/api/Projeto/Atualizar', projetoAtualizar);
             return response.data;
         } catch (error){
             console.error("Erro ao atualizar projeto:", error);
@@ -57,7 +57,7 @@ const ProjetoAPI = {
     //DELETE - Deleta um projeto pelo ID
     async deletarAsync(projetoId){
         try {
-            const response = await HTTPClient.delete('/api/Projeto/Deletar/${projetoId}');
+            const response = await HTTPClient.delete(`/api/Projeto/Deletar/${projetoId}`);
             return response.data;
         } catch (error){
             console.error("Erro ao deletar projeto:", error);
