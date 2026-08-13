@@ -23,7 +23,7 @@ export function Projetos(){
     const handleDeletar = async () => {
         try {
             await ProjetoAPI.deletarAsync(projetoSelecionado.id);
-            setProjetos(projetos.filter(p = p.id !== projetoSelecionado.id));
+            setProjetos(projetos.filter(p => p.id !== projetoSelecionado.id));
         } catch (error) {
             console.error("Erro ao deletar projeto:", error);
         } finally {
@@ -60,7 +60,7 @@ export function Projetos(){
                 <div className={style.pagina_conteudo}>
                     <div className={style.pagina_cabecalho}>
                         <h3>Projetos</h3>
-                        <Link to='projeto/novo' className={style.botao_novo}>+ Novo</Link>
+                        <Link to='/projeto/novo' className={style.botao_novo}>+ Novo</Link>
                     </div>
 
                     <div className={style.campo_busca}>
@@ -108,6 +108,9 @@ export function Projetos(){
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleFecharModal}>
+                                Cancelar
+                            </Button>
+                            <Button variant="danger" onClick={handleDeletar}>
                                 Deletar
                             </Button>
                         </Modal.Footer>
