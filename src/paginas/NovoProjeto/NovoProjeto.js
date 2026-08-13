@@ -9,7 +9,7 @@ import ProjetoAPI from "../../services/projetoAPI";
 
 export function NovoProjeto(){
     const [nome, setNome] =useState('');
-    const [descricao, setDescricao] = useState;
+    const [descricao, setDescricao] = useState('');
 
     const navigate = useNavigate();
 
