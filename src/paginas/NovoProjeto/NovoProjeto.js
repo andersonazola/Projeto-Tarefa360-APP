@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button'
 import ProjetoAPI from "../../services/projetoAPI";
+import { MdSave, MdSaveAlt, MdSaveAs } from "react-icons/md"
 
 export function NovoProjeto(){
     const [nome, setNome] =useState('');
@@ -61,8 +62,11 @@ export function NovoProjeto(){
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disable={!isFormValid()}>
-                            Salvar
+                        <Button variant="primary" type="submit" disable={!isFormValid()} >
+                             <div className = {style.botao_salvar}>
+                                <MdSaveAs /> 
+                                Salvar                            
+                             </div>                                           
                         </Button>
                     </Form>
                 </div>
