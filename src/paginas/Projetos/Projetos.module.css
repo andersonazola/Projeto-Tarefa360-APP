@@ -16,7 +16,7 @@
     font-size: 25px;
 }
 
-.botao_editar sv:hover {
+.botao_editar svg:hover {
     color: #f08830;
 }
 
@@ -45,4 +45,18 @@
         border-radius: 10px;
         background-color: #f08830;
     }
+}
+
+.campo_busca {
+    margin-top: 20px;
+}
+
+.input_busca {
+    padding: 8px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+    width: 300px;
+    font-size: 14px;
 }
