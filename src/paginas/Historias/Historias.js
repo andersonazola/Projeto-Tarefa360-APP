@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import HistoriaAPI from "../../services/historiaAPI";
 import { Sidebar } from "../../componentes/Sidebar/Sidebar";
 import { Topbar } from "../../componentes/Topbar/Topbar";
-import { MdEdit, MdDelete} from "react-icons/md"
+import { MdEdit, MdDelete } from "react-icons/md"
 import { Button, Modal } from "bootstrap";
+import ProjetoAPI from "../../services/projetoAPI";
+import Form from 'react-bootstrap/Form';
 
-export function Historias()
-{
+export function Historias() {
     const [historias, setHistorias] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [historiaSelecionada, setHistoriaSelecionada] = useState(null);
     const [busca, setBusca] = useState("");
+    const [projeto, setProjeto] = useState([]);
 
     const handleClickDeletar = (historia) => {
         setHistoriaSelecionada(historia);
@@ -18,18 +20,15 @@ export function Historias()
     };
 
     const handleDeletar = async () => {
-        try
-        {
+        try {
             await HistoriaAPI.deletarAsync(historiaSelecionada.id);
             setHistorias(historias.filter(h => h.id !== historiaSelecionada.id));
         }
-        catch(error)
-        {
+        catch (error) {
             console.error("Erro ao deletar história:", error);
         }
-        finally
-        {
-            
+        finally {
+            handleFecharModal();
         }
     }
 
@@ -38,23 +37,32 @@ export function Historias()
         setHistoriaSelecionada(null);
     };
 
-    async function carregarHistorias(){
-        try
-        {
+    async function carregarHistorias() {
+        try {
             const listaHistorias = await HistoriaAPI.listarAsync();
             setHistorias(listaHistorias);
         }
-        catch(error)
-        {
+        catch (error) {
             console.error("Erro ao carregar histórias:", error)
         }
     }
 
     useEffect(() => {
         carregarHistorias();
+
+        const buscarProjetos = async () => {
+            try {
+                const projetos = await ProjetoAPI.listarAsync();
+                console.log(projetos);
+                setProjeto(projetos);
+            }
+            catch (error) {
+                console.error('Erro ao buscar projetos:', error);
+            }
+        };
     }, []);
 
-    const historiasFiltradas = historias.filter(historia => 
+    const historiasFiltradas = historias.filter(historia =>
         historia.nome.toLowerCase().includes(busca.toLowerCase())
     );
 
@@ -64,6 +72,21 @@ export function Historias()
                 <div className={style.pagina_conteudo}>
                     <div className={style.pagina_cabecalho}>
                         <h3>Histórias</h3>
+                        <Form controlId="formProjeto" className="mb-3">
+                            <Form.Label>Projeto</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="projeto"
+                                value={projeto}
+                                onChange={(e) => setProjeto(e.target.value)}
+                                required
+                            >
+                                <option value="">Projeto</option>
+                                {projeto.map((projeto) => (
+                                    <option key={projeto.id} value={projeto.id}>{projeto.nome}</option>
+                                ))}
+                            </Form.Control>
+                        </Form>
                         <Link to='/historia/novo' className={style.botao_novo}>+ Nova</Link>
                     </div>
 
@@ -82,6 +105,7 @@ export function Historias()
                             <thead className={style.tabela.cabecalho}>
                                 <tr>
                                     <th>Nome</th>
+                                    <th>Projeto</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -89,8 +113,9 @@ export function Historias()
                                 {historiasFiltradas.map((historia) => (
                                     <tr key={historia.id}>
                                         <td>{historia.nome}</td>
+                                        <td>{historia.projeto}</td>
                                         <td>
-                                            <Link to='/historia/editar' state={historia.id} className= {style.botao_editar}>
+                                            <Link to='/historia/editar' state={historia.id} className={style.botao_editar}>
                                                 <MdEdit />
                                             </Link>
                                             <button onClick={() => handleClickDeletar(historia)} className={style.botao_deletar}>

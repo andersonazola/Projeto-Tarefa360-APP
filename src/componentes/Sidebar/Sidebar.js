@@ -1,8 +1,8 @@
-
 import style from "./Sidebar.module.css";
 import Logo from "../../assets/LogoBranco.png"
 import { SidebarItem } from "../SidebarItem/SidebarItem";
 import { MdGroup, MdFolder } from "react-icons/md";
+import { GiBlackBook } from "react-icons/gi";
 
 export function Sidebar({ children }) {
     return (
@@ -17,8 +17,8 @@ export function Sidebar({ children }) {
                 <div className={style.sidebar_corpo}>
                     <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
                     <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
+                    <SidebarItem texto="Histórias" link="/historias" logo={<GiBlackBook />} />
                 </div>
-
             </div>
 
             <div className={style.pagina_conteudo}>
