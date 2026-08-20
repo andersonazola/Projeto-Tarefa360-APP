@@ -7,6 +7,7 @@ import { Topbar } from "../../componentes/Topbar/Topbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import { MdSaveAs } from "react-icons/md";
+import style from './NovaHistoria.module.css';
 
 export function NovaHistoria() {
     const [nome, setNome] = useState('');
@@ -33,7 +34,7 @@ export function NovaHistoria() {
         e.preventDefault();
 
         if (isFormValid() && temCaracterEspecial(nome) == false) {
-            await HistoriaAPI.criarAsync(nome, projeto, descricao);
+            await HistoriaAPI.criarAsync(nome, projetoSelecionado, descricao);
             navigate('/historias')
         }
         else {
@@ -53,7 +54,7 @@ export function NovaHistoria() {
     return (
         <Sidebar>
             <Topbar>
-                <div className={style.pagina.conteudo}>
+                <div className={style.pagina_conteudo}>
                     <h3>Novo História</h3>
 
                     <Form onSubmit={handleSubmit}>
@@ -82,7 +83,7 @@ export function NovaHistoria() {
                             >
                                 <option value="">Selecione um projeto</option>
                                 {projeto.map((projetoEscolhido) => (
-                                    <option key={projetoEscolhido} value={projetoEscolhido}>{projeto.nome}</option>
+                                    <option key={projetoEscolhido.id} value={projetoEscolhido.id}>{projetoEscolhido.nome}</option>
                                 ))}
                             </Form.Control>
                         </Form.Group>
@@ -110,5 +111,4 @@ export function NovaHistoria() {
             </Topbar>
         </Sidebar>
     )
-
 }

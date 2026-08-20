@@ -62,7 +62,7 @@ export function NovoProjeto(){
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disable={!isFormValid()} >
+                        <Button variant="primary" type="submit" disablecd ={!isFormValid()} >
                              <div className = {style.botao_salvar}>
                                 <MdSaveAs /> 
                                 Salvar                            

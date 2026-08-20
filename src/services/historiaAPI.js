@@ -20,7 +20,7 @@ const HistoriaAPI = {
     {
         try
         {
-            const response = await HTTPClient.get(`/api/Historia/Listar/${ativo}`);
+            const response = await HTTPClient.get(`/api/Historia/Listar/?ativo=${ativo}`);
             return response.data;
         }
         catch(error)
@@ -30,13 +30,13 @@ const HistoriaAPI = {
         }
     },
 
-    async criarAsync(nome, projeto, descricao)
+    async criarAsync(nome, projetoId, descricao)
     {
         try
         {
             const historiaCriar = {
                 Nome: nome,
-                Projeto: projeto,
+                ProjetoId: projetoId,
                 Descricao: descricao
             }
 
@@ -85,3 +85,5 @@ const HistoriaAPI = {
         }
     }
 }
+
+export default HistoriaAPI;

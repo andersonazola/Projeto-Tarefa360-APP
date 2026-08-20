@@ -16,13 +16,9 @@ export function EditarProjeto() {
     const [descricao, setDescricao] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (isFormValid()) {
-            await ProjetoAPI.atualizarAsync(id, nome, descricao);
-            navigate('/projetos')
-        } else {
-            alert('Por favor, preencha o campo Nome.');
-        }
+    e.preventDefault();
+    await ProjetoAPI.atualizarAsync(nome, descricao);
+    navigate('/projetos')
     };
 
     useEffect(() => {
@@ -36,11 +32,8 @@ export function EditarProjeto() {
             }
         }
         buscarDadosProjeto();
-    }, []);
-
-    const isFormValid = () => {
-        return nome.length >= 3;
-    };
+    }, [id]);
+ 
 
     return (
         <Sidebar>
@@ -75,7 +68,7 @@ export function EditarProjeto() {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={!isFormValid()}>
+                        <Button variant="primary" type="submit">
                             Salvar
                         </Button>
                     </Form>
