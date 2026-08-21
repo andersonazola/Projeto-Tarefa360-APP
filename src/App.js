@@ -10,6 +10,7 @@ import { NovoProjeto } from './paginas/NovoProjeto/NovoProjeto';
 import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
+import { Historias } from './paginas/Historias/Historias';
 
 function App() {
   return (

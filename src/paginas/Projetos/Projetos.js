@@ -51,7 +51,7 @@ export function Projetos(){
 
     //Filtra projetos pelo texto da busca
     const projetosFiltrados = projetos.filter(projeto =>
-        projeto.nome.toLowerCase() .includes(busca.toLowerCase())
+        projeto.nome.toLowerCase().includes(busca.toLowerCase())
     );
 
     return (
