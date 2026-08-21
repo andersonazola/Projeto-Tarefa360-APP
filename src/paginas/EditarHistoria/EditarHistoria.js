@@ -75,6 +75,8 @@ export function EditarHistoria() {
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
                                 required
+                                minLength={3}
+                                maxLength={100}
                             />
                         </Form.Group>
 
@@ -103,6 +105,7 @@ export function EditarHistoria() {
                                 value={descricao}
                                 onChange={(e) => setDescricao(e.target.value)}
                                 required
+                                maxLength={500}
                             />
                         </Form.Group>
 

@@ -16,7 +16,8 @@ export function Historias() {
     const [historiaSelecionada, setHistoriaSelecionada] = useState(null);
     const [busca, setBusca] = useState("");
     const [projeto, setProjeto] = useState([]);
-     const [projetoSelecionado, setProjetoSelecionado] = useState(''); 
+    const [projetoSelecionado, setProjetoSelecionado] = useState('');
+    const [historiasFiltro, setHistoriasFiltro] = useState([]);
 
     const handleClickDeletar = (historia) => {
         setHistoriaSelecionada(historia);
@@ -44,7 +45,6 @@ export function Historias() {
     async function carregarHistorias() {
         try {
             const listaHistorias = await HistoriaAPI.listarAsync(true);
-            console.log(listaHistorias);
             setHistorias(listaHistorias);
         }
         catch (error) {
@@ -64,12 +64,15 @@ export function Historias() {
 
     useEffect(() => {
         carregarHistorias();
+
         buscarProjetos();
     }, []);
 
-    const historiasFiltradas = historias.filter(historia =>
-        historia.nome.toLowerCase().includes(busca.toLowerCase())
-    );
+    const historiasFiltradas = historias.filter((historia) => {
+        const buscaHistoria = historia.nome.toLowerCase().includes(busca.toLowerCase());
+        const filtroProjeto = projetoSelecionado == '' || historia.projetoId == projetoSelecionado;
+        return buscaHistoria && filtroProjeto;
+    });
 
     return (
         <Sidebar>
