@@ -1,7 +1,7 @@
 import style from "./Sidebar.module.css";
 import Logo from "../../assets/LogoBranco.png"
 import { SidebarItem } from "../SidebarItem/SidebarItem";
-import { MdGroup, MdFolder } from "react-icons/md";
+import { MdGroup, MdFolder, MdFlagCircle } from "react-icons/md";
 import { GiBlackBook } from "react-icons/gi";
 
 export function Sidebar({ children }) {
@@ -18,6 +18,7 @@ export function Sidebar({ children }) {
                     <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
                     <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
                     <SidebarItem texto="Histórias" link="/historias" logo={<GiBlackBook />} />
+                    <SidebarItem texto="Sprints" link="/sprints" logo={< MdFlagCircle/>} />
                 </div>
             </div>
 
