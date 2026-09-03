@@ -3,6 +3,13 @@ import Logo from "../../assets/LogoBranco.png"
 import { SidebarItem } from "../SidebarItem/SidebarItem";
 import { MdGroup, MdFolder } from "react-icons/md";
 import { GiBlackBook } from "react-icons/gi";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { PiClipboardTextBold } from "react-icons/pi";
+
+
+
+
+
 
 export function Sidebar({ children }) {
     return (
@@ -18,6 +25,7 @@ export function Sidebar({ children }) {
                     <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
                     <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
                     <SidebarItem texto="Histórias" link="/historias" logo={<GiBlackBook />} />
+                    <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold />} />
                 </div>
             </div>
 
