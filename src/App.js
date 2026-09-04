@@ -26,6 +26,7 @@ function App() {
         <Route path='/historias' element={<Historias />} />
         <Route path='/historia/novo' element={<NovaHistoria />} />
         <Route path='/historia/editar' element={<EditarHistoria />} />
+        {/* <Route path='/tarefas' element={<NovaTarefa />}/> */}
       </Routes>
     </BrowserRouter>
   );
