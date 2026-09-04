@@ -1,0 +1,67 @@
+/* Caixa individual de cada Card */
+.card {
+    border-radius: 25px;
+    color: #ffffff;
+    width: 280px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-sizing: border-box;
+}
+
+/* Título do card (Tarefas, Histórias, Bugs) */
+.cabecalho {
+    display: flex;
+    align-items: center;
+}
+
+.titulo {
+    font-size: 20px;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Número principal do meio (Total) */
+.total {
+    font-size: 44px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+}
+
+.divisor {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 0;
+}
+
+/* Linha inferior: Concluídos à esquerda e Abertos à direita */
+.detalhes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4px;
+}
+
+/* Cada coluna inferior (palavra em cima, número embaixo) */
+.item_detalhe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.label {
+    font-size: 13px;
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.valor_concluidos,
+.valor_abertos {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}

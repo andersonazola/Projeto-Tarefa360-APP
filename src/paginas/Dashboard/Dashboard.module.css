@@ -1,0 +1,51 @@
+.pagina_conteudo {
+    width: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.pagina_cabecalho {
+    margin-bottom: 24px;
+}
+
+/* Área do filtro com label e select */
+.seletor_projeto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.seletor_projeto label {
+    font-weight: 600;
+    color: #444444;
+}
+
+.select_projeto {
+    padding: 8px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 250px;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.select_projeto:focus {
+    border-color: #f08830;
+}
+
+/* Container que coloca os 3 cards um ao lado do outro na horizontal */
+.cards {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+/* Mensagens de aviso e carregando */
+.aviso {
+    color: #888888;
+    font-size: 15px;
+    margin-top: 20px;
+}
