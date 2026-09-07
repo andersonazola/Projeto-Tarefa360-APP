@@ -11,6 +11,7 @@ import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
+import { Sprints } from './paginas/Sprints/Sprint';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/historias' element={<Historias />} />
         <Route path='/historia/novo' element={<NovaHistoria />} />
         <Route path='/historia/editar' element={<EditarHistoria />} />
+        <Route path= '/sprints' element ={<Sprints/>} />
       </Routes>
     </BrowserRouter>
   );
