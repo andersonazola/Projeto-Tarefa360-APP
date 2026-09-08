@@ -82,3 +82,10 @@
         margin-left: auto;
     }
 }
+
+/* .filtros_centro {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+} */

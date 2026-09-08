@@ -84,7 +84,19 @@ const TarefaAPI = {
             console.error("Erro ao deletar tarefa", error);
             throw error;
         }
-    }
+    },
+
+    async ConcluirTarefa(id) {
+        try {
+            const resposta = await HTTPClient.put(`/api/Tarefa/Concluir/${id}`);
+            return resposta.data;
+        }
+        catch (error) {
+            console.error("Erro ao concluir tarefa");
+            throw error;
+        }
+
+    },
 
 
 }

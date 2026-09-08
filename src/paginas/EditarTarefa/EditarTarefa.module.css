@@ -22,8 +22,13 @@
     flex: 1;
 }
 
-
 .descricao_caixa_alta{
     height: 100px;
     resize: vertical;
+}
+
+:global(.form-check.form-switch .form-check-input) {
+    width: 4em;
+    height: 1.5em;
+    cursor: pointer;
 }

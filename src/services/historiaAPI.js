@@ -20,6 +20,7 @@ const HistoriaAPI = {
     {
         try
         {
+            ativo = true;
             const response = await HTTPClient.get(`/api/Historia/Listar/?ativo=${ativo}`);
             return response.data;
         }
