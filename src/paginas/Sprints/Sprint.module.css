@@ -49,13 +49,14 @@
 
 .filtro_sprint {
     
-    padding: 10px 12px;
+    padding: 14px ;
     min-width: 170px;
     text-align: center;
     font-size: 14px;
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: auto;
     position: relative;
     display: flex;
  justify-content:flex-end;

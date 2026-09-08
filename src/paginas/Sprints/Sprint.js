@@ -133,7 +133,7 @@ export function Sprints(){
                                         <td>{sprint.dataFim}</td>
 
                                         <td>
-                                            <Link to='/sprint/editar' state={sprint.id} className={style.botao_editar}>
+                                            <Link to='/sprints/editar' state={sprint.id} className={style.botao_editar}>
                                                 <MdEdit />
                                             </Link>
                                             <button onClick={ () => handleClickDeletar(sprint)} className={style.botao_deletar}>
