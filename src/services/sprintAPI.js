@@ -38,7 +38,7 @@ const SprintAPI = {
             {
                 Nome: nome,
                 ProjetoId: projetoId,
-                Datainicio: datainicio,
+                DataInicio: datainicio,
                 DataFim: datafim
             }
 

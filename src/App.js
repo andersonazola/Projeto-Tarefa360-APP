@@ -12,6 +12,7 @@ import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
 import { Sprints } from './paginas/Sprints/Sprint';
+import { EditarSprint } from './paginas/EditarSprint/EditarSprint';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/historia/novo' element={<NovaHistoria />} />
         <Route path='/historia/editar' element={<EditarHistoria />} />
         <Route path= '/sprints' element ={<Sprints/>} />
+        <Route path='/sprints/editar' element={<EditarSprint />} />
       </Routes>
     </BrowserRouter>
   );
