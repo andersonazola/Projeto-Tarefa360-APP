@@ -1,0 +1,58 @@
+.login_conteudo {
+
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 50px;
+    min-height: 100vh;
+
+    background-image: url('../../assets/FundoLogin.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: relative;
+}
+
+.login_conteudo form 
+{
+    width: 100%;
+    max-width: 400px;  
+}
+
+.botao_novo {
+    text-decoration: none;
+    border: none;
+
+    color: white;
+
+    padding: 10px;
+    width: 130px;
+    margin: auto;
+
+    border-radius: 10px;
+    background-color: #f08830;
+    display: block;
+    cursor: pointer;
+}
+
+.botao_novo:hover
+{
+    background-color: #070b3b;
+}
+
+img 
+{
+    width: 53%;
+    align-items: center;
+}
+
+.botao_verSenha
+{
+    background: none;
+    border: none;
+    position: relative;
+    bottom: 2rem;
+    left: 89%;
+}
+

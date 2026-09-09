@@ -36,7 +36,7 @@ const HistoriaAPI = {
         {
             const historiaCriar = {
                 Nome: nome,
-                ProjetoId: projetoId,
+                ProjetoId: Number (projetoId),
                 Descricao: descricao
             }
 
@@ -57,7 +57,7 @@ const HistoriaAPI = {
             const historiaAtualizar = {
                 Id: id,
                 Nome: nome,
-                ProjetoId: projetoId,
+                ProjetoId: Number (projetoId),
                 Descricao: descricao
             }
 
