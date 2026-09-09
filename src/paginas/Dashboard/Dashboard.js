@@ -3,29 +3,21 @@ import { Sidebar } from '../../componentes/Sidebar/Sidebar';
 import { Topbar } from '../../componentes/Topbar/Topbar';
 import CardDashboard from '../../componentes/CardDashboard/CardDashboard';
 import ProjetoAPI from '../../services/projetoAPI';
-import styles from './Dashboard.module.css';
 import DashboardAPI from '../../services/dashboardAPI';
-
-
+import GeminiAPI from '../../services/geminiAPI';
+import styles from './Dashboard.module.css';
 
 export function Dashboard() {
-    // Guarda a lista de projetos que vem da API
     const [projetos, setProjetos] = useState([]);
-
-    // Guarda o Id do projeto que o usuário selecionou
     const [projetoSelecionado, setProjetoSelecionado] = useState("");
-
-    // Guarda os totais retornados pela API do dashboard
     const [dados, setDados] = useState(null);
-
-    // Controla a exibição da mensagem de carregamento
     const [carregando, setCarregando] = useState(false);
 
-    // Estados para guardar o resumo gerado pela IA e controlar o carregamento dela
+    // Estados da IA
     const [resumoIA, setResumoIA] = useState("");
     const [gerandoIA, setGerandoIA] = useState(false);
 
-    // Função para buscar os projetos da API
+    // Carrega a lista de projetos para o select ao abrir a tela
     useEffect(() => {
         async function carregarListaProjetos() {
             try {
@@ -35,11 +27,10 @@ export function Dashboard() {
                 console.error("Erro ao carregar lista de projetos:", error);
             }
         }
-
         carregarListaProjetos();
     }, []);
 
-    // Executa sempre que o usuário escolher outro projeto no select
+    // Busca indicadores toda vez que trocar o projeto selecionado
     useEffect(() => {
         if (!projetoSelecionado) {
             setDados(null);
@@ -50,7 +41,7 @@ export function Dashboard() {
         async function carregarIndicadores() {
             try {
                 setCarregando(true);
-                setResumoIA(""); // Limpa o resumo anterior ao trocar de projeto
+                setResumoIA("");
                 const resultado = await DashboardAPI.obterAsync(projetoSelecionado);
                 setDados(resultado);
             } catch (error) {
@@ -60,29 +51,37 @@ export function Dashboard() {
                 setCarregando(false);
             }
         }
-
         carregarIndicadores();
     }, [projetoSelecionado]);
 
-    
+    // Função para chamar o Gemini
+    async function gerarAnaliseIA() {
+        const projetoAtual = projetos.find(p => p.id == projetoSelecionado);
+        const nomeProjeto = projetoAtual ? projetoAtual.nome : "Projeto";
+
+        try {
+            setGerandoIA(true);
+            const resumo = await GeminiAPI.gerarResumoDashboardAsync(nomeProjeto, dados);
+            setResumoIA(resumo);
+        } catch (error) {
+            setResumoIA("Não foi possível gerar o resumo com IA no momento. Tente novamente.");
+        } finally {
+            setGerandoIA(false);
+        }
+    }
 
     return (
-        <Sidebar>
-            <Topbar>
-                <div className={styles.pagina_conteudo}>
-                    <div className={styles.pagina_cabecalho}>
-                        <h3>Dashboard</h3>
-                    </div>
-
-                    {/* Menu suspenso para escolher o projeto */}
-                    <div className={styles.seletor_projeto}>
-                        <label>Projeto:</label>
+        <Sidebar>            
+            <Topbar
+                childrenTopo={
+                    <div className={styles.seletor_topo}>
+                        <label className={styles.label_topo}>Projeto:</label>
                         <select
-                            className={styles.select_projeto}
+                            className={styles.select_topo}
                             value={projetoSelecionado}
                             onChange={(e) => setProjetoSelecionado(e.target.value)}
                         >
-                            <option value="">Selecione um projeto</option>
+                            <option value="">Selecione um projeto...</option>
                             {projetos.map((projeto) => (
                                 <option key={projeto.id} value={projeto.id}>
                                     {projeto.nome}
@@ -90,25 +89,33 @@ export function Dashboard() {
                             ))}
                         </select>
                     </div>
+                }
+            >
+                <div className={styles.pagina_conteudo}>
+                    
+                    
+                    <div className={styles.pagina_cabecalho}>
+                        <h3>Visão Geral</h3>
+                    </div>
 
-                    {/* Mensagem enquanto carrega */}
+                    
                     {carregando && (
                         <p className={styles.aviso}>Carregando indicadores...</p>
                     )}
 
-                    {/* Mensagem quando nenhum projeto foi selecionado */}
                     {!projetoSelecionado && !carregando && (
                         <p className={styles.aviso}>
-                            Escolha um projeto acima para visualizar os indicadores.
+                            Selecione um projeto no topo da tela para visualizar os indicadores.
                         </p>
                     )}
 
-                    {/* Renderização dos 3 Cards e da Área de IA */}
+                    
                     {dados && !carregando && (
                         <>
+                            {/* Linha superior: Os 3 cards principais */}
                             <div className={styles.cards}>
                                 <CardDashboard
-                                    cor="#1b6e1b"
+                                    cor="#5FA875"
                                     titulo="Tarefas"
                                     total={dados.totalTarefas}
                                     concluidos={dados.tarefasConcluidas}
@@ -116,7 +123,7 @@ export function Dashboard() {
                                 />
 
                                 <CardDashboard
-                                    cor="#0000ff"
+                                    cor="#7B7BC9"
                                     titulo="Histórias"
                                     total={dados.totalHistorias}
                                     concluidos={dados.historiasFechadas}
@@ -124,16 +131,40 @@ export function Dashboard() {
                                 />
 
                                 <CardDashboard
-                                    cor="#ff0000"                                    
+                                    cor="#D9756A"
                                     titulo="Bugs"
                                     total={dados.totalBugs}
                                     concluidos={dados.bugsFechados}
                                     abertos={dados.bugsAbertos}
                                 />
                             </div>
+
                             
+                            <div className={styles.area_ia}>
+                                <div className={styles.ia_cabecalho}>
+                                    <h4>Resumo do Projeto</h4>
+                                    <button
+                                        className={styles.botao_ia}
+                                        onClick={gerarAnaliseIA}
+                                        disabled={gerandoIA}
+                                    >
+                                        {gerandoIA ? "Analisando..." : "Gerar Análise com IA"}
+                                    </button>
+                                </div>
+
+                                <div className={styles.caixa_resumo_ia}>
+                                    {resumoIA ? (
+                                        <p>{resumoIA}</p>
+                                    ) : (
+                                        <p className={styles.texto_placeholder}>
+                                            Clique no botão para que a inteligência artificial analise os dados.
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
                         </>
                     )}
+
                 </div>
             </Topbar>
         </Sidebar>
