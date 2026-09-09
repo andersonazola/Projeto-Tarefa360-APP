@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './paginas/Home/Home';
@@ -11,21 +10,41 @@ import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
+import { Login } from './paginas/Login/Login';
+import { RotaLogin } from './paginas/Login/RotaLogin';
+
+// NÃO DAR ALT + SHIFT + F PARA NÃO PERDER A IDENTAÇÃO REALIZADA NESTE ARQUIVO.
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/usuarios' element={<Usuarios />} />
-        <Route path='/usuario/novo' element={<NovoUsuario />} />
-        <Route path='/usuario/editar' element={<EditarUsuario />} />
-        <Route path='/projetos' element={<Projetos />} />
-        <Route path='/projeto/novo' element={<NovoProjeto />} />
-        <Route path='/projeto/editar' element={<EditarProjeto />} />
-        <Route path='/historias' element={<Historias />} />
-        <Route path='/historia/novo' element={<NovaHistoria />} />
-        <Route path='/historia/editar' element={<EditarHistoria />} />
+
+        <Route path='/' element={<Login/>}/>
+        <Route path='/home' element={<RotaLogin><Home/></RotaLogin>} />
+      
+        <Route path='/usuarios'
+            element={
+              <RotaLogin tipoUsuario={0}><Usuarios/></RotaLogin>
+            }/>
+
+        <Route path='/usuario/novo' 
+            element={
+              <RotaLogin tipoUsuario={0}><NovoUsuario /></RotaLogin>
+            }/>
+
+        <Route path='/usuario/editar' 
+            element={
+              <RotaLogin tipoUsuario={0}><EditarUsuario/></RotaLogin>
+            }/>
+
+        <Route path='/projetos' element={<RotaLogin><Projetos/></RotaLogin>} />
+        <Route path='/projeto/novo' element={<RotaLogin><NovoProjeto/></RotaLogin>} />
+        <Route path='/projeto/editar' element={<RotaLogin><EditarProjeto/></RotaLogin>} />
+        <Route path='/historias' element={<RotaLogin><Historias/></RotaLogin>} />
+        <Route path='/historia/novo' element={<RotaLogin><NovaHistoria/></RotaLogin>} />
+        <Route path='/historia/editar' element={<RotaLogin><EditarHistoria/></RotaLogin>} />
+
       </Routes>
     </BrowserRouter>
   );

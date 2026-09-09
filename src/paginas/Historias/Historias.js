@@ -17,7 +17,6 @@ export function Historias() {
     const [busca, setBusca] = useState("");
     const [projeto, setProjeto] = useState([]);
     const [projetoSelecionado, setProjetoSelecionado] = useState('');
-    const [historiasFiltro, setHistoriasFiltro] = useState([]);
 
     const handleClickDeletar = (historia) => {
         setHistoriaSelecionada(historia);
@@ -25,14 +24,17 @@ export function Historias() {
     };
 
     const handleDeletar = async () => {
-        try {
+        try 
+        {
             await HistoriaAPI.deletarAsync(historiaSelecionada.id);
             setHistorias(historias.filter(h => h.id !== historiaSelecionada.id));
         }
-        catch (error) {
+        catch (error) 
+        {
             console.error("Erro ao deletar história:", error);
         }
-        finally {
+        finally 
+        {
             handleFecharModal();
         }
     }
@@ -47,13 +49,15 @@ export function Historias() {
             const listaHistorias = await HistoriaAPI.listarAsync(true);
             setHistorias(listaHistorias);
         }
-        catch (error) {
+        catch (error) 
+        {
             console.error("Erro ao carregar histórias:", error)
         }
     }
 
     async function buscarProjetos() {
-        try {
+        try 
+        {
             const projetos = await ProjetoAPI.listarAsync();
             setProjeto(projetos);
         }
@@ -69,8 +73,8 @@ export function Historias() {
     }, []);
 
     const historiasFiltradas = historias.filter((historia) => {
-        const buscaHistoria = historia.nome.toLowerCase().includes(busca.toLowerCase());
-        const filtroProjeto = projetoSelecionado == '' || historia.projetoId == projetoSelecionado;
+        const buscaHistoria = historia.nome.includes(busca);
+        const filtroProjeto = projetoSelecionado === '' || historia.projetoId === Number (projetoSelecionado);
         return buscaHistoria && filtroProjeto;
     });
 
