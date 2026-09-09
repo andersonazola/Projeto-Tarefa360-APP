@@ -11,6 +11,7 @@ import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
+import { Dashboard } from './paginas/Dashboard/Dashboard';
 
 function App() {
   return (
