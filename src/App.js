@@ -10,10 +10,6 @@ import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
-import { Login } from './paginas/Login/Login';
-import { RotaLogin } from './paginas/Login/RotaLogin';
-
-// NÃO DAR ALT + SHIFT + F PARA NÃO PERDER A IDENTAÇÃO REALIZADA NESTE ARQUIVO.
 
 function App() {
   return (

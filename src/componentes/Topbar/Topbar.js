@@ -1,6 +1,6 @@
 import style from "./Topbar.module.css";
-import { Link } from "react-router-dom"
-import { MdLogout } from "react-icons/md"
+import { Link } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
 
 
 export function Topbar({ children }) {
@@ -20,5 +20,5 @@ export function Topbar({ children }) {
                 {children}
             </div>
         </div>
-    )
+    );
 }
