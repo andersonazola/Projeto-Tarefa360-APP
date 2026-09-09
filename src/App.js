@@ -10,6 +10,8 @@ import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
+import { Login } from './paginas/Login/Login';
+import { RotaLogin } from './paginas/Login/RotaLogin';
 
 function App() {
   return (
