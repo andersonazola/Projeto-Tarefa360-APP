@@ -59,7 +59,7 @@ export function NovaTarefa() {
 
         const buscarSprints = async () => {
             try {
-                const sprints = await TarefaAPI.listarAsync(true);
+                const sprints = await HistoriaAPI.listarAsync(true);
                 setSprint(sprints);
             }
             catch (error) {
