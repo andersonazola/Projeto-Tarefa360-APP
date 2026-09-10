@@ -5,11 +5,7 @@ import { MdGroup, MdFolder } from "react-icons/md";
 import { GiBlackBook } from "react-icons/gi";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { PiClipboardTextBold } from "react-icons/pi";
-
-
-
-
-
+import { useNavigate } from "react-router-dom";
 
 export function Sidebar({ children }) {
 
@@ -32,12 +28,24 @@ export function Sidebar({ children }) {
                     <hr className={style.linha} />
                 </div>
 
-                <div className={style.sidebar_corpo}>
-                    <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
-                    <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
-                    <SidebarItem texto="Histórias" link="/historias" logo={<GiBlackBook />} />
-                    <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold />} />
-                </div>
+                {tipoUsuario === 0 ? 
+                (
+                    <div className={style.sidebar_corpo}>
+                        <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
+                        <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
+                        <SidebarItem texto="Histórias" link="/historias" logo={<GiBlackBook />} />
+                        <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold />} />
+                    </div>
+                ) 
+                : 
+                (
+                    <div className={style.sidebar_corpo}>
+                        <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
+                        <SidebarItem texto="Histórias" link="/historias" logo={<GiBlackBook />} />
+                        <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold />} />
+                    </div>
+                )}
+
             </div>
 
             <div className={style.pagina_conteudo}>
@@ -46,4 +54,3 @@ export function Sidebar({ children }) {
         </div>
     )
 }
-
