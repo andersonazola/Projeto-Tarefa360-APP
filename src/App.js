@@ -15,6 +15,8 @@ import { NovaTarefa } from './paginas/NovaTarefa/NovaTarefa';
 import { EditarTarefa } from './paginas/EditarTarefa/EditarTarefa';
 import { Login } from './paginas/Login/Login';
 import { RotaLogin } from './paginas/Login/RotaLogin';
+import { Dashboard } from './paginas/Dashboard/Dashboard';
+
 
 function App() {
   return (
@@ -22,8 +24,8 @@ function App() {
       <Routes>
 
         <Route path='/' element={<Login/>}/>
-        <Route path='/home' element={<RotaLogin><Home/></RotaLogin>} />
-
+        <Route path='/dashboard' element={<RotaLogin><Dashboard/></RotaLogin>} />
+      
         <Route path='/usuarios'
             element={
               <RotaLogin tipoUsuario={0}><Usuarios/></RotaLogin>
@@ -45,6 +47,11 @@ function App() {
         <Route path='/historias' element={<RotaLogin><Historias/></RotaLogin>} />
         <Route path='/historia/novo' element={<RotaLogin><NovaHistoria/></RotaLogin>} />
         <Route path='/historia/editar' element={<RotaLogin><EditarHistoria/></RotaLogin>} />
+        
+        {/* <Route path='tarefas' element={<RotaLogin><Tarefas/></RotaLogin>} />
+        <Route path='/sprints' element={<RotaLogin><Sprints/></RotaLogin>} />
+        <Route path='/sprint/novo' element={<RotaLogin><NovaSprint/></RotaLogin>} />
+        <Route path='/sprint/editar' element={<RotaLogin><EditarSprint/></RotaLogin>} /> */}
 
         <Route path='/tarefas' element={<RotaLogin><Tarefas/></RotaLogin>} />
         <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa/></RotaLogin>} />

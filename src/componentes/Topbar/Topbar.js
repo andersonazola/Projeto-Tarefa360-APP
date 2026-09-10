@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 
 
-export function Topbar({ children }) {
+export function Topbar({ children, childrenTopo }) {
 
     function deslogar() 
     {
@@ -13,7 +13,15 @@ export function Topbar({ children }) {
     return (
         <div>
             <div className={style.topbar_conteudo}>
-                <Link to="/" className={style.botao_deslogar} onClick={deslogar}><MdLogout /></Link>
+
+                <div className={style.area_centro_topo}>
+                    {childrenTopo}
+                </div>
+
+                <Link to="/" className={style.botao_deslogar} onClick={deslogar}>
+                    <MdLogout />
+                </Link>
+
             </div>
 
             <div className={style.pagina_conteudo}>
