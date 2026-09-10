@@ -10,6 +10,9 @@ import { EditarProjeto } from './paginas/EditarProjeto/EditarProjeto';
 import { NovaHistoria } from './paginas/NovaHistoria/NovaHistoria';
 import { EditarHistoria } from './paginas/EditarHistoria/EditarHistoria';
 import { Historias } from './paginas/Historias/Historias';
+import { Tarefas } from './paginas/Tarefas/Tarefa';
+import { NovaTarefa } from './paginas/NovaTarefa/NovaTarefa';
+import { EditarTarefa } from './paginas/EditarTarefa/EditarTarefa';
 import { Login } from './paginas/Login/Login';
 import { RotaLogin } from './paginas/Login/RotaLogin';
 import { Dashboard } from './paginas/Dashboard/Dashboard';
@@ -49,6 +52,10 @@ function App() {
         <Route path='/sprints' element={<RotaLogin><Sprints/></RotaLogin>} />
         <Route path='/sprint/novo' element={<RotaLogin><NovaSprint/></RotaLogin>} />
         <Route path='/sprint/editar' element={<RotaLogin><EditarSprint/></RotaLogin>} /> */}
+
+        <Route path='/tarefas' element={<RotaLogin><Tarefas/></RotaLogin>} />
+        <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa/></RotaLogin>} />
+        <Route path='/tarefa/editar' element={<RotaLogin><EditarTarefa/></RotaLogin>} />
 
       </Routes>
     </BrowserRouter>
