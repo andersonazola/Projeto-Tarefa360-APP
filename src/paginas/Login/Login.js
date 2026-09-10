@@ -37,7 +37,7 @@ export function Login() {
 
             if (response?.status === 200) {
                 localStorage.setItem("usuario", JSON.stringify(response.data));
-                navigate("/home");
+                navigate("/dashboard");
             }
         }
         catch (error) 

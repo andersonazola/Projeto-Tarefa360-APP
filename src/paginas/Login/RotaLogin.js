@@ -10,7 +10,7 @@ export function RotaLogin({ children, tipoUsuario }) {
     }
     else if (usuario.tipoUsuario !== tipoUsuario && tipoUsuario !== undefined)
     {
-        return <Navigate to="/home" />;
+        return <Navigate to="/dashboard" />;
     }
 
     return children;
