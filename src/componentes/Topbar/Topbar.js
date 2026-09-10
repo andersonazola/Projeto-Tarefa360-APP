@@ -1,18 +1,24 @@
 import style from "./Topbar.module.css";
-import { Link } from "react-router-dom"
-import { MdLogout } from "react-icons/md"
+import { Link } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
 
 
 export function Topbar({ children }) {
+
+    function deslogar() 
+    {
+        localStorage.removeItem("usuario");
+    }
+
     return (
         <div>
             <div className={style.topbar_conteudo}>
-                <Link to="/login" className={style.botao_deslogar}><MdLogout /></Link>
+                <Link to="/" className={style.botao_deslogar} onClick={deslogar}><MdLogout /></Link>
             </div>
 
             <div className={style.pagina_conteudo}>
                 {children}
             </div>
         </div>
-    )
+    );
 }

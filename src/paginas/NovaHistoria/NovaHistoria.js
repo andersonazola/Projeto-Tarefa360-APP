@@ -33,7 +33,7 @@ export function NovaHistoria() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (isFormValid() && temCaracterEspecial(nome) == false) {
+        if (isFormValid()) {
             await HistoriaAPI.criarAsync(nome, projetoSelecionado, descricao);
             navigate('/historias')
         }
@@ -46,10 +46,6 @@ export function NovaHistoria() {
         return nome.length >= 3;
     };
 
-    const temCaracterEspecial = (nome) => {
-        const regex = /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]~`;]/;
-        return regex.test(nome);
-    };
 
     return (
         <Sidebar>

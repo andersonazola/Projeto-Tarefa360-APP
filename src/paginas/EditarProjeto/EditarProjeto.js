@@ -17,7 +17,7 @@ export function EditarProjeto() {
 
     const handleSubmit = async (e) => {
     e.preventDefault();
-    await ProjetoAPI.atualizarAsync(nome, descricao);
+    await ProjetoAPI.atualizarAsync(id, nome, descricao);
     navigate('/projetos')
     };
 
