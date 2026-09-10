@@ -75,7 +75,7 @@ export function Sprints(){
 
     const sprintsFiltradas = sprints.filter((sprint) => {
         const buscaSprint = sprint.nome.toLowerCase().includes(busca.toLowerCase());
-        const filtroSprint = sprintSelecionado == ' ' || sprint.projetoId == sprintSelecionado;
+        const filtroSprint = sprintSelecionado == '' || sprint.projetoId == sprintSelecionado;
         return buscaSprint && filtroSprint;
     });
 
@@ -102,8 +102,8 @@ export function Sprints(){
                                   value={sprintSelecionado}
                                   onChange ={(e) => setSprintSelecionado(e.target.value)}
                                   required
-                                  >
-                                    <option value="">Sprint <IoIosArrowDown /> </option> 
+                                  > 
+                                    <option value="">Sprint </option> 
                                     {sprint.map((sprint) => (
                                         <option key={sprint.id} value={sprint.id}> {sprint.nome}</option>
                                     ))}
@@ -119,19 +119,19 @@ export function Sprints(){
                             <thead className={style.tabela_cabecalho}>
                                 <tr>
                                     <th>Nome</th>
+                                    <th>Projeto</th>
                                     <th>Data Inicio</th>
                                     <th>Data Fim</th>
                                 </tr>
                             </thead>
 
                             <tbody className={style.tabela_corpo}>
-                                {sprintsFiltradas.map((sprint) => (
+                                {sprint.map((sprint) => (
                                     <tr key={sprint.id}>
                                         <td>{sprint.nome}</td>
                                         <td>{sprint.nomeProjeto}</td>
                                         <td>{sprint.dataInicio}</td>
                                         <td>{sprint.dataFim}</td>
-
                                         <td>
                                             <Link to='/sprints/editar' state={sprint.id} className={style.botao_editar}>
                                                 <MdEdit />

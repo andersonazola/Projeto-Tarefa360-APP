@@ -14,7 +14,7 @@ import { Historias } from './paginas/Historias/Historias';
 import { Sprints } from './paginas/Sprints/Sprint';
 import { EditarSprint } from './paginas/EditarSprint/EditarSprint';
 import { NovaSprint } from './paginas/NovaSprint/NovaSprint';
-//colocar o import NovaSprint aqui, e a rota do botao novo+
+
 
 function App() {
   return (

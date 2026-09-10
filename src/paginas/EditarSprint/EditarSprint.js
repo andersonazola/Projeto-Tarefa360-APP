@@ -8,7 +8,8 @@ import { MdSaveAs } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import style from './EditarSprint.module.css'
 import { Button } from "bootstrap";
-
+import { button } from "bootstrap"
+ 
 export function EditarSprint() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -122,12 +123,12 @@ export function EditarSprint() {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isFormValid()} >
+                        <button variant="primary" type="submit" >
                             <div className={style.botao_salvar}>
                                 <MdSaveAs />
                                 Salvar
                             </div>
-                        </Button>
+                        </button>
                     </Form>
                 </div>
             </Topbar>

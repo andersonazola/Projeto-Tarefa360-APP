@@ -80,7 +80,7 @@ export function NovaSprint () {
                             >
                                 <option value="">Selecione um projeto</option>
                                 {projeto.map((projetoEscolhido) =>(
-                                    <option key={projetoEscolhido.Id} value={projetoEscolhido.Id}>{projetoEscolhido.nome}</option>
+                                    <option key={projetoEscolhido.id} value={projetoEscolhido.id}>{projetoEscolhido.nome}</option>
                                 ))}
                             </Form.Control>
                         </Form.Group>
@@ -107,7 +107,7 @@ export function NovaSprint () {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isFormValid()}>
+                        <Button variant="primary" type="submit" >
                             <div className={style.botao_salvar}>
                                 <MdSaveAs />
                                     Salvar

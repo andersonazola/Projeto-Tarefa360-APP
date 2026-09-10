@@ -23,7 +23,7 @@ const SprintAPI = {
             const response = await HTTPClient.get(`api/Sprint/Listar/?ativo=${ativo}`);
             return response.data;
         }
-        catch   (error)
+        catch  (error)
         {
             console.error("Erro ao listar sprints:", error);
             throw error;
@@ -78,7 +78,7 @@ const SprintAPI = {
     {
         try 
         {
-            const response = await HTTPClient.delete(`/api/Sprint/Deletar${sprintId}`);
+            const response = await HTTPClient.delete(`/api/Sprint/Deletar/${sprintId}`);
             return response.data;
         }
         catch(error)
