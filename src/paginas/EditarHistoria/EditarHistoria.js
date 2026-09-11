@@ -21,12 +21,21 @@ export function EditarHistoria() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isFormValid()) {
-            await HistoriaAPI.atualizarAsync(id, nome, projetoSelecionado, descricao);
-            navigate('/historias')
+
+        try {
+            if (isFormValid()) 
+            {
+                await HistoriaAPI.atualizarAsync(id, nome, projetoSelecionado, descricao);
+                navigate('/historias')
+            }
+            else 
+                {
+                alert('Por favor, preencha todos os campos.');
+            }
         }
-        else {
-            alert('Por favor, preencha todos os campos.');
+        catch(error)
+        {
+            console.error('Erro ao atualizar história: ', error)
         }
     };
 
@@ -104,7 +113,6 @@ export function EditarHistoria() {
                                 name="descricao"
                                 value={descricao}
                                 onChange={(e) => setDescricao(e.target.value)}
-                                required
                                 maxLength={500}
                             />
                         </Form.Group>

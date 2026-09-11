@@ -40,9 +40,6 @@ export function Usuarios() {
     };
 
 
-
-
-
     async function carregarUsuarios() {
         try {
             const listaUsuarios = await UsuarioAPI.listarAsync(true);

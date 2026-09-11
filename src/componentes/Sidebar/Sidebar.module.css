@@ -26,6 +26,7 @@
     & .logo {
         width: 80%;
         margin: 10%;
+        cursor: pointer;
     } 
 
     & .linha {

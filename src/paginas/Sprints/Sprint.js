@@ -4,22 +4,21 @@ import { Sidebar } from "../../componentes/Sidebar/Sidebar";
 import { Topbar } from "../../componentes/Topbar/Topbar";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Button, FormGroup, Modal, ModalTitle } from "react-bootstrap";
-import ProjetoAPI from "../../services/projetoAPI";
 import { Form } from "react-bootstrap";
 import style from './Sprint.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { IoIosArrowDown } from "react-icons/io";
+import { format } from 'date-fns';
 
 
-export function Sprints(){
-    const [sprints, setSprints] = useState ([]);
-    const [ mostrarModal, setMostrarModal ] =useState(false);
-    const [ sprintSelecionada, setSprintSelecionada] = useState (null);
-    const [ busca, setBusca] = useState ("");
-    const [ sprint, setSprint] = useState ([]);
-    const [ sprintSelecionado, setSprintSelecionado] = useState('');
-    const [ sprintFiltro, setSprintsFiltro] = useState([]);
+export function Sprints() {
+    const [sprints, setSprints] = useState([]);
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [sprintSelecionada, setSprintSelecionada] = useState(null);
+    const [busca, setBusca] = useState("");
+    const [sprint, setSprint] = useState([]);
+    const [sprintSelecionado, setSprintSelecionado] = useState('');
+    const [sprintFiltro, setSprintsFiltro] = useState([]);
 
     const handleClickDeletar = (sprint) => {
         setSprintSelecionada(sprint);
@@ -31,10 +30,10 @@ export function Sprints(){
             await SprintAPI.deletarAsync(sprintSelecionada.id);
             setSprints(sprints.filter(h => h.id !== sprintSelecionada.id));
         }
-        catch(error){
+        catch (error) {
             console.error("Erro ao deletar sprint", error);
         }
-        finally{
+        finally {
             handleFecharModal()
         }
     }
@@ -44,25 +43,22 @@ export function Sprints(){
         setSprintSelecionada(null);
     };
 
-    async function carregarSprints(){
-        try{
+    async function carregarSprints() {
+        try {
             const listaSprints = await SprintAPI.listarAsync(true);
             setSprint(listaSprints)
         }
-        catch (error)
-        {
+        catch (error) {
             console.log("Erro ao carregar sprints:", error)
         }
     }
 
-    async function buscarSprints () {
-        try 
-        {
+    async function buscarSprints() {
+        try {
             const sprints = await SprintAPI.listarAsync();
             setSprint(sprints);
         }
-        catch (error)
-        {
+        catch (error) {
             console.error("Erro ao buscar sprints", error);
         }
     }
@@ -97,13 +93,13 @@ export function Sprints(){
                         <Form>
                             <FormGroup controlId="formSprint" className="">
                                 <Form.Control className={style.filtro_sprint}
-                                  as="select"
-                                  name="sprint"
-                                  value={sprintSelecionado}
-                                  onChange ={(e) => setSprintSelecionado(e.target.value)}
-                                  required
-                                  > 
-                                    <option value="">Sprint </option> 
+                                    as="select"
+                                    name="sprint"
+                                    value={sprintSelecionado}
+                                    onChange={(e) => setSprintSelecionado(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Sprint </option>
                                     {sprint.map((sprint) => (
                                         <option key={sprint.id} value={sprint.id}> {sprint.nome}</option>
                                     ))}
@@ -130,13 +126,13 @@ export function Sprints(){
                                     <tr key={sprint.id}>
                                         <td>{sprint.nome}</td>
                                         <td>{sprint.nomeProjeto}</td>
-                                        <td>{sprint.dataInicio}</td>
+                                        <td>{format(sprint.dataInicio, 'dd/MM/yyyy')}</td>
                                         <td>{sprint.dataFim}</td>
                                         <td>
                                             <Link to='/sprints/editar' state={sprint.id} className={style.botao_editar}>
                                                 <MdEdit />
                                             </Link>
-                                            <button onClick={ () => handleClickDeletar(sprint)} className={style.botao_deletar}>
+                                            <button onClick={() => handleClickDeletar(sprint)} className={style.botao_deletar}>
                                                 <MdDelete />
                                             </button>
                                         </td>
