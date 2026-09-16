@@ -117,9 +117,9 @@ export function Dashboard() {
                                 <CardDashboard
                                     cor="#5FA875"
                                     titulo="Tarefas"
-                                    total={dados.totalTarefas}
-                                    concluidos={dados.tarefasConcluidas}
-                                    abertos={dados.tarefasAbertas}
+                                    total={dados.totalHoras}
+                                    concluidos={dados.horasConcluidas}
+                                    abertos={dados.horasAbertas}
                                 />
 
                                 <CardDashboard
