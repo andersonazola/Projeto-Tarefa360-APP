@@ -35,7 +35,7 @@
 /* Título do card (Horas, Histórias, Bugs) */
 .titulo {
     font-size: 38px;
-    color: #ffffff;
+    color: #000000;
     margin: 0;
 }
 
@@ -50,7 +50,7 @@
 .total_topo {
     font-size: 38px;
     font-weight: bold;
-    color: #ffffff;
+    color: #000000;
     line-height: 1;
     margin: 0;
 }
@@ -67,7 +67,7 @@
 .total_conteudo {
     font-size: 38px;
     font-weight: bold;
-    color: #ffffff;
+    color: #000000;
     line-height: 1;
     margin: 0;
 }
@@ -93,7 +93,7 @@
 
 .label {
     font-size: 18px;
-    color: #ffffff;
+    color: #000000;
     opacity: 0.9;
     font-weight: bold;
     
@@ -103,6 +103,6 @@
 .valor_abertos {
     font-size: 20px;
     font-weight: bold;
-    color: #ffffff;
+    color: #000000;
     line-height: 1;
 }

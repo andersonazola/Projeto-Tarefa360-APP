@@ -34,40 +34,30 @@ function CardDashboard({ titulo, total, concluidos, abertos }) {
     }
 
     return (
-        <div 
-            className={styles.card} 
-            style={{ backgroundImage: `url(${imagemFundo})`}}
+        <div
+            className={styles.card}
+            style={{ backgroundImage: `url(${imagemFundo})` }}
         >
             {/* Topo do card */}
-            <div className={styles.topo}>                
+            <div className={styles.topo}>
                 <h4 className={styles.titulo}>{titulo}</h4>
-
-                {/* Se o título for "Horas, mostra o total no topo */}
-                {titulo === "Horas" && (
-                    <span className={styles.total_topo}>{total}</span>
-                )}
-            </div> 
+                <span className={styles.total_topo}>{total}</span>
+            </div>
 
             {/* Conteudo do card */}
             <div className={styles.conteudo}>
-                {/* Se o título não for "Horas", mostra o total no conteúdo */}
-                
-                {titulo !== "Horas" && (
-                    <span className={styles.total_conteudo}>{total}</span>
-                )}
-            
 
-            {/* Colunas de informações */}
-            <div className={styles.colunas_detalhes}>
-                <div className={styles.item_detalhe}>
-                    <span className={styles.label}>{textoConcluidos}</span>
-                    <span className={styles.valor_concluidos}>{concluidos}</span>
+                {/* Colunas de informações */}
+                <div className={styles.colunas_detalhes}>
+                    <div className={styles.item_detalhe}>
+                        <span className={styles.label}>{textoConcluidos}</span>
+                        <span className={styles.valor_concluidos}>{concluidos}</span>
+                    </div>
+                    <div className={styles.item_detalhe}>
+                        <span className={styles.label}>{textoAbertos}</span>
+                        <span className={styles.valor_abertos}>{abertos}</span>
+                    </div>
                 </div>
-                <div className={styles.item_detalhe}>
-                    <span className={styles.label}>{textoAbertos}</span>
-                    <span className={styles.valor_abertos}>{abertos}</span>
-                </div>
-            </div>
             </div>
         </div>
     );
