@@ -5,64 +5,98 @@
 
     flex: 1;
     min-width: 260px;
+    height: 184px;
 
     padding: 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    justify-content: space-between;    
     box-sizing: border-box;
     transition: transform 0.2s ease-in-out;
 
     border: 2px solid #000000; 
+
+    /*Imagem svd no fundo do card */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
 }
 
-/* Título do card (Tarefas, Histórias, Bugs) */
-.cabecalho {
-    display: flex;
-    align-items: center;
+.card:hover {
+    transform: translateY(-3px);    
 }
 
+
+
+
+
+/* Título do card (Horas, Histórias, Bugs) */
 .titulo {
-    font-size: 20px;
+    font-size: 38px;
     color: #ffffff;
     margin: 0;
 }
 
-/* Número principal do meio (Total) */
-.total {
-    font-size: 44px;
+.topo {    
+    display: flex;    
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Total do card de Horas (que fica no topo) */
+.total_topo {
+    font-size: 38px;
     font-weight: bold;
     color: #ffffff;
-    text-align: center;
+    line-height: 1;
     margin: 0;
 }
 
-.divisor {
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+/* Conteúdo de Histórias e Bugs */
+.conteudo {
+    display: flex;       
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}
+
+/*Numero de Histórias e Bugs */
+.total_conteudo {
+    font-size: 38px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1;
     margin: 0;
 }
 
-/* Linha inferior: Concluídos à esquerda e Abertos à direita */
-.detalhes {
+/* Colunas de informações à direita */
+.colunas_detalhes {
     display: flex;
-    justify-content: space-around;
-    margin-top: 4px;
+    justify-content: flex-end;
+    gap: 24px;
+    align-items: flex-end;
+    
 }
 
-/* Cada coluna inferior (palavra em cima, número embaixo) */
+/* Coluna inferior com palavras em cima e numeros em baixo */
 .item_detalhe {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 4px;
+    
 }
 
+
 .label {
-    font-size: 13px;
+    font-size: 18px;
     color: #ffffff;
     opacity: 0.9;
+    font-weight: bold;
+    
 }
 
 .valor_concluidos,
@@ -70,4 +104,5 @@
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
+    line-height: 1;
 }

@@ -1,28 +1,73 @@
 import styles from './CardDashboard.module.css';
 
-function CardDashboard({ titulo, total, concluidos, abertos, cor }) {
+//Importa os arquivos .svg
+import fundoHoras from '../../assets/card-horas.svg';
+import fundoHistorias from '../../assets/card-historias.svg';
+import fundoBugs from '../../assets/card-bugs.svg';
+
+function CardDashboard({ titulo, total, concluidos, abertos }) {
+
+    //Variáveis para guardar os fundos e textos que serão exibidos no card.
+    let imagemFundo = fundoHoras;
+    let textoConcluidos = "Concluídos";
+    let textoAbertos = "Abertas";
+
+    //Se for Histórias, altera o fundo e os textos
+    if (titulo === "Histórias") {
+        imagemFundo = fundoHistorias;
+        textoConcluidos = "Concluídas";
+        textoAbertos = "Abertas";
+    }
+
+    //Se for Bugs, altera o fundo e os textos
+    if (titulo === "Bugs") {
+        imagemFundo = fundoBugs;
+        textoConcluidos = "Fechados";
+        textoAbertos = "Abertos";
+    }
+
+    //Se for Horas, altera o fundo e os textos
+    if (titulo === "Horas") {
+        imagemFundo = fundoHoras;
+        textoConcluidos = "Entregues";
+        textoAbertos = "Restantes";
+    }
+
     return (
-        <div className={styles.card} style={{ backgroundColor: cor }}>
-            {/* Topo do card com nome do indicador */}
-            <div className={styles.cabecalho}>                
+        <div 
+            className={styles.card} 
+            style={{ backgroundImage: `url(${imagemFundo})`}}
+        >
+            {/* Topo do card */}
+            <div className={styles.topo}>                
                 <h4 className={styles.titulo}>{titulo}</h4>
+
+                {/* Se o título for "Horas, mostra o total no topo */}
+                {titulo === "Horas" && (
+                    <span className={styles.total_topo}>{total}</span>
+                )}
             </div> 
 
-            {/* Número que representa o total geral */}
-            <p className={styles.total}>{total}</p>
+            {/* Conteudo do card */}
+            <div className={styles.conteudo}>
+                {/* Se o título não for "Horas", mostra o total no conteúdo */}
+                
+                {titulo !== "Horas" && (
+                    <span className={styles.total_conteudo}>{total}</span>
+                )}
+            
 
-            <hr className={styles.divisor} />
-
-            {/* Rodapé do card com Concluídos e Abertos */}
-            <div className={styles.detalhes}>
+            {/* Colunas de informações */}
+            <div className={styles.colunas_detalhes}>
                 <div className={styles.item_detalhe}>
-                    <span className={styles.label}>Concluídos</span>
+                    <span className={styles.label}>{textoConcluidos}</span>
                     <span className={styles.valor_concluidos}>{concluidos}</span>
                 </div>
                 <div className={styles.item_detalhe}>
-                    <span className={styles.label}>Abertos</span>
+                    <span className={styles.label}>{textoAbertos}</span>
                     <span className={styles.valor_abertos}>{abertos}</span>
                 </div>
+            </div>
             </div>
         </div>
     );
