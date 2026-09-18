@@ -58,8 +58,8 @@ function App() {
         <Route path='/sprints/editar' element={<RotaLogin><EditarSprint/></RotaLogin>} /> 
 
         <Route path='/tarefas' element={<RotaLogin><Tarefas/></RotaLogin>} />
-        <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa/></RotaLogin>} />
-        <Route path='/tarefa/editar' element={<RotaLogin><EditarTarefa/></RotaLogin>} />
+        <Route path='/tarefa/criar' element={<RotaLogin><NovaTarefa/></RotaLogin>} />
+        <Route path='/tarefa/atualizar' element={<RotaLogin><EditarTarefa/></RotaLogin>} />
 
       </Routes>
     </BrowserRouter>
