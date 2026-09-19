@@ -46,7 +46,7 @@ export function Sprints() {
     async function carregarSprints() {
         try {
             const listaSprints = await SprintAPI.listarAsync(true);
-            setSprint(listaSprints)
+            setSprints(listaSprints)
         }
         catch (error) {
             console.log("Erro ao carregar sprints:", error)
@@ -69,7 +69,7 @@ export function Sprints() {
         buscarSprints();
     }, []);
 
-    const sprintsFiltradas = sprints.filter((sprint) => {
+        const sprintsFiltradas = sprints.filter((sprint) => {
         const buscaSprint = sprint.nome.toLowerCase().includes(busca.toLowerCase());
         const filtroSprint = sprintSelecionado == '' || sprint.projetoId == sprintSelecionado;
         return buscaSprint && filtroSprint;
@@ -122,7 +122,7 @@ export function Sprints() {
                             </thead>
 
                             <tbody className={style.tabela_corpo}>
-                                {sprint.map((sprint) => (
+                                {sprintsFiltradas.map((sprint) => (
                                     <tr key={sprint.id}>
                                         <td>{sprint.nome}</td>
                                         <td>{sprint.nomeProjeto}</td>
