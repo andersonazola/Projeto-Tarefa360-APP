@@ -127,7 +127,7 @@ export function Sprints() {
                                         <td>{sprint.nome}</td>
                                         <td>{sprint.nomeProjeto}</td>
                                         <td>{format(sprint.dataInicio, 'dd/MM/yyyy')}</td>
-                                        <td>{sprint.dataFim}</td>
+                                        <td>{format(sprint.dataFim, 'dd/MM/yyyy')}</td>
                                         <td>
                                             <Link to='/sprints/editar' state={sprint.id} className={style.botao_editar}>
                                                 <MdEdit />
