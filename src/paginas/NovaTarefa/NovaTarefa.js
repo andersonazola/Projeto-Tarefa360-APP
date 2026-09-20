@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import TarefaAPI from "../../services/tarefaAPI";
 import ProjetoAPI from "../../services/projetoAPI";
 import HistoriaAPI from "../../services/historiaAPI";
-// import SprintAPI from "../../services/sprintAPI";
+import SprintAPI from "../../services/sprintAPI";
 import UsuarioAPI from "../../services/usuarioAPI";
 import { MdSaveAs } from 'react-icons/md';
 
@@ -59,7 +59,7 @@ export function NovaTarefa() {
 
         const buscarSprints = async () => {
             try {
-                const sprints = await HistoriaAPI.listarAsync(true);
+                const sprints = await SprintAPI.listarAsync(true)
                 setSprint(sprints);
             }
             catch (error) {
@@ -90,7 +90,7 @@ export function NovaTarefa() {
             await TarefaAPI.CriarAsync(
                 nome,
                 descricao,
-                tipoTarefaSelecionada,
+                Number(tipoTarefaSelecionada),
                 projetoSelecionado,
                 historiaSelecionada,
                 sprintSelecionada,
@@ -138,7 +138,7 @@ export function NovaTarefa() {
                             <Form.Control
                                 as="select"
                                 name="projeto"
-                                value={projetoSelecionado}
+                                value= {projetoSelecionado}
                                 onChange={(e) => setProjetoSelecionado(e.target.value)}
                                 required
                             >

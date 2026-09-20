@@ -8,6 +8,8 @@ import style from './Tarefa.module.css';
 import { Link } from "react-router-dom";
 import TarefaAPI from "../../services/tarefaAPI";
 import HistoriaAPI from "../../services/historiaAPI";
+import SprintAPI from "../../services/sprintAPI"
+
 
 
 export function Tarefas() {
@@ -28,7 +30,7 @@ export function Tarefas() {
 
     const handleDeletar = async () => {
         try {
-            await TarefaAPI.deletarAsync(tarefaSelecionada.id);
+            await TarefaAPI.Deletar(tarefaSelecionada.id);
             setTarefas(tarefas.filter(t => t.id !== tarefaSelecionada.id));
         }
         catch (error) {
@@ -66,7 +68,7 @@ export function Tarefas() {
 
     async function buscarSprints() {
         try {
-            const sprints = await TarefaAPI.listarAsync(); 
+            const sprints = await SprintAPI.listarAsync(); 
         }
         catch (error) {
             console.error('Erro ao buscar sprint:', error);
@@ -162,9 +164,9 @@ export function Tarefas() {
                                                 <MdEdit />
                                             </Link>
 
-                                            <Button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
+                                            <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
                                                 <MdDelete />
-                                            </Button>
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

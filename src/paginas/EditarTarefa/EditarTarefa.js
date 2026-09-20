@@ -10,6 +10,7 @@ import TarefaAPI from "../../services/tarefaAPI";
 import UsuarioAPI from "../../services/usuarioAPI";
 import HistoriaAPI from "../../services/historiaAPI";
 import ProjetoAPI from "../../services/projetoAPI";
+import SprintAPI from "../../services/sprintAPI";
 // import SprintAPI from "../../services/sprintAPI";
 
 
@@ -49,7 +50,7 @@ export function EditarTarefa() {
                 id,
                 nome,
                 descricao,
-                tipoTarefa,
+                Number(tipoTarefaSelecionada),                
                 concluida,
                 true,
                 projetoSelecionado,
@@ -100,7 +101,7 @@ export function EditarTarefa() {
 
         const buscarSprints = async () => {
             try {
-                const sprints = await TarefaAPI.listarAsync(true);
+                const sprints = await SprintAPI.listarAsync(true);
                 setSprint(sprints);
             }
             catch (error) {
@@ -231,7 +232,7 @@ export function EditarTarefa() {
                                 <Form.Control
                                     as="select"
                                     name="tipoTarefa"
-                                    value={tipoTarefaSelecionada}
+                                    value={Number(tipoTarefaSelecionada)}
                                     onChange={(e) => setTipoTarefaSelecionada(e.target.value)}
                                 >
                                     <option value=""> Selecione o tipo de Tarefa</option>
