@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import UsuarioAPI from "../../services/usuarioAPI";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 export function Usuarios() {
+    const { mostrarAlerta } = useAlert();
 
     const [usuarios, setUsuarios] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -27,6 +29,7 @@ export function Usuarios() {
         try {
             await UsuarioAPI.deletarAsync(usuarioSelecionado.id);
             setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Ysanado filtro para uma listagem mais rápida
+            mostrarAlerta('Usuário excluído com sucesso!', 'success');
         } catch (error) {
             console.error("Erro ao deletar usuário:", error);
         } finally {

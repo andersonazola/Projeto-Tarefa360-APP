@@ -8,8 +8,11 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import ProjetoAPI from "../../services/projetoAPI";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Projetos(){
+    const { mostrarAlerta } = useAlert();
+
     const [projetos, setProjetos] = useState ([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [projetoSelecionado, setProjetoSelecionado] = useState (null);
@@ -24,6 +27,7 @@ export function Projetos(){
         try {
             await ProjetoAPI.deletarAsync(projetoSelecionado.id);
             setProjetos(projetos.filter(p => p.id !== projetoSelecionado.id));
+            mostrarAlerta('Projeto excluído com sucesso!', 'success');            
         } catch (error) {
             console.error("Erro ao deletar projeto:", error);
         } finally {

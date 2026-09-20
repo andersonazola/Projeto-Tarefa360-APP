@@ -9,8 +9,11 @@ import Form from 'react-bootstrap/Form';
 import style from './Historias.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Historias() {
+    const { mostrarAlerta } = useAlert();
+
     const [historias, setHistorias] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [historiaSelecionada, setHistoriaSelecionada] = useState(null);
@@ -28,6 +31,7 @@ export function Historias() {
         {
             await HistoriaAPI.deletarAsync(historiaSelecionada.id);
             setHistorias(historias.filter(h => h.id !== historiaSelecionada.id));
+            mostrarAlerta('História excluída com sucesso!', 'success');
         }
         catch (error) 
         {

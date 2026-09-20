@@ -8,8 +8,11 @@ import  Form  from "react-bootstrap/esm/Form";
 import Button from "react-bootstrap/esm/Button";
 import { MdSaveAs } from "react-icons/md";
 import style from './NovaSprint.module.css';
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function NovaSprint () {
+    const { mostrarAlerta } = useAlert();
+    
     const [nome, setNome] = useState('');
     const [projeto, setProjeto] = useState([]);
     const [projetoSelecionado, setProjetoSelecionado] = useState(null);
@@ -36,10 +39,12 @@ export function NovaSprint () {
 
         if (isFormValid()) {
             await SprintAPI.criarAsync(nome,projetoSelecionado,datainicio, datafim);
-             navigate('/sprints');
+            mostrarAlerta('Sprint cadastrada com sucesso!', 'success', () => {
+                navigate('/sprints');
+            });
         }
         else {
-            alert('Por favor, preencha todos os campos.');
+            mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
     };
 
