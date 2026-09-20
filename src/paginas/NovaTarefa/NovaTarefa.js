@@ -11,6 +11,7 @@ import HistoriaAPI from "../../services/historiaAPI";
 import SprintAPI from "../../services/sprintAPI";
 import UsuarioAPI from "../../services/usuarioAPI";
 import { MdSaveAs } from 'react-icons/md';
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 const tipos_tarefas = [
@@ -22,6 +23,8 @@ const tipos_tarefas = [
 
 
 export function NovaTarefa() {
+    const { mostrarAlerta } = useAlert();
+
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [projeto, setProjeto] = useState([]);
@@ -96,10 +99,13 @@ export function NovaTarefa() {
                 sprintSelecionada,
                 usuarioSelecionado
             );
-            navigate('/tarefas');
+            mostrarAlerta('Tarefa cadastrada com sucesso!', 'success', () => {
+                navigate('/tarefas');
+            });
+            
         }
         else {
-            alert('Por favor, preencha os campos Nome e Projeto.');
+            mostrarAlerta('Por favor, preencha os campos Nome e Projeto.', 'warning');
         }
     };
 

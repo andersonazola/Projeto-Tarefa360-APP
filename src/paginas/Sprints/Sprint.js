@@ -9,9 +9,12 @@ import style from './Sprint.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 export function Sprints() {
+    const { mostrarAlerta } = useAlert();
+
     const [sprints, setSprints] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [sprintSelecionada, setSprintSelecionada] = useState(null);
@@ -29,6 +32,7 @@ export function Sprints() {
         try {
             await SprintAPI.deletarAsync(sprintSelecionada.id);
             setSprints(sprints.filter(h => h.id !== sprintSelecionada.id));
+            mostrarAlerta('Sprint excluída com sucesso!', 'success');
         }
         catch (error) {
             console.error("Erro ao deletar sprint", error);

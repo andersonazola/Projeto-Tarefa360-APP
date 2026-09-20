@@ -9,10 +9,12 @@ import { Link } from "react-router-dom";
 import TarefaAPI from "../../services/tarefaAPI";
 import HistoriaAPI from "../../services/historiaAPI";
 import SprintAPI from "../../services/sprintAPI"
-
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 export function Tarefas() {
+    const { mostrarAlerta } = useAlert();
+
     const [tarefas, setTarefas] = useState([]);
     const [mostraModal, setMostraModal] = useState(false);
     const [tarefaSelecionada, setTarefaSelecionada] = useState(null);
@@ -32,9 +34,11 @@ export function Tarefas() {
         try {
             await TarefaAPI.Deletar(tarefaSelecionada.id);
             setTarefas(tarefas.filter(t => t.id !== tarefaSelecionada.id));
+            mostrarAlerta('Tarefa excluída com sucesso!', 'success');
         }
         catch (error) {
             console.error("Erro ao deletar tarefa:", error)
+            mostrarAlerta('Erro ao deletar tarefa.', 'danger');
         } finally {
             handleFecharModal();
         }
