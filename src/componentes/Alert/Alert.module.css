@@ -1,0 +1,49 @@
+.alerta_container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    animation: deslizarEntrada 0.3s ease-out;
+}
+
+/* Cores das 3 opções */
+.success {
+    background-color: #2e7d32; /* Verde */
+}
+
+.warning {
+    background-color: #ed6c02; /* Laranja/Aviso */
+}
+
+.danger {
+    background-color: #d32f2f; /* Vermelho/Erro */
+}
+
+.botao_ok {
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botao_ok:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
