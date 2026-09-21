@@ -17,7 +17,7 @@ export function NovoUsuario() {
 
     const navigate = useNavigate();
 
-
+    const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
     useEffect(() => {
         const fecthTiposUsuarios = async () => {
@@ -32,11 +32,22 @@ export function NovoUsuario() {
     }, []);
 
 
-    const handleSubmit = async (e) => { // É executada quando clicar em salva e chama a função de verificação isFormaValid()
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            await UsuarioAPI.criarAsync(nome, email, senha, tipoUsuario);
-            navigate('/usuarios')
+            try {
+
+
+                await UsuarioAPI.criarAsync(nome, email, senha, tipoUsuario, usuarioLogin.id);
+                navigate('/usuarios')
+            } catch (error) {
+                if (error.response?.status === 401) {
+                    alert('Você não tem permissão para realizar essa ação.');
+                }
+                else {
+                    alert('Erro ao criar usuário.');
+                }
+            }
         } else {
             alert('Por favor, preencha todos os campos.');
         }
@@ -116,4 +127,4 @@ export function NovoUsuario() {
             </Topbar>
         </Sidebar>
     )
-} 
+}
