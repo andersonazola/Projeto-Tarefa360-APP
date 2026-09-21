@@ -1,7 +1,7 @@
 import { HTTPClient } from "./client";
 
 const UsuarioAPI = {
-    //GET
+
     async obterAsync(usuarioId) {
         try {
             const response = await HTTPClient.get(`/Usuario/obter/${usuarioId}`);
@@ -11,7 +11,7 @@ const UsuarioAPI = {
             throw error;
         }
     },
-    //GET
+
     async listarAsync(ativos) {
         try {
             const response = await HTTPClient.get(`/Usuario/Listar?ativos=${ativos}`);
@@ -19,16 +19,16 @@ const UsuarioAPI = {
         } catch (error) {
             console.error("Erro ao listar usuários:", error);
             throw error;
-        } 
+        }
     },
-    //POST
+
     async criarAsync(nome, email, senha, tipoUsuario) {
         try {
             const usuarioCriar = {
                 Nome: nome,
                 Email: email,
                 Senha: senha,
-                TipoUsuario: Number (tipoUsuario)
+                TipoUsuario: Number(tipoUsuario)
             };
             const response = await HTTPClient.post(`/Usuario/Criar`, usuarioCriar);
             return response.data;
@@ -37,14 +37,14 @@ const UsuarioAPI = {
             throw error;
         }
     },
-    //PUT
+
     async atualizarAsync(id, nome, email, tipoUsuario) {
         try {
             const usuarioAtualizar = {
                 Id: id,
                 Nome: nome,
                 Email: email,
-                TipoUsuario: Number (tipoUsuario)
+                TipoUsuario: Number(tipoUsuario)
             };
             const response = await HTTPClient.put(`/Usuario/Atualizar`, usuarioAtualizar);
             return response.data;
@@ -53,7 +53,7 @@ const UsuarioAPI = {
             throw error;
         }
     },
-    //DELETE
+
     async deletarAsync(usuarioId) {
         try {
             const response = await HTTPClient.delete(`/Usuario/Deletar/${usuarioId}`);
@@ -64,7 +64,7 @@ const UsuarioAPI = {
         }
     },
 
-    //GET 
+
     async listarTiposUsuarioAsync() {
         try {
             const response = await HTTPClient.get(`/Usuario/ListarTiposUsuario`);
@@ -75,7 +75,6 @@ const UsuarioAPI = {
         }
     },
 
-    //PUT
 
     async alterarSenhaAsync(id, senha, senhaAntiga) {
         try {
@@ -92,7 +91,7 @@ const UsuarioAPI = {
         }
     },
 
-    //PUT
+
     async restaurarAsync(usuarioId) {
         try {
             const response = await HTTPClient.put(`/Usuario/Restaurar/${usuarioId}`);
@@ -102,6 +101,16 @@ const UsuarioAPI = {
             throw error;
         }
     },
+
+    async buscaAsync(filtro) {
+        try {
+            const response = await HTTPClient.get(`/Usuario/Busca?filtro=${filtro}`);
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao buscar usuários:", error);
+            throw error;
+        }
+    }
 
 }
 

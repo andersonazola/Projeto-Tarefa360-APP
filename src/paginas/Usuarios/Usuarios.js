@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import UsuarioAPI from "../../services/usuarioAPI";
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 import { useAlert } from '../../componentes/Alert/AlertContext';
-
 
 export function Usuarios() {
     const { mostrarAlerta } = useAlert();
@@ -17,7 +17,7 @@ export function Usuarios() {
     const [usuarios, setUsuarios] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
-
+    const [busca, setBusca] = useState("");
 
     const handleClickDeletar = (usuario) => {
         setUsuarioSelecionado(usuario) // vai pegar o usuário selecionado e mandar para o state de usuárioSelecionado e setar o mostraModal para true.
@@ -42,19 +42,22 @@ export function Usuarios() {
         setUsuarioSelecionado(null);
     };
 
-
-    async function carregarUsuarios() {
+    async function carregarUsuarios(filtro) {
         try {
-            const listaUsuarios = await UsuarioAPI.listarAsync(true);
+            const listaUsuarios = await UsuarioAPI.buscaAsync(filtro);
             setUsuarios(listaUsuarios);
         } catch (error) {
             console.error("Erro ao carregar usuários:", error);
         }
     }
 
-    useEffect(() => { // Para toda vez que a página for redenrizada chama a função e a lista seja carregue novamente.
-        carregarUsuarios();
-    }, []);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            carregarUsuarios(busca);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [busca]);
 
 
     return (
@@ -64,6 +67,10 @@ export function Usuarios() {
                     <div className={style.pagina_cabecalho}>
                         <h3>Usuarios</h3>
                         <Link to='/usuario/novo' className={style.botao_novo}>+ Novo</Link>
+                    </div>
+
+                    <div className={style.campo_busca}>
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
                     </div>
 
                     <div className={style.tabela}>

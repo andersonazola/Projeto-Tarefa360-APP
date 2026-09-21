@@ -29,6 +29,10 @@
     }
 }
 
+.campo_busca {
+    margin-top: 20px;
+}
+
 .pagina_cabecalho {
     display: flex;
     justify-content: space-between;
