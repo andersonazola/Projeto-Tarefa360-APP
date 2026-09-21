@@ -8,6 +8,8 @@ import style from './Tarefa.module.css';
 import { Link } from "react-router-dom";
 import TarefaAPI from "../../services/tarefaAPI";
 import HistoriaAPI from "../../services/historiaAPI";
+import { Tabela } from "../../componentes/Tabela/Tabela";
+import { render } from "@testing-library/react";
 
 
 export function Tarefas() {
@@ -88,6 +90,26 @@ export function Tarefas() {
         return buscaTarefa && filtroHistoria && filtroSprint;
     });
 
+    const colunas = [
+        {chave: 'nome', titulo: 'Nome'},
+        {chave: 'nomeUsuario', titulo: 'Responsável'},
+        {
+            chave: 'acoes',
+            titulo: 'Ações',
+            render: (tarefa) => (
+                <>
+                <Link to='/tarefa/editar' state={tarefa.id} className={style.botao_editar}>
+                    <MdEdit />
+                </Link>
+
+                <Button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
+                    <MdDelete />
+                </Button>
+                </>
+            ),
+        },
+    ];
+
 
     return (
         <Sidebar>
@@ -144,32 +166,7 @@ export function Tarefas() {
                     </div>
 
                     <div className={style.tabela}>
-                        <Table responsive>
-                            <thead className={style.tabela_cabecalho}>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Responsável</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody className={style.tabela_corpo}>
-                                {tarefasFiltradas.map((tarefa) => (
-                                    <tr key={tarefa.id}>
-                                        <td>{tarefa.nome}</td>
-                                        <td>{tarefa.nomeUsuario}</td>
-                                        <td>
-                                            <Link to='/tarefa/editar' state={tarefa.id} className={style.botao_editar}>
-                                                <MdEdit />
-                                            </Link>
-
-                                            <Button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
-                                                <MdDelete />
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                       <Tabela colunas={colunas} dados={tarefasFiltradas} />
                     </div>
 
                     <Modal show={mostraModal} onHide={handleFecharModal}>

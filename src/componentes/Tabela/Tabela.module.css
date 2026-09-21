@@ -1,0 +1,14 @@
+.tabela {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.corpo tr:hover td{
+    background-color: #f0f0f0;
+}
+
+.cabecalhoTabela td {
+    padding: 12px 8px;
+}

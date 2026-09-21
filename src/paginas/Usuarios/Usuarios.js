@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import UsuarioAPI from "../../services/usuarioAPI";
+import { Tabela } from "../../componentes/Tabela/Tabela";
 
 
 export function Usuarios() {
@@ -54,6 +55,27 @@ export function Usuarios() {
     }, []);
 
 
+        const colunas = [
+            { chave: 'nome', titulo: 'Nome'},
+            { chave: 'email', titulo: 'Email'},
+            {
+                chave: 'acoes',
+                titulo: 'Ações',
+
+                render: (usuario) => (
+                    <>
+                        <Link to='/usuario/editar' state={usuario.id} className={style.botaoo_editar}>
+                            <MdEdit />
+                        </Link>
+
+                        <button onClick={() => handleClickDeletar (usuario)} className={style.botao_deletar}>
+                            <MdDelete />
+                        </button>
+                    </>
+                ),
+            },
+        ];
+
     return (
         <Sidebar>
             <Topbar>
@@ -64,32 +86,7 @@ export function Usuarios() {
                     </div>
 
                     <div className={style.tabela}>
-                        <Table responsive>
-                            <thead className={style.tabela_cabecalho}>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody className={style.tabela_corpo}>
-                                {usuarios.map((usuario) => (
-
-                                    <tr key={usuario.id}>
-                                        <td>{usuario.nome}</td>
-                                        <td>{usuario.email}</td>
-                                        <td>
-                                            <Link to='/usuario/editar' state={usuario.id} className={style.botaoo_editar}>
-                                                <MdEdit />
-                                            </Link>
-                                            <button onClick={() => handleClickDeletar(usuario)} className={style.botao_deletar}>
-                                                <MdDelete />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                        <Tabela colunas={colunas} dados={usuarios} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>
