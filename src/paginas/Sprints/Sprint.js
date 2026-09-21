@@ -63,7 +63,7 @@ export function Sprints() {
         return () => clearTimeout(timer);
     }, [busca]);
 
-    const sprintsFiltrada = sprint.filter((s) =>
+    const sprintsFiltradas = sprint.filter((s) =>
         sprintSelecionado === '' || s.projetoId === Number(sprintSelecionado)
     );
 

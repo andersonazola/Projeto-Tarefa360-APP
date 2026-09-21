@@ -13,11 +13,13 @@ import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Usuarios() {
     const { mostrarAlerta } = useAlert();
+    const [busca, setBusca] = useState("");
 
     const [usuarios, setUsuarios] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
-    const [busca, setBusca] = useState("");
+
+    const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
     const handleClickDeletar = (usuario) => {
         setUsuarioSelecionado(usuario) // vai pegar o usuário selecionado e mandar para o state de usuárioSelecionado e setar o mostraModal para true.
@@ -27,7 +29,7 @@ export function Usuarios() {
 
     const handleDeletar = async () => { // Usada quando confirmada a opção de deletar
         try {
-            await UsuarioAPI.deletarAsync(usuarioSelecionado.id);
+            await UsuarioAPI.deletarAsync(usuarioSelecionado.id, usuarioLogin.id);
             setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Ysanado filtro para uma listagem mais rápida
             mostrarAlerta('Usuário excluído com sucesso!', 'success');
         } catch (error) {
@@ -44,7 +46,7 @@ export function Usuarios() {
 
     async function carregarUsuarios(filtro) {
         try {
-            const listaUsuarios = await UsuarioAPI.buscaAsync(filtro);
+            const listaUsuarios = await UsuarioAPI.listarAsync(true, usuarioLogin.id);
             setUsuarios(listaUsuarios);
         } catch (error) {
             console.error("Erro ao carregar usuários:", error);
@@ -124,4 +126,3 @@ export function Usuarios() {
         </Sidebar>
     )
 }
-

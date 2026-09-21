@@ -22,14 +22,13 @@ export function EditarUsuario() {
     const [tipoUsuario, setTipoUsuario] = useState('');
     const [TiposUsuarios, setTipoUsuarios] = useState([]);
 
+    const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            await UsuarioAPI.atualizarAsync(id, nome, email, tipoUsuario);
-            mostrarAlerta('Usuário atualizado com sucesso!', 'success', () => {
-                navigate('/usuarios')
-            });
+            await UsuarioAPI.atualizarAsync(id, nome, email, tipoUsuario, usuarioLogin.id);
+            navigate('/usuarios')
         } else {
             mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
@@ -49,7 +48,7 @@ export function EditarUsuario() {
 
         const buscarDadosUsuario = async () => {
             try {
-                const usuario = await UsuarioAPI.obterAsync(id);
+                const usuario = await UsuarioAPI.obterAsync(id, usuarioLogin.id);
                 setTipoUsuario(usuario.tipoUsuario)
                 setNome(usuario.nome)
                 setEmail(usuario.email)

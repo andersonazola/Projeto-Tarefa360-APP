@@ -9,11 +9,8 @@ import Form from 'react-bootstrap/Form';
 import style from './Historias.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
-=======
 import { useAlert } from '../../componentes/Alert/AlertContext';
->>>>>>> developer
 
 export function Historias() {
     const { mostrarAlerta } = useAlert();
@@ -24,6 +21,7 @@ export function Historias() {
     const [busca, setBusca] = useState("");
     const [projeto, setProjeto] = useState([]);
     const [projetoSelecionado, setProjetoSelecionado] = useState('');
+    
 
     const handleClickDeletar = (historia) => {
         setHistoriaSelecionada(historia);
