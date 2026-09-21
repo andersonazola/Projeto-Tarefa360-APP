@@ -31,61 +31,49 @@
 .pagina_cabecalho {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    & .botao_novo {
+        text-decoration: none;
+        color: white;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 10px;
+        background-color: #f08830;
+        cursor: pointer;
+    }
+}
+
+.pagina_cabecalho_botoes {
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .campo_busca {
     margin-top: 20px;
 }
 
-.input_busca {
-    justify-content: flex-start;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
 .filtro_sprint {
-    
-    padding: 14px ;
+    height: 38px;
+    padding: 14px;
     min-width: 170px;
     text-align: center;
     font-size: 14px;
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: auto;
-    position: relative;
-    display: flex;
- justify-content:flex-end;
-    
+
 }
 
-.barra_opcoes
-{
+.barra_opcoes {
     display: flex;
     align-items: center;
     gap: 6px;
     margin-top: 20px;
-    
-         & form {
-            margin-left:auto ;
-        }
 
-    & .botao_novo {
-        text-decoration: none;
-
-        color: white;
-
-        padding: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-
-        border-radius: 10px;
-        background-color: #f08830;
-
-
+    & form {
+        margin-left: auto;
     }
 }

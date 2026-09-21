@@ -8,11 +8,12 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import ProjetoAPI from "../../services/projetoAPI";
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 
-export function Projetos(){
-    const [projetos, setProjetos] = useState ([]);
+export function Projetos() {
+    const [projetos, setProjetos] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
-    const [projetoSelecionado, setProjetoSelecionado] = useState (null);
+    const [projetoSelecionado, setProjetoSelecionado] = useState(null);
     const [busca, setBusca] = useState("");
 
     const handleClickDeletar = (projeto) => {
@@ -27,7 +28,7 @@ export function Projetos(){
         } catch (error) {
             console.error("Erro ao deletar projeto:", error);
         } finally {
-            handleFecharModal ();
+            handleFecharModal();
         }
     };
 
@@ -36,9 +37,9 @@ export function Projetos(){
         setProjetoSelecionado(null);
     };
 
-    async function carregarProjetos(){
+    async function buscarProjetos(filtro) {
         try {
-            const listaProjetos = await ProjetoAPI.listarAsync();
+            const listaProjetos = await ProjetoAPI.buscaAsync(filtro);
             setProjetos(listaProjetos);
         } catch (error) {
             console.error("Erro ao carregar projetos:", error);
@@ -46,13 +47,13 @@ export function Projetos(){
     }
 
     useEffect(() => {
-        carregarProjetos();
-    }, []);
+        const timer = setTimeout(() => {
+            buscarProjetos(busca);
+        }, 500);
 
-    //Filtra projetos pelo texto da busca
-    const projetosFiltrados = projetos.filter(projeto =>
-        projeto.nome.toLowerCase().includes(busca.toLowerCase())
-    );
+        return () => clearTimeout(timer);
+    }, [busca]);
+
 
     return (
         <Sidebar>
@@ -64,13 +65,7 @@ export function Projetos(){
                     </div>
 
                     <div className={style.campo_busca}>
-                        <input
-                            type="text"
-                            placeholder="Buscar..."
-                            value={busca}
-                            onChange={(e) => setBusca(e.target.value)}
-                            className={style.input_busca}
-                        />
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
                     </div>
 
                     <div className={style.tabela}>
@@ -82,11 +77,11 @@ export function Projetos(){
                                 </tr>
                             </thead>
                             <tbody className={style.tabela_corpo}>
-                                {projetosFiltrados.map((projeto) => (
+                                {projetos.map((projeto) => (
                                     <tr key={projeto.id}>
                                         <td>{projeto.nome}</td>
                                         <td>
-                                            <Link to='/projeto/editar' state={projeto.id} className = {style.botao_editar}>
+                                            <Link to='/projeto/editar' state={projeto.id} className={style.botao_editar}>
                                                 <MdEdit />
                                             </Link>
                                             <button onClick={() => handleClickDeletar(projeto)} className={style.botao_deletar}>
@@ -115,7 +110,7 @@ export function Projetos(){
                             </Button>
                         </Modal.Footer>
                     </Modal>
-                    
+
                 </div>
             </Topbar>
         </Sidebar>

@@ -98,7 +98,16 @@ const TarefaAPI = {
 
     },
 
-
+    async buscaAsync(filtro) {
+        try {
+            const response = await HTTPClient.get(`/api/Tarefa/Busca?filtro=${filtro}`);
+            return response.data;
+        } 
+        catch (error) {
+            console.error("Erro ao buscar tarefas:", error);
+            throw error;
+        }
+    }
 }
 
 export default TarefaAPI;
