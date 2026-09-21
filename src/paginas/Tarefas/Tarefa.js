@@ -10,8 +10,13 @@ import TarefaAPI from "../../services/tarefaAPI";
 import HistoriaAPI from "../../services/historiaAPI";
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 import ProjetoAPI from "../../services/projetoAPI";
+import SprintAPI from "../../services/sprintAPI"
+import { useAlert } from '../../componentes/Alert/AlertContext';
+
 
 export function Tarefas() {
+    const { mostrarAlerta } = useAlert();
+
     const [tarefas, setTarefas] = useState([]);
     const [mostraModal, setMostraModal] = useState(false);
     const [tarefaSelecionada, setTarefaSelecionada] = useState(null);
@@ -30,11 +35,13 @@ export function Tarefas() {
 
     const handleDeletar = async () => {
         try {
-            await TarefaAPI.deletarAsync(tarefaSelecionada.id);
+            await TarefaAPI.Deletar(tarefaSelecionada.id);
             setTarefas(tarefas.filter(t => t.id !== tarefaSelecionada.id));
+            mostrarAlerta('Tarefa excluída com sucesso!', 'success');
         }
         catch (error) {
             console.error("Erro ao deletar tarefa:", error)
+            mostrarAlerta('Erro ao deletar tarefa.', 'danger');
         } finally {
             handleFecharModal();
         }
@@ -78,7 +85,7 @@ export function Tarefas() {
 
     async function buscarSprints() {
         try {
-            const sprints = await TarefaAPI.listarAsync();
+            const sprints = await SprintAPI.listarAsync(); 
         }
         catch (error) {
             console.error('Erro ao buscar sprint:', error);

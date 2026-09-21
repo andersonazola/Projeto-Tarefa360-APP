@@ -25,7 +25,7 @@ const TarefaAPI = {
 
     async listarTodas() {
         try {
-            const response = await HTTPClient.get(`/api/Tarefas/ListarTodas`);
+            const response = await HTTPClient.get(`/api/Tarefas/ListarTodas/`);
             return response.data;
         } catch (error) {
             console.error("Erro ao listar tarefas");

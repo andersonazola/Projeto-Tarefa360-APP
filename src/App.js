@@ -17,52 +17,55 @@ import { Login } from './paginas/Login/Login';
 import { RotaLogin } from './paginas/Login/RotaLogin';
 import { Dashboard } from './paginas/Dashboard/Dashboard';
 import { Sprints } from './paginas/Sprints/Sprint';
-import { EditarSprint} from './paginas/EditarSprint/EditarSprint'
-import { NovaSprint} from './paginas/NovaSprint/NovaSprint'
+import { EditarSprint } from './paginas/EditarSprint/EditarSprint'
+import { NovaSprint } from './paginas/NovaSprint/NovaSprint'
+import { AlertProvider } from './componentes/Alert/AlertContext';
 
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    <AlertProvider>
+      <BrowserRouter>
+        <Routes>
 
-        <Route path='/' element={<Login/>}/>
-        <Route path='/dashboard' element={<RotaLogin><Dashboard/></RotaLogin>} />
-      
-        <Route path='/usuarios'
+          <Route path='/' element={<Login />} />
+          <Route path='/dashboard' element={<RotaLogin><Dashboard /></RotaLogin>} />
+
+          <Route path='/usuarios'
             element={
-              <RotaLogin tipoUsuario={0}><Usuarios/></RotaLogin>
-            }/>
+              <RotaLogin tipoUsuario={0}><Usuarios /></RotaLogin>
+            } />
 
-        <Route path='/usuario/novo' 
+          <Route path='/usuario/novo'
             element={
               <RotaLogin tipoUsuario={0}><NovoUsuario /></RotaLogin>
-            }/>
+            } />
 
-        <Route path='/usuario/editar' 
+          <Route path='/usuario/editar'
             element={
-              <RotaLogin tipoUsuario={0}><EditarUsuario/></RotaLogin>
-            }/>
+              <RotaLogin tipoUsuario={0}><EditarUsuario /></RotaLogin>
+            } />
 
-        <Route path='/projetos' element={<RotaLogin><Projetos/></RotaLogin>} />
-        <Route path='/projeto/novo' element={<RotaLogin><NovoProjeto/></RotaLogin>} />
-        <Route path='/projeto/editar' element={<RotaLogin><EditarProjeto/></RotaLogin>} />
-        <Route path='/historias' element={<RotaLogin><Historias/></RotaLogin>} />
-        <Route path='/historia/novo' element={<RotaLogin><NovaHistoria/></RotaLogin>} />
-        <Route path='/historia/editar' element={<RotaLogin><EditarHistoria/></RotaLogin>} />
-        
-        
-        <Route path='/sprints' element={<RotaLogin><Sprints/></RotaLogin>} />
-        <Route path='/sprints/novo' element={<RotaLogin><NovaSprint/></RotaLogin>} />
-        <Route path='/sprints/editar' element={<RotaLogin><EditarSprint/></RotaLogin>} /> 
+          <Route path='/projetos' element={<RotaLogin><Projetos /></RotaLogin>} />
+          <Route path='/projeto/novo' element={<RotaLogin><NovoProjeto /></RotaLogin>} />
+          <Route path='/projeto/editar' element={<RotaLogin><EditarProjeto /></RotaLogin>} />
+          <Route path='/historias' element={<RotaLogin><Historias /></RotaLogin>} />
+          <Route path='/historia/novo' element={<RotaLogin><NovaHistoria /></RotaLogin>} />
+          <Route path='/historia/editar' element={<RotaLogin><EditarHistoria /></RotaLogin>} />
 
-        <Route path='/tarefas' element={<RotaLogin><Tarefas/></RotaLogin>} />
-        <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa/></RotaLogin>} />
-        <Route path='/tarefa/editar' element={<RotaLogin><EditarTarefa/></RotaLogin>} />
 
-      </Routes>
-    </BrowserRouter>
+          <Route path='/sprints' element={<RotaLogin><Sprints /></RotaLogin>} />
+          <Route path='/sprints/novo' element={<RotaLogin><NovaSprint /></RotaLogin>} />
+          <Route path='/sprints/editar' element={<RotaLogin><EditarSprint /></RotaLogin>} />
+
+          <Route path='/tarefas' element={<RotaLogin><Tarefas /></RotaLogin>} />
+          <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa /></RotaLogin>} />
+          <Route path='/tarefa/editar' element={<RotaLogin><EditarTarefa /></RotaLogin>} />
+
+        </Routes>
+      </BrowserRouter>
+    </AlertProvider>
   );
 }
 

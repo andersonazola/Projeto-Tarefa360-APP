@@ -8,8 +8,11 @@ import { MdSaveAs } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import style from './EditarHistoria.module.css';
 import { Button } from "react-bootstrap";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function EditarHistoria() {
+    const { mostrarAlerta } = useAlert();
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -26,11 +29,13 @@ export function EditarHistoria() {
             if (isFormValid()) 
             {
                 await HistoriaAPI.atualizarAsync(id, nome, projetoSelecionado, descricao);
-                navigate('/historias')
+                mostrarAlerta('História atualizada com sucesso!', 'success', () => {
+                    navigate('/historias')
+                });
             }
             else 
                 {
-                alert('Por favor, preencha todos os campos.');
+                mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
             }
         }
         catch(error)

@@ -8,7 +8,7 @@ const GeminiAPI = {
             const prompt = `
 Você é um especialista em gestão ágil de projetos (Scrum Master).
 Analise os seguintes dados do projeto "${nomeProjeto}":
-- Total de Tarefas: ${dados.totalTarefas} (Concluídas: ${dados.tarefasConcluidas}, Abertas: ${dados.tarefasAbertas})
+- Total de Horas: ${dados.totalHoras} (Concluídas: ${dados.horasConcluidas}, Abertas: ${dados.horasAbertas})
 - Total de Histórias: ${dados.totalHistorias} (Fechadas: ${dados.historiasFechadas}, Abertas: ${dados.historiasAbertas})
 - Total de Bugs: ${dados.totalBugs} (Fechados: ${dados.bugsFechados}, Abertos: ${dados.bugsAbertos})
 

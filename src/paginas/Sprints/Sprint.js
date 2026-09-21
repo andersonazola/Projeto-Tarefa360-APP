@@ -9,9 +9,12 @@ import style from './Sprint.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
+import { useAlert } from '../../componentes/Alert/AlertContext';
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 
 export function Sprints() {
+    const { mostrarAlerta } = useAlert();
+    const [sprints, setSprints] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [sprintSelecionada, setSprintSelecionada] = useState(null);
     const [busca, setBusca] = useState("");
@@ -27,6 +30,7 @@ export function Sprints() {
         try {
             await SprintAPI.deletarAsync(sprintSelecionada.id);
             setSprint(sprint.filter(h => h.id !== sprintSelecionada.id));
+            mostrarAlerta('Sprint excluída com sucesso!', 'success');
         }
         catch (error) {
             console.error("Erro ao deletar sprint", error);
@@ -107,7 +111,7 @@ export function Sprints() {
                             </thead>
 
                             <tbody className={style.tabela_corpo}>
-                                {sprint.map((sprint) => (
+                                {sprintsFiltradas.map((sprint) => (
                                     <tr key={sprint.id}>
                                         <td>{sprint.nome}</td>
                                         <td>{sprint.nomeProjeto}</td>
