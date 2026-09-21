@@ -8,9 +8,12 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import UsuarioAPI from "../../services/usuarioAPI";
-
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Usuarios() {
+    const { mostrarAlerta } = useAlert();
+    const [busca, setBusca] = useState("");
 
     const [usuarios, setUsuarios] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -28,6 +31,7 @@ export function Usuarios() {
         try {
             await UsuarioAPI.deletarAsync(usuarioSelecionado.id, usuarioLogin.id);
             setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Ysanado filtro para uma listagem mais rápida
+            mostrarAlerta('Usuário excluído com sucesso!', 'success');
         } catch (error) {
             console.error("Erro ao deletar usuário:", error);
         } finally {
@@ -40,8 +44,7 @@ export function Usuarios() {
         setUsuarioSelecionado(null);
     };
 
-
-    async function carregarUsuarios() {
+    async function carregarUsuarios(filtro) {
         try {
             const listaUsuarios = await UsuarioAPI.listarAsync(true, usuarioLogin.id);
             setUsuarios(listaUsuarios);
@@ -50,9 +53,13 @@ export function Usuarios() {
         }
     }
 
-    useEffect(() => { // Para toda vez que a página for redenrizada chama a função e a lista seja carregue novamente.
-        carregarUsuarios();
-    }, []);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            carregarUsuarios(busca);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [busca]);
 
 
     return (
@@ -62,6 +69,10 @@ export function Usuarios() {
                     <div className={style.pagina_cabecalho}>
                         <h3>Usuarios</h3>
                         <Link to='/usuario/novo' className={style.botao_novo}>+ Novo</Link>
+                    </div>
+
+                    <div className={style.campo_busca}>
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
                     </div>
 
                     <div className={style.tabela}>

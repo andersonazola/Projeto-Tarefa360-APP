@@ -10,10 +10,12 @@ import TarefaAPI from "../../services/tarefaAPI";
 import UsuarioAPI from "../../services/usuarioAPI";
 import HistoriaAPI from "../../services/historiaAPI";
 import ProjetoAPI from "../../services/projetoAPI";
-// import SprintAPI from "../../services/sprintAPI";
+import SprintAPI from "../../services/sprintAPI";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 export function EditarTarefa() {
+    const { mostrarAlerta } = useAlert();
 
 
     const tipos_tarefas = [
@@ -42,14 +44,25 @@ export function EditarTarefa() {
     const [usuario, setUsuario] = useState([]);
     const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
 
+    const temCaracterEspecial = (texto) => {
+        const regex = /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]~`;]/;
+        return regex.test(texto);
+    };   
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (temCaracterEspecial(nome)) {
+            mostrarAlerta('O nome da tarefa não pode conter caracteres especiais.', 'warning');
+            return;
+        }    
+
         if (isFormValid()) {
             await TarefaAPI.AtualizarAsync(
                 id,
                 nome,
                 descricao,
-                tipoTarefa,
+                Number(tipoTarefaSelecionada),                
                 concluida,
                 true,
                 projetoSelecionado,
@@ -57,24 +70,18 @@ export function EditarTarefa() {
                 sprintSelecionada,
                 usuarioSelecionado
             );
-            navigate('/tarefas');
+            mostrarAlerta('Tarefa atualizada com sucesso!', 'success', () => {
+                navigate('/tarefas');
+            });
+            
         }
         else {
-            alert('Por favor, preencha todos os campos obrigatórios');
+            mostrarAlerta('Por favor, preencha todos os campos obrigatórios', 'warning');
         }
     };
 
-    const handleToggleConcluida = async () => {
-        const novoValor = !concluida;
-        setConcluida(novoValor);
-
-        try {
-            await TarefaAPI.ConcluirTarefa(id);
-        } catch (error) {
-            console.error('Erro ao concluir tarefa:', error);
-            setConcluida(!novoValor);
-            alert('Não foi possível atualizar o status da tarefa.');
-        }
+    const handleToggleConcluida = () => {        
+        setConcluida(!concluida);
     };
 
     useEffect(() => {
@@ -100,7 +107,7 @@ export function EditarTarefa() {
 
         const buscarSprints = async () => {
             try {
-                const sprints = await TarefaAPI.listarAsync(true);
+                const sprints = await SprintAPI.listarAsync(true);
                 setSprint(sprints);
             }
             catch (error) {
@@ -143,7 +150,7 @@ export function EditarTarefa() {
 
     const isFormValid = () => {
         return nome.length >= 3 && projetoSelecionado !== '';
-    };
+    };   
 
     return (
         <Sidebar>
@@ -231,7 +238,7 @@ export function EditarTarefa() {
                                 <Form.Control
                                     as="select"
                                     name="tipoTarefa"
-                                    value={tipoTarefaSelecionada}
+                                    value={Number(tipoTarefaSelecionada)}
                                     onChange={(e) => setTipoTarefaSelecionada(e.target.value)}
                                 >
                                     <option value=""> Selecione o tipo de Tarefa</option>

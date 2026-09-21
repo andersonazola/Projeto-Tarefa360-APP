@@ -31,24 +31,32 @@
 .pagina_cabecalho {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    & .botao_novo {
+        margin: 8px;
+        text-decoration: none;
+        color: white;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 10px;
+        background-color: #f08830;
+    }
 }
 
 .campo_busca {
     margin-top: 20px;
 }
 
-.input_busca {
-    justify-content: flex-start;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-    font-size: 14px;
-    box-sizing: border-box;
+.pagina_cabecalho_botoes {
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .filtro_projeto {
-    
+
     padding: 14px;
     min-width: 170px;
     text-align: center;
@@ -56,36 +64,12 @@
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: auto;
-    
+
 }
 
-.barra_opcoes
-{
+.barra_opcoes {
     display: flex;
     align-items: center;
     gap: 6px;
     margin-top: 20px;
-    
-
-    & .botao_novo {
-        text-decoration: none;
-
-        color: white;
-
-        padding: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-
-        border-radius: 10px;
-        background-color: #f08830;
-        margin-left: auto;
-    }
 }
-
-/* .filtros_centro {
-    display: flex;
-    gap: 6px;
-    flex: 1;
-    justify-content: center;
-} */

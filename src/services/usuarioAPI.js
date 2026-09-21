@@ -116,6 +116,16 @@ const UsuarioAPI = {
         }
     },
 
+    async buscaAsync(filtro) {
+        try {
+            const response = await HTTPClient.get(`/Usuario/Busca?filtro=${filtro}`);
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao buscar usuários:", error);
+            throw error;
+        }
+    }
+
 }
 
 export default UsuarioAPI;

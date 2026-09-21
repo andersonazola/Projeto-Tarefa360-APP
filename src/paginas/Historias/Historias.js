@@ -9,14 +9,19 @@ import Form from 'react-bootstrap/Form';
 import style from './Historias.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Historias() {
+    const { mostrarAlerta } = useAlert();
+
     const [historias, setHistorias] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [historiaSelecionada, setHistoriaSelecionada] = useState(null);
     const [busca, setBusca] = useState("");
     const [projeto, setProjeto] = useState([]);
     const [projetoSelecionado, setProjetoSelecionado] = useState('');
+    
 
     const handleClickDeletar = (historia) => {
         setHistoriaSelecionada(historia);
@@ -24,17 +29,15 @@ export function Historias() {
     };
 
     const handleDeletar = async () => {
-        try 
-        {
+        try {
             await HistoriaAPI.deletarAsync(historiaSelecionada.id);
             setHistorias(historias.filter(h => h.id !== historiaSelecionada.id));
+            mostrarAlerta('História excluída com sucesso!', 'success');
         }
-        catch (error) 
-        {
+        catch (error) {
             console.error("Erro ao deletar história:", error);
         }
-        finally 
-        {
+        finally {
             handleFecharModal();
         }
     }
@@ -44,20 +47,18 @@ export function Historias() {
         setHistoriaSelecionada(null);
     };
 
-    async function carregarHistorias() {
+    async function carregarHistorias(filtro) {
         try {
-            const listaHistorias = await HistoriaAPI.listarAsync(true);
-            setHistorias(listaHistorias);
+            const buscaHistorias = await HistoriaAPI.buscaAsync(filtro);
+            setHistorias(buscaHistorias);
         }
-        catch (error) 
-        {
+        catch (error) {
             console.error("Erro ao carregar histórias:", error)
         }
     }
 
     async function buscarProjetos() {
-        try 
-        {
+        try {
             const projetos = await ProjetoAPI.listarAsync();
             setProjeto(projetos);
         }
@@ -67,49 +68,52 @@ export function Historias() {
     }
 
     useEffect(() => {
-        carregarHistorias();
-
         buscarProjetos();
     }, []);
 
-    const historiasFiltradas = historias.filter((historia) => {
-        const buscaHistoria = historia.nome.includes(busca);
-        const filtroProjeto = projetoSelecionado === '' || historia.projetoId === Number (projetoSelecionado);
-        return buscaHistoria && filtroProjeto;
-    });
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            carregarHistorias(busca);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [busca]);
+
+
+    const historiasFiltradas = historias.filter((historia) =>
+        projetoSelecionado === '' || historia.projetoId === Number(projetoSelecionado)
+    );
 
     return (
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
                     <div className={style.pagina_cabecalho}>
-                        <h3>Histórias</h3>
+                        <div>
+                            <h3>Histórias</h3>
+                        </div>
+                        <div className={style.pagina_cabecalho_botoes}>
+                            <Form>
+                                <FormGroup controlId="formProjeto" className="m-3">
+                                    <Form.Control className={style.filtro_projeto}
+                                        as="select"
+                                        name="projeto"
+                                        value={projetoSelecionado}
+                                        onChange={(e) => setProjetoSelecionado(e.target.value)}
+                                        required
+                                    >
+                                        <option value="">Projeto</option>
+                                        {projeto.map((projeto) => (
+                                            <option key={projeto.id} value={projeto.id}>{projeto.nome}</option>
+                                        ))}
+                                    </Form.Control>
+                                </FormGroup>
+                            </Form>
+                            <Link to='/historia/novo' className={style.botao_novo}>+ Nova</Link>
+                        </div>
                     </div>
                     <div className={style.barra_opcoes}>
-                        <input
-                            type="text"
-                            placeholder="Buscar..."
-                            value={busca}
-                            onChange={(e) => setBusca(e.target.value)}
-                            className={style.input_busca}
-                        />
-                        <Form>
-                            <FormGroup controlId="formProjeto" className="mb-3">
-                                <Form.Control className={style.filtro_projeto}
-                                    as="select"
-                                    name="projeto"
-                                    value={projetoSelecionado}
-                                    onChange={(e) => setProjetoSelecionado(e.target.value)}
-                                    required
-                                >
-                                    <option value="">Projeto</option>
-                                    {projeto.map((projeto) => (
-                                        <option key={projeto.id} value={projeto.id}>{projeto.nome}</option>
-                                    ))}
-                                </Form.Control>
-                            </FormGroup>
-                        </Form>
-                        <Link to='/historia/novo' className={style.botao_novo}>+ Nova</Link>
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
                     </div>
 
                     <div className={style.tabela}>

@@ -6,8 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button'
 import UsuarioAPI from "../../services/usuarioAPI";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function NovoUsuario() {
+    const { mostrarAlerta } = useAlert();
+
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
@@ -49,7 +52,7 @@ export function NovoUsuario() {
                 }
             }
         } else {
-            alert('Por favor, preencha todos os campos.');
+            mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
     };
 

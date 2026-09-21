@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import UsuarioAPI from "../../services/usuarioAPI";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
-
-
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 export function EditarUsuario() {
+    const { mostrarAlerta } = useAlert();
+
     const location = useLocation(); // usado para pegar alguma informação que foi passada na rota, nesse caso a identificar o ID de qual usuario irá ser editado
     const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ export function EditarUsuario() {
             await UsuarioAPI.atualizarAsync(id, nome, email, tipoUsuario, usuarioLogin.id);
             navigate('/usuarios')
         } else {
-            alert('Por favor, preencha todos os campos.');
+            mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
     };
 

@@ -8,8 +8,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import { MdSaveAs } from "react-icons/md";
 import style from './NovaHistoria.module.css';
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function NovaHistoria() {
+    const { mostrarAlerta } = useAlert();
+
     const [nome, setNome] = useState('');
     const [projeto, setProjeto] = useState([]);
     const [projetoSelecionado, setProjetoSelecionado] = useState(''); 
@@ -35,10 +38,12 @@ export function NovaHistoria() {
 
         if (isFormValid()) {
             await HistoriaAPI.criarAsync(nome, projetoSelecionado, descricao);
-            navigate('/historias')
+            mostrarAlerta('História cadastrada com sucesso!', 'success', () => {
+                navigate('/historias')
+            });
         }
         else {
-            alert('Por favor, preencha os campos Nome e Projeto.');
+            mostrarAlerta('Por favor, preencha os campos Nome e Projeto.', 'warning');
         }
     };
 

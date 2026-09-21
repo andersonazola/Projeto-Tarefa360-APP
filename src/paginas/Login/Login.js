@@ -5,8 +5,10 @@ import LoginAPI from "../../services/loginAPI";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/LogoAzul.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Login() {
+    const { mostrarAlerta } = useAlert();
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -27,7 +29,7 @@ export function Login() {
         e.preventDefault();
 
         if (!isFormValid()) {
-            alert("Insira um e-mail válido e uma senha com no mínimo 6 caracteres.");
+            mostrarAlerta("Insira um e-mail válido e uma senha com no mínimo 6 caracteres.", "warning");
             return;
         }
 
@@ -44,18 +46,18 @@ export function Login() {
         {
             if (error.response?.status === 404) 
             {
-                alert("Usuário não encontrado, é necessário solicitar ao Admin responsável que realize o cadastro desse usuário.");
+                mostrarAlerta("Usuário não encontrado, é necessário solicitar ao Admin responsável que realize o cadastro desse usuário.", "danger");
                 setEmail("");
                 setSenha("");
             }
             else if (error.response?.status === 401) 
             {
-                alert("Senha incorreta, por favor tente novamente.");
+                mostrarAlerta("Senha incorreta, por favor tente novamente.", "danger");
                 setSenha("");
             }
             else
             {
-                alert("Erro ao fazer login.");
+                mostrarAlerta("Erro ao fazer login.", "danger");
             }
         }
     }

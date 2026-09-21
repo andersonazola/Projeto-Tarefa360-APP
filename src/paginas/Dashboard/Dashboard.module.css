@@ -32,7 +32,8 @@
 }
 
 .select_topo {
-    padding: 6px 14px;
+    padding: 8px;
+    width: 17px;
     border: 1px solid #ced4da;
     border-radius: 20px; 
     font-size: 14px;
@@ -52,6 +53,7 @@
     gap: 24px;
     flex-wrap: wrap;
     margin-bottom: 30px;
+    width: 100%;
 }
 
 .aviso {
