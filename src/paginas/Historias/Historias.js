@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import style from './Historias.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Tabela } from "../../componentes/Tabela/Tabela";
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 import { useAlert } from '../../componentes/Alert/AlertContext';
 
@@ -71,6 +72,25 @@ export function Historias() {
         buscarProjetos();
     }, []);
 
+    const colunas = [
+        { chave: 'nome', titulo: 'Nome' },
+        { chave: 'nomeProjeto', titulo: 'Projeto' },
+        {
+            chave: 'acoes',
+            titulo: 'Ações',
+            render: (historia) => (
+                <>
+                    <Link to='/historia/editar' state={historia.id} className={style.botao_editar}>
+                        <MdEdit />
+                    </Link>
+                    <button onClick={() => handleClickDeletar(historia)} className={style.botao_deletar}>
+                        <MdDelete />
+                    </button>
+                </>
+            ),
+        },
+    ];
+
     useEffect(() => {
         const timer = setTimeout(() => {
             carregarHistorias(busca);
@@ -117,32 +137,7 @@ export function Historias() {
                     </div>
 
                     <div className={style.tabela}>
-                        <Table responsive>
-                            <thead className={style.tabela_cabecalho}>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Projeto</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody className={style.tabela_corpo}>
-                                {historiasFiltradas.map((historia) => (
-                                    <tr key={historia.id}>
-                                        <td>{historia.nome}</td>
-                                        <td>{historia.nomeProjeto}</td>
-
-                                        <td>
-                                            <Link to='/historia/editar' state={historia.id} className={style.botao_editar}>
-                                                <MdEdit />
-                                            </Link>
-                                            <button onClick={() => handleClickDeletar(historia)} className={style.botao_deletar}>
-                                                <MdDelete />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                        <Tabela colunas={colunas} dados={historiasFiltradas} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>

@@ -22,7 +22,6 @@ import { NovaSprint } from './paginas/NovaSprint/NovaSprint'
 import { AlertProvider } from './componentes/Alert/AlertContext';
 
 
-
 function App() {
   return (
     <AlertProvider>
@@ -50,20 +49,23 @@ function App() {
           <Route path='/projetos' element={<RotaLogin><Projetos /></RotaLogin>} />
           <Route path='/projeto/novo' element={<RotaLogin><NovoProjeto /></RotaLogin>} />
           <Route path='/projeto/editar' element={<RotaLogin><EditarProjeto /></RotaLogin>} />
+
+
           <Route path='/historias' element={<RotaLogin><Historias /></RotaLogin>} />
           <Route path='/historia/novo' element={<RotaLogin><NovaHistoria /></RotaLogin>} />
           <Route path='/historia/editar' element={<RotaLogin><EditarHistoria /></RotaLogin>} />
 
 
-          <Route path='/sprints' element={<RotaLogin><Sprints /></RotaLogin>} />
-          <Route path='/sprints/novo' element={<RotaLogin><NovaSprint /></RotaLogin>} />
-          <Route path='/sprints/editar' element={<RotaLogin><EditarSprint /></RotaLogin>} />
+          <Route path='/tarefas' element={<RotaLogin><Tarefas/></RotaLogin>} />
+          <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa/></RotaLogin>} />
+          <Route path='/tarefa/editar' element={<RotaLogin><EditarTarefa/></RotaLogin>} />
 
-          <Route path='/tarefas' element={<RotaLogin><Tarefas /></RotaLogin>} />
-          <Route path='/tarefa/novo' element={<RotaLogin><NovaTarefa /></RotaLogin>} />
-          <Route path='/tarefa/editar' element={<RotaLogin><EditarTarefa /></RotaLogin>} />
 
-        </Routes>
+          <Route path='/sprints' element={<RotaLogin><Sprints/></RotaLogin>} />
+          <Route path='/sprints/novo' element={<RotaLogin><NovaSprint/></RotaLogin>}/>
+          <Route path='/sprints/editar' element={<RotaLogin><EditarSprint/></RotaLogin>}/>
+
+          </Routes>
       </BrowserRouter>
     </AlertProvider>
   );

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import ProjetoAPI from "../../services/projetoAPI";
+import { Tabela } from "../../componentes/Tabela/Tabela";
 import { useAlert } from '../../componentes/Alert/AlertContext';
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 
@@ -59,6 +60,24 @@ export function Projetos ()
     }, [busca]);
 
 
+    const colunas = [
+        { chave: 'nome', titulo: 'Nome' },
+        {
+            chave: 'acoes',
+            titulo: 'Ações',
+            render: (projeto) => (
+                <>
+                    <Link to='/projeto/editar' state={projeto.id} className={style.botao_editar}>
+                        <MdEdit />
+                    </Link>
+                    <button onClick={() => handleClickDeletar(projeto)} className={style.botao_deletar}>
+                        <MdDelete />
+                    </button>
+                </>
+            ),
+        },
+    ];
+
     return (
         <Sidebar>
             <Topbar>
@@ -73,29 +92,7 @@ export function Projetos ()
                     </div>
 
                     <div className={style.tabela}>
-                        <Table responsive>
-                            <thead className={style.tabela_cabecalho}>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody className={style.tabela_corpo}>
-                                {projetos.map((projeto) => (
-                                    <tr key={projeto.id}>
-                                        <td>{projeto.nome}</td>
-                                        <td>
-                                            <Link to='/projeto/editar' state={projeto.id} className={style.botao_editar}>
-                                                <MdEdit />
-                                            </Link>
-                                            <button onClick={() => handleClickDeletar(projeto)} className={style.botao_deletar}>
-                                                <MdDelete />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                        <Tabela colunas={colunas} dados={projetos} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>
