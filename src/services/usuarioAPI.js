@@ -116,9 +116,11 @@ const UsuarioAPI = {
         }
     },
 
-    async buscaAsync(filtro) {
+    async buscaAsync(filtro, usuarioLoginId) {
         try {
-            const response = await HTTPClient.get(`/Usuario/Busca?filtro=${filtro}`);
+            const response = await HTTPClient.get(`/Usuario/Busca?filtro=${filtro}`,{
+                headers: {"Usuario-Id": usuarioLoginId}
+            });
             return response.data;
         } catch (error) {
             console.error("Erro ao buscar usuários:", error);

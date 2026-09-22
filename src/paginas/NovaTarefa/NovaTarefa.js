@@ -15,10 +15,10 @@ import { useAlert } from '../../componentes/Alert/AlertContext';
 
 
 const tipos_tarefas = [
-    {valor: 0, nome: 'Desenvolvimento'},
-    {valor: 1, nome: 'Bug'}, 
-    {valor: 2, nome: 'Documentação'},
-    {valor: 3, nome: 'Análise'},
+    { valor: 0, nome: 'Desenvolvimento' },
+    { valor: 1, nome: 'Bug' },
+    { valor: 2, nome: 'Documentação' },
+    { valor: 3, nome: 'Análise' },
 ];
 
 
@@ -72,7 +72,9 @@ export function NovaTarefa() {
 
         const buscarUsuarios = async () => {
             try {
-                const usuarios = await UsuarioAPI.listarAsync(true);
+                const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
+
+                const usuarios = await UsuarioAPI.listarAsync(true, usuarioLogin?.id);
                 setUsuario(usuarios);
             }
             catch (error) {
@@ -102,7 +104,7 @@ export function NovaTarefa() {
             mostrarAlerta('Tarefa cadastrada com sucesso!', 'success', () => {
                 navigate('/tarefas');
             });
-            
+
         }
         else {
             mostrarAlerta('Por favor, preencha os campos Nome e Projeto.', 'warning');
@@ -144,7 +146,7 @@ export function NovaTarefa() {
                             <Form.Control
                                 as="select"
                                 name="projeto"
-                                value= {projetoSelecionado}
+                                value={projetoSelecionado}
                                 onChange={(e) => setProjetoSelecionado(e.target.value)}
                                 required
                             >
@@ -215,7 +217,7 @@ export function NovaTarefa() {
                                     onChange={(e) => setTipoTarefaSelecionada(e.target.value)}
                                 >
                                     <option value=""> Selecione o tipo de Tarefa</option>
-                                    {tipos_tarefas.map((tipo)=>(
+                                    {tipos_tarefas.map((tipo) => (
                                         <option key={tipo.valor} value={tipo.valor}>
                                             {tipo.nome}
                                         </option>

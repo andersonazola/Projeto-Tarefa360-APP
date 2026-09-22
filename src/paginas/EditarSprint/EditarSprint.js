@@ -7,9 +7,9 @@ import { Form } from "react-bootstrap/";
 import { MdSaveAs } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import style from './EditarSprint.module.css'
-import { Button } from "bootstrap";
-import { button } from "bootstrap"
+
 import { useAlert } from '../../componentes/Alert/AlertContext';
+import Button from "react-bootstrap/esm/Button";
 
 export function EditarSprint() {
     const { mostrarAlerta } = useAlert();
@@ -27,7 +27,7 @@ export function EditarSprint() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            await SprintAPI.atualizarAsync(id, nome, datainicio, datafim);
+            await SprintAPI.atualizarAsync(id, nome, Number(projetoSelecionado), datainicio, datafim);
             mostrarAlerta('Sprint atualizada com sucesso!', 'success', () => {
                 navigate('/sprints')
             });
@@ -128,12 +128,12 @@ export function EditarSprint() {
                             />
                         </Form.Group>
 
-                        <button variant="primary" type="submit" >
+                        <Button variant="primary" type="submit" >
                             <div className={style.botao_salvar}>
                                 <MdSaveAs />
                                 Salvar
                             </div>
-                        </button>
+                        </Button>
                     </Form>
                 </div>
             </Topbar>
