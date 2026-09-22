@@ -108,27 +108,27 @@ export function EditarSprint() {
                         <Form.Group controlId="formDataInicio" className="mb-3">
                             <Form.Label>Data de Inicio</Form.Label>
                             <Form.Control
-                            type="date"
-                            name="datainicio"
-                            value={datainicio}
-                            onChange={(e) => setDataInicio(e.target.value)}
-                            required
+                                type="date"
+                                name="datainicio"
+                                value={datainicio}
+                                onChange={(e) => setDataInicio(e.target.value)}
+                                required
                             />
                         </Form.Group>
 
                         <Form.Group controlId="formDataFim" className="mb-3">
                             <Form.Label>Data de Fim</Form.Label>
                             <Form.Control
-                            type="date"
-                            name="datafim"
-                            value={datafim}
-                            onChange={(e) => setDataFim(e.target.value)}
-                            required
-                            min={datainicio}
+                                type="date"
+                                name="datafim"
+                                value={datafim}
+                                onChange={(e) => setDataFim(e.target.value)}
+                                required
+                                min={datainicio}
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={!isFormValid()} >
+                        <Button variant="primary" type="submit" disabled={!isFormValid()}>
                             <div className={style.botao_salvar}>
                                 <MdSaveAs />
                                 Salvar
