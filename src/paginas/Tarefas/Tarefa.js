@@ -129,9 +129,9 @@ export function Tarefas() {
                     <MdEdit />
                 </Link>
 
-                <Button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
+                <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
                     <MdDelete />
-                </Button>
+                </button>
                 </>
             ),
         },
@@ -219,7 +219,7 @@ export function Tarefas() {
                             <Button variant="secondary" onClick={handleFecharModal}>
                                 Cancelar
                             </Button>
-                            <Button variant="dark" onClick={handleDeletar}>
+                            <Button variant="danger" onClick={handleDeletar}>
                                 Deletar
                             </Button>
                         </ModalFooter>

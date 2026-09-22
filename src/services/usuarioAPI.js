@@ -118,12 +118,24 @@ const UsuarioAPI = {
 
     async buscaAsync(filtro, usuarioLoginId) {
         try {
-            const response = await HTTPClient.get(`/Usuario/Busca?filtro=${filtro}`,{
-                headers: {"Usuario-Id": usuarioLoginId}
+            const response = await HTTPClient.get(`/Usuario/Busca?filtro=${filtro}`, {
+                headers: { "Usuario-Id": usuarioLoginId }
             });
             return response.data;
         } catch (error) {
             console.error("Erro ao buscar usuários:", error);
+            throw error;
+        }
+    },
+
+    async listarDropUsuariosAsync(usuarioLoginId) {
+        try {
+            const response = await HTTPClient.get(`/Usuario/ListarDropUsuarios`, {
+                headers: { "Usuario-Id": usuarioLoginId }
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao listar usuários:", error);
             throw error;
         }
     }

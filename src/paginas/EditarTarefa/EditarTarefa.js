@@ -119,7 +119,7 @@ export function EditarTarefa() {
             try {
                 const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
-                const usuarios = await UsuarioAPI.listarAsync(true, usuarioLogin?.id);
+                const usuarios = await UsuarioAPI.listarDropUsuariosAsync(usuarioLogin?.id);
                 setUsuario(usuarios);
             }
             catch (error) {

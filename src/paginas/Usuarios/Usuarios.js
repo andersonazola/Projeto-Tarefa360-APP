@@ -109,7 +109,7 @@ export function Usuarios() {
                             Tem certeza que deseja deletar o usuário {usuarioSelecionado?.nome}?
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variante="secondary" onClick={handleFecharModal}>
+                            <Button variant="secondary" onClick={handleFecharModal}>
                                 Cancelar
                             </Button>
                             <Button variant="danger" onClick={handleDeletar}>
