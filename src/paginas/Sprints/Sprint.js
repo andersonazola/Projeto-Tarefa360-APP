@@ -9,6 +9,8 @@ import style from './Sprint.module.css';
 import { ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
+import { Tabela } from "../../componentes/Tabela/Tabela"
+import { render } from "@testing-library/react";
 import { useAlert } from '../../componentes/Alert/AlertContext';
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 
@@ -67,6 +69,36 @@ export function Sprints() {
         sprintSelecionado === '' || s.projetoId === Number(sprintSelecionado)
     );
 
+    const colunas = [
+        {chave: 'nome', titulo: 'Nome'},
+        {chave: 'nomeProjeto', titulo: 'Projeto'},
+        {
+            chave: 'dataInicio',
+            titulo: 'Data Início',
+            render: (linha) => format(new Date (linha.dataInicio), 'dd/MM/yyyy'),
+        },
+        {
+            chave: 'dataFim',
+            titulo: 'Data Fim',
+            render: (linha) => format(new Date(linha.dataFim), 'dd/MM/yyyy'),
+        },
+        {
+                chave: 'acoes',
+                titulo: 'Ações',
+                render: (linha) => (
+                    <>
+                        <Link to='/sprints/editar' state={linha.id} className={style.botao_editar}>
+                            <MdEdit />
+                        </Link>
+
+                        <button onClick={() => handleClickDeletar(linha)} className={style.botao_deletar}>
+                            <MdDelete />
+                        </button>
+                    </>
+                ),
+        },
+    ];
+
     return (
         <Sidebar>
             <Topbar>
@@ -100,35 +132,7 @@ export function Sprints() {
                     </div>
 
                     <div className={style.tabela}>
-                        <Table responsive>
-                            <thead className={style.tabela_cabecalho}>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Projeto</th>
-                                    <th>Data Inicio</th>
-                                    <th>Data Fim</th>
-                                </tr>
-                            </thead>
-
-                            <tbody className={style.tabela_corpo}>
-                                {sprintsFiltradas.map((sprint) => (
-                                    <tr key={sprint.id}>
-                                        <td>{sprint.nome}</td>
-                                        <td>{sprint.nomeProjeto}</td>
-                                        <td>{format(sprint.dataInicio, 'dd/MM/yyyy')}</td>
-                                        <td>{format(sprint.dataFim, 'dd/MM/yyyy')}</td>
-                                        <td>
-                                            <Link to='/sprints/editar' state={sprint.id} className={style.botao_editar}>
-                                                <MdEdit />
-                                            </Link>
-                                            <button onClick={() => handleClickDeletar(sprint)} className={style.botao_deletar}>
-                                                <MdDelete />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                        <Tabela colunas={colunas} dados={sprint} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>

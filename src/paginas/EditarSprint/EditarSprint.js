@@ -128,12 +128,12 @@ export function EditarSprint() {
                             />
                         </Form.Group>
 
-                        <button variant="primary" type="submit" >
+                        <Button variant="primary" type="submit" disabled={!isFormValid()}>
                             <div className={style.botao_salvar}>
                                 <MdSaveAs />
                                 Salvar
                             </div>
-                        </button>
+                        </Button>
                     </Form>
                 </div>
             </Topbar>
