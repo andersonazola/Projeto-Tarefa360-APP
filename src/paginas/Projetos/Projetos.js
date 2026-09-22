@@ -9,12 +9,16 @@ import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import ProjetoAPI from "../../services/projetoAPI";
 import { Tabela } from "../../componentes/Tabela/Tabela";
+import { useAlert } from '../../componentes/Alert/AlertContext';
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 
-export function Projetos(){
-    const [projetos, setProjetos] = useState ([]);
+export function Projetos ()
+{
+    const { mostrarAlerta } = useAlert();
     const [mostrarModal, setMostrarModal] = useState(false);
-    const [projetoSelecionado, setProjetoSelecionado] = useState (null);
+    const [projetoSelecionado, setProjetoSelecionado] = useState(null);
     const [busca, setBusca] = useState("");
+    const [projetos, setProjetos] = useState([]);
 
     const handleClickDeletar = (projeto) => {
         setProjetoSelecionado(projeto);
@@ -25,10 +29,11 @@ export function Projetos(){
         try {
             await ProjetoAPI.deletarAsync(projetoSelecionado.id);
             setProjetos(projetos.filter(p => p.id !== projetoSelecionado.id));
+            mostrarAlerta('Projeto excluído com sucesso!', 'success');            
         } catch (error) {
             console.error("Erro ao deletar projeto:", error);
         } finally {
-            handleFecharModal ();
+            handleFecharModal();
         }
     };
 
@@ -37,9 +42,9 @@ export function Projetos(){
         setProjetoSelecionado(null);
     };
 
-    async function carregarProjetos(){
+    async function buscarProjetos(filtro) {
         try {
-            const listaProjetos = await ProjetoAPI.listarAsync();
+            const listaProjetos = await ProjetoAPI.buscaAsync(filtro);
             setProjetos(listaProjetos);
         } catch (error) {
             console.error("Erro ao carregar projetos:", error);
@@ -47,13 +52,13 @@ export function Projetos(){
     }
 
     useEffect(() => {
-        carregarProjetos();
-    }, []);
+        const timer = setTimeout(() => {
+            buscarProjetos(busca);
+        }, 500);
 
-    //Filtra projetos pelo texto da busca
-    const projetosFiltrados = projetos.filter(projeto =>
-        projeto.nome.toLowerCase().includes(busca.toLowerCase())
-    );
+        return () => clearTimeout(timer);
+    }, [busca]);
+
 
     const colunas = [
         { chave: 'nome', titulo: 'Nome' },
@@ -83,17 +88,11 @@ export function Projetos(){
                     </div>
 
                     <div className={style.campo_busca}>
-                        <input
-                            type="text"
-                            placeholder="Buscar..."
-                            value={busca}
-                            onChange={(e) => setBusca(e.target.value)}
-                            className={style.input_busca}
-                        />
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
                     </div>
 
                     <div className={style.tabela}>
-                        <Tabela colunas={colunas} dados={projetosFiltrados} />
+                        <Tabela colunas={colunas} dados={projetos} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>
@@ -112,7 +111,7 @@ export function Projetos(){
                             </Button>
                         </Modal.Footer>
                     </Modal>
-                    
+
                 </div>
             </Topbar>
         </Sidebar>

@@ -23,6 +23,10 @@ export function Dashboard() {
             try {
                 const list = await ProjetoAPI.listarAsync();
                 setProjetos(list);
+
+                if (list && list.length > 0) {
+                    setProjetoSelecionado(list[0].id);
+                }
             } catch (error) {
                 console.error("Erro ao carregar lista de projetos:", error);
             }
@@ -116,10 +120,10 @@ export function Dashboard() {
                             <div className={styles.cards}>
                                 <CardDashboard
                                     cor="#5FA875"
-                                    titulo="Tarefas"
-                                    total={dados.totalTarefas}
-                                    concluidos={dados.tarefasConcluidas}
-                                    abertos={dados.tarefasAbertas}
+                                    titulo="Horas"
+                                    total={`${dados.totalHoras}h`}
+                                    concluidos={`${dados.horasConcluidas}h`}
+                                    abertos={`${dados.horasAbertas}h`}
                                 />
 
                                 <CardDashboard

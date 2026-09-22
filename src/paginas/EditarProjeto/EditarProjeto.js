@@ -6,19 +6,24 @@ import { useEffect, useState } from "react";
 import ProjetoAPI from "../../services/projetoAPI";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function EditarProjeto() {
+    const { mostrarAlerta } = useAlert();
+
     const location = useLocation();
     const navigate = useNavigate();
 
     const [id] = useState(location.state);
-    const [nome, setNome]= useState('');
+    const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    await ProjetoAPI.atualizarAsync(id, nome, descricao);
-    navigate('/projetos')
+        e.preventDefault();
+        await ProjetoAPI.atualizarAsync(id, nome, descricao);
+        mostrarAlerta('Projeto atualizado com sucesso!', 'success', () => {
+            navigate('/projetos')
+        });
     };
 
     useEffect(() => {
@@ -33,7 +38,7 @@ export function EditarProjeto() {
         }
         buscarDadosProjeto();
     }, [id]);
- 
+
 
     return (
         <Sidebar>
@@ -43,7 +48,7 @@ export function EditarProjeto() {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formNome" className="mb-3">
                             <Form.Label>Nome</Form.Label>
-                            <Form.Control 
+                            <Form.Control
                                 type="text"
                                 placeholder="Digite o nome do projeto"
                                 name="nome"
@@ -57,7 +62,7 @@ export function EditarProjeto() {
 
                         <Form.Group controlId="formDescricao" className="mb-3">
                             <Form.Label>Descrição</Form.Label>
-                            <Form.Control 
+                            <Form.Control
                                 as="textarea"
                                 rows={3}
                                 placeholder="Digite a descricao do projeto"

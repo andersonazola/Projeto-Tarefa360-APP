@@ -11,16 +11,17 @@ import { Link } from "react-router-dom";
 import { format } from 'date-fns';
 import { Tabela } from "../../componentes/Tabela/Tabela"
 import { render } from "@testing-library/react";
-
+import { useAlert } from '../../componentes/Alert/AlertContext';
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
 
 export function Sprints() {
+    const { mostrarAlerta } = useAlert();
     const [sprints, setSprints] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [sprintSelecionada, setSprintSelecionada] = useState(null);
     const [busca, setBusca] = useState("");
     const [sprint, setSprint] = useState([]);
     const [sprintSelecionado, setSprintSelecionado] = useState('');
-    const [sprintFiltro, setSprintsFiltro] = useState([]);
 
     const handleClickDeletar = (sprint) => {
         setSprintSelecionada(sprint);
@@ -30,7 +31,8 @@ export function Sprints() {
     const handleDeletar = async () => {
         try {
             await SprintAPI.deletarAsync(sprintSelecionada.id);
-            setSprints(sprints.filter(h => h.id !== sprintSelecionada.id));
+            setSprint(sprint.filter(h => h.id !== sprintSelecionada.id));
+            mostrarAlerta('Sprint excluída com sucesso!', 'success');
         }
         catch (error) {
             console.error("Erro ao deletar sprint", error);
@@ -45,37 +47,27 @@ export function Sprints() {
         setSprintSelecionada(null);
     };
 
-    async function carregarSprints() {
+    async function buscarSprints(filtro) {
         try {
-            const listaSprints = await SprintAPI.listarAsync(true);
-            setSprint(listaSprints)
+            const listaSprints = await SprintAPI.buscaAsync(filtro);
+            setSprint(listaSprints);
         }
         catch (error) {
-            console.log("Erro ao carregar sprints:", error)
-        }
-    }
-
-    async function buscarSprints() {
-        try {
-            const sprints = await SprintAPI.listarAsync();
-            setSprint(sprints);
-        }
-        catch (error) {
-            console.error("Erro ao buscar sprints", error);
+            console.error("Erro ao carregar sprints:", error)
         }
     }
 
     useEffect(() => {
-        carregarSprints();
+        const timer = setTimeout(() => {
+            buscarSprints(busca);
+        }, 300);
 
-        buscarSprints();
-    }, []);
+        return () => clearTimeout(timer);
+    }, [busca]);
 
-    const sprintsFiltradas = sprints.filter((sprint) => {
-        const buscaSprint = sprint.nome.toLowerCase().includes(busca.toLowerCase());
-        const filtroSprint = sprintSelecionado == '' || sprint.projetoId == sprintSelecionado;
-        return buscaSprint && filtroSprint;
-    });
+    const sprintsFiltradas = sprint.filter((s) =>
+        sprintSelecionado === '' || s.projetoId === Number(sprintSelecionado)
+    );
 
     const colunas = [
         {chave: 'nome', titulo: 'Nome'},
@@ -112,34 +104,31 @@ export function Sprints() {
             <Topbar>
                 <div className={style.pagina_conteudo}>
                     <div className={style.pagina_cabecalho}>
-                        <h3>Sprints</h3>
+                        <div>
+                            <h3>Sprints</h3>
+                        </div>
+                        <div className={style.pagina_cabecalho_botoes}>
+                            <Form>
+                                <FormGroup controlId="formSprint" className="m-3">
+                                    <Form.Control className={style.filtro_sprint}
+                                        as="select"
+                                        name="sprint"
+                                        value={sprintSelecionado}
+                                        onChange={(e) => setSprintSelecionado(e.target.value)}
+                                        required
+                                    >
+                                        <option value="">Sprint </option>
+                                        {sprint.map((sprint) => (
+                                            <option key={sprint.id} value={sprint.id}> {sprint.nome}</option>
+                                        ))}
+                                    </Form.Control>
+                                </FormGroup>
+                            </Form>
+                            <Link to='/sprints/novo' className={style.botao_novo}> + Nova</Link>
+                        </div>
                     </div>
                     <div className={style.barra_opcoes}>
-                        <input
-                            type="text"
-                            placeholder="Buscar..."
-                            value={busca}
-                            onChange={(e) => setBusca(e.target.value)}
-                            className={style.input_busca}
-                        />
-                        <Form>
-                            <FormGroup controlId="formSprint" className="">
-                                <Form.Control className={style.filtro_sprint}
-                                    as="select"
-                                    name="sprint"
-                                    value={sprintSelecionado}
-                                    onChange={(e) => setSprintSelecionado(e.target.value)}
-                                    required
-                                >
-                                    <option value="">Sprint </option>
-                                    {sprint.map((sprint) => (
-                                        <option key={sprint.id} value={sprint.id}> {sprint.nome}</option>
-                                    ))}
-                                </Form.Control>
-                            </FormGroup>
-                        </Form>
-
-                        <Link to='/sprints/novo' className={style.botao_novo}> + Nova</Link>
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
                     </div>
 
                     <div className={style.tabela}>

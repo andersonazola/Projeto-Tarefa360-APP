@@ -7,8 +7,11 @@ import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button'
 import ProjetoAPI from "../../services/projetoAPI";
 import { MdSave, MdSaveAlt, MdSaveAs } from "react-icons/md"
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function NovoProjeto(){
+    const { mostrarAlerta } = useAlert();
+
     const [nome, setNome] =useState('');
     const [descricao, setDescricao] = useState('');
 
@@ -18,9 +21,11 @@ export function NovoProjeto(){
         e.preventDefault();
         if (isFormValid()) {
             await ProjetoAPI.criarAsync(nome, descricao);
-            navigate('/projetos')
+            mostrarAlerta('Projeto cadastrado com sucesso!', 'success', () => {
+                navigate('/projetos')
+            });
         } else {
-            alert ('Por favor, preencha o campo Nome!');
+            mostrarAlerta('Por favor, preencha o campo Nome!', 'warning');
         }
     };
 

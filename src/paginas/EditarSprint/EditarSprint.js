@@ -9,8 +9,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import style from './EditarSprint.module.css'
 import { Button } from "bootstrap";
 import { button } from "bootstrap"
- 
+import { useAlert } from '../../componentes/Alert/AlertContext';
+
 export function EditarSprint() {
+    const { mostrarAlerta } = useAlert();
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -25,10 +28,12 @@ export function EditarSprint() {
         e.preventDefault();
         if (isFormValid()) {
             await SprintAPI.atualizarAsync(id, nome, datainicio, datafim);
-            navigate('/sprints')
+            mostrarAlerta('Sprint atualizada com sucesso!', 'success', () => {
+                navigate('/sprints')
+            });
         }
         else {
-            alert('Por favor, preencha todos os campos.');
+            mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
     };
 
@@ -123,12 +128,12 @@ export function EditarSprint() {
                             />
                         </Form.Group>
 
-                        <button variant="primary" type="submit" >
+                        <Button variant="primary" type="submit" disabled={!isFormValid()}>
                             <div className={style.botao_salvar}>
                                 <MdSaveAs />
                                 Salvar
                             </div>
-                        </button>
+                        </Button>
                     </Form>
                 </div>
             </Topbar>

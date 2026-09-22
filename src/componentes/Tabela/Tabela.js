@@ -4,7 +4,7 @@ import style from "./Tabela.module.css"
 export function Tabela({ colunas, dados }) {
     return (
         <Table responsive className={style.tabela}>
-            <thead style={{backgroundColor: 'red'}}>
+            <thead >
                 <tr>
                     {colunas.map((coluna) => (
                         <th key={coluna.chave}>
