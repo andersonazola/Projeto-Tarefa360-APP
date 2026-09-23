@@ -162,7 +162,7 @@ export function Tarefas() {
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
-
+{/* 
                             <Form>
                                 <FormGroup controlId="formSprint" className="m-1">
                                     <Form.Control className={style.filtro_projeto}
@@ -177,7 +177,7 @@ export function Tarefas() {
                                         ))}
                                     </Form.Control>
                                 </FormGroup>
-                            </Form>
+                            </Form> */}
 
                             <Form>
                                 <FormGroup controlId="formHistoria" className="m-1">
