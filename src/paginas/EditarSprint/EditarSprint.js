@@ -7,9 +7,9 @@ import { Form } from "react-bootstrap/";
 import { MdSaveAs } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import style from './EditarSprint.module.css'
-import { Button } from "bootstrap";
-import { button } from "bootstrap"
+
 import { useAlert } from '../../componentes/Alert/AlertContext';
+import Button from "react-bootstrap/esm/Button";
 
 export function EditarSprint() {
     const { mostrarAlerta } = useAlert();
@@ -27,7 +27,7 @@ export function EditarSprint() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            await SprintAPI.atualizarAsync(id, nome, datainicio, datafim);
+            await SprintAPI.atualizarAsync(id, nome, Number(projetoSelecionado), datainicio, datafim);
             mostrarAlerta('Sprint atualizada com sucesso!', 'success', () => {
                 navigate('/sprints')
             });
@@ -108,23 +108,23 @@ export function EditarSprint() {
                         <Form.Group controlId="formDataInicio" className="mb-3">
                             <Form.Label>Data de Inicio</Form.Label>
                             <Form.Control
-                            type="date"
-                            name="datainicio"
-                            value={datainicio}
-                            onChange={(e) => setDataInicio(e.target.value)}
-                            required
+                                type="date"
+                                name="datainicio"
+                                value={datainicio}
+                                onChange={(e) => setDataInicio(e.target.value)}
+                                required
                             />
                         </Form.Group>
 
                         <Form.Group controlId="formDataFim" className="mb-3">
                             <Form.Label>Data de Fim</Form.Label>
                             <Form.Control
-                            type="date"
-                            name="datafim"
-                            value={datafim}
-                            onChange={(e) => setDataFim(e.target.value)}
-                            required
-                            min={datainicio}
+                                type="date"
+                                name="datafim"
+                                value={datafim}
+                                onChange={(e) => setDataFim(e.target.value)}
+                                required
+                                min={datainicio}
                             />
                         </Form.Group>
 

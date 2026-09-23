@@ -13,6 +13,7 @@ import { Tabela } from "../../componentes/Tabela/Tabela"
 import { render } from "@testing-library/react";
 import { useAlert } from '../../componentes/Alert/AlertContext';
 import { InputBusca } from "../../componentes/InputBusca/InputBusca";
+import ProjetoAPI from "../../services/projetoAPI";
 
 export function Sprints() {
     const { mostrarAlerta } = useAlert();
@@ -22,6 +23,9 @@ export function Sprints() {
     const [busca, setBusca] = useState("");
     const [sprint, setSprint] = useState([]);
     const [sprintSelecionado, setSprintSelecionado] = useState('');
+    const [projeto, setProjeto] = useState([]);
+    const [projetoSelecionado, setProjetoSelecionado] = useState('');
+
 
     const handleClickDeletar = (sprint) => {
         setSprintSelecionada(sprint);
@@ -57,25 +61,44 @@ export function Sprints() {
         }
     }
 
+    async function buscarProjetos() {
+        try {
+            const projetos = await ProjetoAPI.listarAsync();
+            setProjeto(projetos);
+        }
+        catch (error) {
+            console.error('Erro ao buscar projetos:', error);
+        }
+    }
+
+
+
     useEffect(() => {
         const timer = setTimeout(() => {
             buscarSprints(busca);
+
         }, 300);
+
+
 
         return () => clearTimeout(timer);
     }, [busca]);
+
+    useEffect(() => {
+        buscarProjetos();
+    }, []);
 
     const sprintsFiltradas = sprint.filter((s) =>
         sprintSelecionado === '' || s.projetoId === Number(sprintSelecionado)
     );
 
     const colunas = [
-        {chave: 'nome', titulo: 'Nome'},
-        {chave: 'nomeProjeto', titulo: 'Projeto'},
+        { chave: 'nome', titulo: 'Nome' },
+        { chave: 'nomeProjeto', titulo: 'Projeto' },
         {
             chave: 'dataInicio',
             titulo: 'Data Início',
-            render: (linha) => format(new Date (linha.dataInicio), 'dd/MM/yyyy'),
+            render: (linha) => format(new Date(linha.dataInicio), 'dd/MM/yyyy'),
         },
         {
             chave: 'dataFim',
@@ -83,19 +106,19 @@ export function Sprints() {
             render: (linha) => format(new Date(linha.dataFim), 'dd/MM/yyyy'),
         },
         {
-                chave: 'acoes',
-                titulo: 'Ações',
-                render: (linha) => (
-                    <>
-                        <Link to='/sprints/editar' state={linha.id} className={style.botao_editar}>
-                            <MdEdit />
-                        </Link>
+            chave: 'acoes',
+            titulo: 'Ações',
+            render: (linha) => (
+                <>
+                    <Link to='/sprints/editar' state={linha.id} className={style.botao_editar}>
+                        <MdEdit />
+                    </Link>
 
-                        <button onClick={() => handleClickDeletar(linha)} className={style.botao_deletar}>
-                            <MdDelete />
-                        </button>
-                    </>
-                ),
+                    <button onClick={() => handleClickDeletar(linha)} className={style.botao_deletar}>
+                        <MdDelete />
+                    </button>
+                </>
+            ),
         },
     ];
 
@@ -109,21 +132,22 @@ export function Sprints() {
                         </div>
                         <div className={style.pagina_cabecalho_botoes}>
                             <Form>
-                                <FormGroup controlId="formSprint" className="m-3">
-                                    <Form.Control className={style.filtro_sprint}
+                                <FormGroup controlId="formProjeto" className="m-3">
+                                    <Form.Control className={style.filtro_projeto}
                                         as="select"
-                                        name="sprint"
-                                        value={sprintSelecionado}
-                                        onChange={(e) => setSprintSelecionado(e.target.value)}
+                                        name="projeto"
+                                        value={projetoSelecionado}
+                                        onChange={(e) => setProjetoSelecionado(e.target.value)}
                                         required
                                     >
-                                        <option value="">Sprint </option>
-                                        {sprint.map((sprint) => (
-                                            <option key={sprint.id} value={sprint.id}> {sprint.nome}</option>
+                                        <option value="">Projeto</option>
+                                        {projeto.map((projeto) => (
+                                            <option key={projeto.id} value={projeto.id}>{projeto.nome}</option>
                                         ))}
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
+
                             <Link to='/sprints/novo' className={style.botao_novo}> + Nova</Link>
                         </div>
                     </div>

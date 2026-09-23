@@ -31,7 +31,7 @@ export function Usuarios() {
     const handleDeletar = async () => { // Usada quando confirmada a opção de deletar
         try {
             await UsuarioAPI.deletarAsync(usuarioSelecionado.id, usuarioLogin.id);
-            setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Ysanado filtro para uma listagem mais rápida
+            setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Usando filtro para uma listagem mais rápida
             mostrarAlerta('Usuário excluído com sucesso!', 'success');
         } catch (error) {
             console.error("Erro ao deletar usuário:", error);
@@ -45,9 +45,9 @@ export function Usuarios() {
         setUsuarioSelecionado(null);
     };
 
-    async function carregarUsuarios(filtro) {
+    async function carregarUsuarios(filtro, usuarioLoginId) {
         try {
-            const listaUsuarios = await UsuarioAPI.listarAsync(true, usuarioLogin.id);
+            const listaUsuarios = await UsuarioAPI.buscaAsync(filtro, usuarioLoginId.id);
             setUsuarios(listaUsuarios);
         } catch (error) {
             console.error("Erro ao carregar usuários:", error);
@@ -56,7 +56,7 @@ export function Usuarios() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            carregarUsuarios(busca);
+            carregarUsuarios(busca, usuarioLogin);
         }, 300);
 
         return () => clearTimeout(timer);
@@ -109,7 +109,7 @@ export function Usuarios() {
                             Tem certeza que deseja deletar o usuário {usuarioSelecionado?.nome}?
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variante="secondary" onClick={handleFecharModal}>
+                            <Button variant="secondary" onClick={handleFecharModal}>
                                 Cancelar
                             </Button>
                             <Button variant="danger" onClick={handleDeletar}>

@@ -129,9 +129,9 @@ export function Tarefas() {
                     <MdEdit />
                 </Link>
 
-                <Button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
+                <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
                     <MdDelete />
-                </Button>
+                </button>
                 </>
             ),
         },
@@ -162,7 +162,7 @@ export function Tarefas() {
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
-
+{/* 
                             <Form>
                                 <FormGroup controlId="formSprint" className="m-1">
                                     <Form.Control className={style.filtro_projeto}
@@ -177,7 +177,7 @@ export function Tarefas() {
                                         ))}
                                     </Form.Control>
                                 </FormGroup>
-                            </Form>
+                            </Form> */}
 
                             <Form>
                                 <FormGroup controlId="formHistoria" className="m-1">
@@ -219,7 +219,7 @@ export function Tarefas() {
                             <Button variant="secondary" onClick={handleFecharModal}>
                                 Cancelar
                             </Button>
-                            <Button variant="dark" onClick={handleDeletar}>
+                            <Button variant="danger" onClick={handleDeletar}>
                                 Deletar
                             </Button>
                         </ModalFooter>
