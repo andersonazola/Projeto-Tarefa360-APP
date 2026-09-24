@@ -7,11 +7,13 @@ export function Alert({ mensagem, tipo = 'success', visivel, onFechar}) {
     const classeTipo = styles[tipo] || styles.success;
 
     return (
-        <div className={`${styles.alerta_container} ${classeTipo}`}>
+        <div 
+            className={`${styles.alerta_container} ${classeTipo}`}
+            onClick={onFechar}
+            title="Clique para fechar"
+            style={{cursor: 'pointer'}}
+        >
             <span>{mensagem}</span>
-            <button className={styles.botao_ok} onClick={onFechar}>
-                OK
-            </button>
-        </div>
-    )
+        </div>    
+    );
 }
