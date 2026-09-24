@@ -35,9 +35,8 @@ export function Sidebar({ children }) {
                             className={style.perfil_avatar} 
                             />                            
                             
-                            <span className={style.perfil_nome}>{nomeUsuario}</span>
-                        </div>
-                        <HiArrowRight className={style.perfil_seta} />
+                            <h3 className={style.perfil_nome}>{nomeUsuario}</h3>
+                        </div>                        
                     </div>
 
                     <hr className={style.linha} />

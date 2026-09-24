@@ -36,7 +36,7 @@ export function AlertProvider({ children }) {
             if (aoConfirmar){
                 aoConfirmar();
             }
-        }, 3500);        
+        }, 2000);        
     };
 
     // Fecha o alerta ao clicar no OK
