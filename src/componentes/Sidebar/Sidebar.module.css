@@ -33,3 +33,57 @@
         color: rgba(250, 234, 214, 0.4);
     }
 }
+
+/* Aqui começa customização do Person Icon */
+
+/* Container do perfil */
+.perfil_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+/* Agrupa o ícone e o nome */
+.perfil_info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+/* Nome do usuário */
+.perfil_nome {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+/* Seta para a direita */
+.perfil_seta {
+    font-size: 20px;
+    color: #ffffff;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.perfil_seta:hover {
+    transform: translateX(3px);
+}
+
+.perfil_avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
