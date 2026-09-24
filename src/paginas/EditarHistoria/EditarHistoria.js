@@ -78,7 +78,7 @@ export function EditarHistoria() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <h3> Editar história</h3>
+                    <h3>Editar História</h3>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formNome" className="mb-3">
                             <Form.Label>Nome</Form.Label>

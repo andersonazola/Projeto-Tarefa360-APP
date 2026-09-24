@@ -7,6 +7,8 @@ import ProjetoAPI from "../../services/projetoAPI";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import { useAlert } from '../../componentes/Alert/AlertContext';
+import { MdSaveAs } from "react-icons/md";
+
 
 export function EditarProjeto() {
     const { mostrarAlerta } = useAlert();
@@ -44,7 +46,7 @@ export function EditarProjeto() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <h3>Projetos</h3>
+                    <h3>Editar Projeto</h3>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formNome" className="mb-3">
                             <Form.Label>Nome</Form.Label>
@@ -74,7 +76,10 @@ export function EditarProjeto() {
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
-                            Salvar
+                            <div className={style.botao_salvar}>
+                                <MdSaveAs />
+                                Salvar
+                            </div>
                         </Button>
                     </Form>
                 </div>
