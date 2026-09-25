@@ -4,16 +4,26 @@ import style from "./Tabela.module.css"
 export function Tabela({ colunas, dados }) {
     return (
         <Table responsive className={style.tabela}>
-            <thead >
-                <tr>
-                    {colunas.map((coluna) => (
-                        <th key={coluna.chave}>
-                            {coluna.titulo}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
+            <colgroup>
+            {colunas.map((coluna) => (
+                <col
+                    key={coluna.chave}
+                    style={{width: coluna.largura || "auto"}}
+                    />
+                    ))}                  
+            </colgroup>
  
+            
+                <thead>
+                    <tr>
+                        {colunas.map((coluna) => (
+                            <th key={coluna.chave}>
+                                {coluna.titulo}
+                            </th>
+                        ))} 
+                    </tr>
+                </thead>
+                
             <tbody className={style.corpo}>
                 {dados.map((linha) => (
                     <tr key={linha.id}>

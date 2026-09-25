@@ -192,14 +192,11 @@ export function Tarefas() {
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
-                            <Link to='/tarefa/novo' className={style.botao_novo}>+ Novo</Link>
+                            <Link to='/tarefa/novo' className={style.botao_novo}>+ Nova</Link>
                         </div>
                     </div>
                     <div className={style.barra_opcoes}>
                         <InputBusca filtro={busca} aoDigitar={setBusca} />
-                        {busca && (
-                            <MdClose onClick={() => setBusca('')} className={style.botao_limpar_busca} />
-                        )}
                     </div>
 
                     <div className={style.tabela}>
