@@ -70,7 +70,7 @@ export function NovaSprint () {
                             onChange={(e) => setNome(e.target.value)}
                             required
                             minLenght={3}
-                            maxLenght={100}
+                            maxLenght={60}
                             />
                         </Form.Group>
 
