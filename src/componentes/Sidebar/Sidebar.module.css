@@ -4,11 +4,9 @@
     position: fixed;
     top: 0;
     bottom: 0;
-
+    left: 0;
     width: 20%;
     height: 100%;
-
-
     overflow: hidden;
     flex-wrap: wrap;
 }
@@ -19,7 +17,6 @@
 
 .sidebar_header {
     justify-content: center;
-
     text-align: center;
 
 
@@ -31,5 +28,22 @@
 
     & .linha {
         color: rgba(250, 234, 214, 0.4);
+    }
+}
+
+@media (max-width : 768px)
+{
+    .logo
+    {
+        display: none;
+    }
+    .sidebar_conteudo
+    {
+        width: 70px;
+    }
+
+    .pagina_conteudo
+    {
+        margin-left: 100px;
     }
 }

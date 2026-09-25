@@ -6,6 +6,7 @@ import { GiWhiteBook } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { PiChartDonutFill } from "react-icons/pi";
 import { PiClipboardTextBold } from "react-icons/pi";
+import { MdDashboard } from "react-icons/md";
 
 export function Sidebar({ children }) {
 
@@ -31,11 +32,12 @@ export function Sidebar({ children }) {
                 {tipoUsuario === 0 ? 
                 (
                     <div className={style.sidebar_corpo}>
-                        <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
-                        <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
-                        <SidebarItem texto="Histórias" link="/historias" logo={<GiWhiteBook />} />
-                        <SidebarItem texto="Sprints" link="/sprints" logo={<PiChartDonutFill/>} />
-                        <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold/>} />
+                        <SidebarItem texto="Dashboard" link="/dashboard" alt="Dashboard" logo={<MdDashboard />} />
+                        <SidebarItem texto="Usuarios" link="/usuarios" alt="Dashboard" logo={<MdGroup />} />
+                        <SidebarItem texto="Projetos" link="/projetos" alt="Dashboard" logo={<MdFolder />} />
+                        <SidebarItem texto="Histórias" link="/historias" alt="Dashboard" logo={<GiWhiteBook />} />
+                        <SidebarItem texto="Sprints" link="/sprints" alt="Dashboard" logo={<PiChartDonutFill/>} />
+                        <SidebarItem texto="Tarefas" link="/tarefas" alt="Dashboard" logo={<PiClipboardTextBold/>} />
                     </div>
                 ) 
                 : 

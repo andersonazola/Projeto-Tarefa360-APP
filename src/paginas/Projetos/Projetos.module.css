@@ -23,6 +23,7 @@
 .botao_editar {
     text-decoration: none;
 }
+
 .botao_deletar {
     border: none;
     background: none;
@@ -59,7 +60,20 @@
 
     border: 1px solid #ccc;
     border-radius: 5px;
-    
+
     width: 300px;
     font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }

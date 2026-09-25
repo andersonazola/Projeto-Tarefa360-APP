@@ -32,3 +32,9 @@
     height: 1.5em;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+}

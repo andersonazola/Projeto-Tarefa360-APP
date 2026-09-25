@@ -1,5 +1,5 @@
-.topbar_conteudo{
-    background-color:  #f1f1f1;
+.topbar_conteudo {
+    background-color: #f1f1f1;
 
     position: fixed;
     top: 0;
@@ -18,14 +18,14 @@
     z-index: 100;
 }
 
-.area_centro_topo{
+.area_centro_topo {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 
-.pagina_conteudo{
+.pagina_conteudo {
     margin-top: 10vh;
 }
 
@@ -39,5 +39,13 @@
     align-items: center;
 
     margin-right: 20px;
-} 
+}
 
+@media (max-width: 768px) 
+{
+    .topbar_conteudo 
+    {
+        left: 70.5px;
+        width: auto;
+    }
+}

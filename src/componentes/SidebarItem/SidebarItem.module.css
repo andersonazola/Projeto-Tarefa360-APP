@@ -1,11 +1,7 @@
 .sidebar_item {
     text-decoration: none;
-
     display: flex;
     margin: 20px;
-    
-
-
     color: #e7e7e7;
 
 
@@ -14,16 +10,24 @@
         height: 44px;
     }
 
-
     & .texto_link {
-        margin-bottom: 10px;
-        margin-left: 0.5rem;
-
-        line-height: 1.5;
+        margin: 10px;
     }
 
     &:hover {
         color: #f08830;
-        /* quando passar o mouse encima, muda de cor */
+    }
+}
+
+@media (max-width : 768px)
+{
+    .texto_link
+    {
+        display: none;
+    }
+
+    .sidebar_item
+    {
+        justify-content: center;
     }
 }
