@@ -85,7 +85,7 @@ export function EditarSprint() {
                                 onChange={(e) => setNome(e.target.value)}
                                 required
                                 minLength={3}
-                                maxLength={100}
+                                maxLength={60}
                             />
                         </Form.Group>
 
