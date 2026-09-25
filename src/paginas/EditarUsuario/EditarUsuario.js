@@ -72,8 +72,8 @@ export function EditarUsuario() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <h3>Editar Usuário</h3>
-                    <Form onSubmit={handleSubmit}>
+                    <h3>Editar Usuario</h3>
+                    <Form onSubmit={handleSubmit} className={style.formulario}>
                         <Form.Group controlId="formNome" className="mb-3">
                             <Form.Label>Nome</Form.Label>
                             <Form.Control
