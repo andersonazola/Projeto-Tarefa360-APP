@@ -29,18 +29,20 @@
 }
 
 .pagina_cabecalho {
-    display: flex;    
+    display: flex;
     justify-content: space-between;
 
     & .botao_novo {
         text-decoration: none;
+
         color: white;
+
         padding: 10px;
         padding-left: 20px;
         padding-right: 20px;
+
         border-radius: 10px;
         background-color: #f08830;
-        cursor: pointer;
     }
 }
 

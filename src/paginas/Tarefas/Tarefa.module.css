@@ -29,22 +29,21 @@
 }
 
 .pagina_cabecalho {
-    display: flex;    
+    display: flex;
     justify-content: space-between;
 
-    & .botao_novo {        
+    & .botao_novo {
         text-decoration: none;
+
         color: white;
+
         padding: 10px;
         padding-left: 20px;
         padding-right: 20px;
+
         border-radius: 10px;
         background-color: #f08830;
     }
-}
-
-.campo_busca {
-    margin-top: 20px;
 }
 
 .pagina_cabecalho_botoes {
@@ -53,10 +52,14 @@
     gap: 15px;
 }
 
+.campo_busca {
+    margin-top: 20px;
+}
+
 .filtro_projeto {
 
     padding: 10px 14px;
-    min-width: 170px;    
+    min-width: 170px;
     font-size: 14px;
     background-color: white;
     border-radius: 5px;
