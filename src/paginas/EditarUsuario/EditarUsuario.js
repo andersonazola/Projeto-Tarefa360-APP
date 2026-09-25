@@ -82,6 +82,7 @@ export function EditarUsuario() {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                maxLength={70}
                                 required
                             />
                         </Form.Group>
@@ -95,6 +96,7 @@ export function EditarUsuario() {
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                maxLength={40}
                                 required
                             />
                         </Form.Group>

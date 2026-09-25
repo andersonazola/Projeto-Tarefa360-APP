@@ -7,7 +7,7 @@ export function InputBusca({ filtro, aoDigitar, maxLenght}) {
             placeholder="Buscar..."
             value={filtro}
             onChange={(e) => aoDigitar(e.target.value)}
-            maxLength={(maxLenght ? maxLenght : 100)}
+            maxLength={(maxLenght ? maxLenght : 50)}
             className={style.input_busca}
         />
     )
