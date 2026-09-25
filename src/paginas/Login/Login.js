@@ -39,14 +39,16 @@ export function Login() {
 
             if (response?.status === 200) {
                 localStorage.setItem("usuario", JSON.stringify(response.data));
-                navigate("/dashboard");
+                mostrarAlerta(`Bem-vindo, ${response.data.nome}!`, 'success', () =>{
+                    navigate("/dashboard");
+                });               
             }
         }
         catch (error) 
         {
-            if (error.response?.status === 404) 
+            if (error.response?.status === 400) 
             {
-                mostrarAlerta("Usuário não encontrado, é necessário solicitar ao Admin responsável que realize o cadastro desse usuário.", "danger");
+                mostrarAlerta("Usuário não encontrado, entre em contato com o seu Administrador para realizar o cadastro.", "danger");
                 setEmail("");
                 setSenha("");
             }

@@ -35,12 +35,12 @@
     padding: 8px;
     width: 17px;
     border: 1px solid #ced4da;
-    border-radius: 20px; 
+    border-radius: 20px;
     font-size: 14px;
     min-width: 260px;
     outline: none;
     background-color: #ffffff;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .select_topo:focus {
@@ -66,10 +66,10 @@
 
 .area_ia {
     background-color: #ffffff;
-    border-radius: 20px; 
+    border-radius: 20px;
     padding: 24px 28px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    
+
 
     width: 100%;
     box-sizing: border-box;
@@ -112,10 +112,10 @@
 
 .caixa_resumo_ia {
     background-color: #f8fafc;
-    
+
     border-radius: 8px;
     padding: 16px 20px;
-    
+
 }
 
 .caixa_resumo_ia p {
@@ -129,4 +129,17 @@
 .texto_placeholder {
     color: #94a3b8;
     font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }

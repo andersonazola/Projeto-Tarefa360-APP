@@ -89,7 +89,7 @@ export function Sprints() {
     }, []);
 
     const sprintsFiltradas = sprint.filter((s) =>
-        sprintSelecionado === '' || s.projetoId === Number(sprintSelecionado)
+        projetoSelecionado === '' || s.projetoId === Number(projetoSelecionado)
     );
 
     const colunas = [
@@ -126,13 +126,11 @@ export function Sprints() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <div className={style.pagina_cabecalho}>
-                        <div>
-                            <h3>Sprints</h3>
-                        </div>
+                    <div className={style.pagina_cabecalho}>                        
+                            <h3>Sprints</h3>                        
                         <div className={style.pagina_cabecalho_botoes}>
                             <Form>
-                                <FormGroup controlId="formProjeto" className="m-3">
+                               <FormGroup controlId="formProjeto">
                                     <Form.Control className={style.filtro_projeto}
                                         as="select"
                                         name="projeto"
@@ -141,8 +139,8 @@ export function Sprints() {
                                         required
                                     >
                                         <option value="">Projeto</option>
-                                        {projeto.map((projeto) => (
-                                            <option key={projeto.id} value={projeto.id}>{projeto.nome}</option>
+                                        {projeto.map((p) => (
+                                            <option key={p.id} value={p.id}>{p.nome}</option>
                                         ))}
                                     </Form.Control>
                                 </FormGroup>
@@ -156,7 +154,7 @@ export function Sprints() {
                     </div>
 
                     <div className={style.tabela}>
-                        <Tabela colunas={colunas} dados={sprint} />
+                        <Tabela colunas={colunas} dados={sprintsFiltradas} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>

@@ -87,7 +87,8 @@ export function Tarefas() {
 
     async function buscarSprints() {
         try {
-            const sprints = await SprintAPI.listarAsync(); 
+            const sprints = await SprintAPI.listarAsync();
+            setSprint(sprints);
         }
         catch (error) {
             console.error('Erro ao buscar sprint:', error);
@@ -114,24 +115,24 @@ export function Tarefas() {
         const filtroHistoria = historiaSelecionada === '' || tarefa.historiaId === Number(historiaSelecionada);
         const filtroSprint = sprintSelecionada === '' || tarefa.sprintId === Number(sprintSelecionada);
         const filtroProjeto = projetoSelecionado === '' || tarefa.projetoId === Number(projetoSelecionado);   // linha adicionada
-        return filtroHistoria && filtroSprint && filtroProjeto;  
+        return filtroHistoria && filtroSprint && filtroProjeto;
     });
 
     const colunas = [
-        {chave: 'nome', titulo: 'Nome'},
-        {chave: 'nomeUsuario', titulo: 'Responsável'},
+        { chave: 'nome', titulo: 'Nome' },
+        { chave: 'nomeUsuario', titulo: 'Responsável' },
         {
             chave: 'acoes',
             titulo: 'Ações',
             render: (tarefa) => (
                 <>
-                <Link to='/tarefa/editar' state={tarefa.id} className={style.botao_editar}>
-                    <MdEdit />
-                </Link>
+                    <Link to='/tarefa/editar' state={tarefa.id} className={style.botao_editar}>
+                        <MdEdit />
+                    </Link>
 
-                <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
-                    <MdDelete />
-                </button>
+                    <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
+                        <MdDelete />
+                    </button>
                 </>
             ),
         },
@@ -143,12 +144,10 @@ export function Tarefas() {
             <Topbar>
                 <div className={style.pagina_conteudo}>
                     <div className={style.pagina_cabecalho}>
-                        <div>
-                            <h3>Tarefas</h3>
-                        </div>
+                        <h3>Tarefas</h3>
                         <div className={style.pagina_cabecalho_botoes}>
                             <Form>
-                                <FormGroup controlId="formProjeto" className="m-1">
+                                <FormGroup controlId="formProjeto">
                                     <Form.Control className={style.filtro_projeto}
                                         as="select"
                                         name="projeto"
@@ -162,7 +161,7 @@ export function Tarefas() {
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
-{/* 
+                            {/* 
                             <Form>
                                 <FormGroup controlId="formSprint" className="m-1">
                                     <Form.Control className={style.filtro_projeto}
@@ -194,18 +193,15 @@ export function Tarefas() {
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
-                            <Link to='/tarefa/novo' className={style.botao_novo}>+ Novo</Link>
+                            <Link to='/tarefa/novo' className={style.botao_novo}>+ Nova</Link>
                         </div>
                     </div>
                     <div className={style.barra_opcoes}>
                         <InputBusca filtro={busca} aoDigitar={setBusca} />
-                        {busca && (
-                            <MdClose onClick={() => setBusca('')} className={style.botao_limpar_busca} />
-                        )}
                     </div>
 
                     <div className={style.tabela}>
-                       <Tabela colunas={colunas} dados={tarefasFiltradas} />
+                        <Tabela colunas={colunas} dados={tarefasFiltradas} />
                     </div>
 
                     <Modal show={mostraModal} onHide={handleFecharModal}>

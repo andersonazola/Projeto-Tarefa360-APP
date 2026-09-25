@@ -4,7 +4,8 @@
     padding: 50px;
 }
 
-.botao_salvar{    
+.botao_salvar
+{    
     margin: 10px;
     display: flex;
     align-items: center;
@@ -26,4 +27,10 @@
 .descricao_caixa_alta{
     height: 100px;
     resize: vertical;
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
 }

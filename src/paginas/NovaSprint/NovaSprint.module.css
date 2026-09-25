@@ -13,3 +13,9 @@
     height: 5px;
 
 }
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+}

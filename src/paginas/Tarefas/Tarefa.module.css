@@ -30,36 +30,36 @@
 
 .pagina_cabecalho {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 
     & .botao_novo {
-        margin: 8px;
         text-decoration: none;
+
         color: white;
+
         padding: 10px;
         padding-left: 20px;
         padding-right: 20px;
+
         border-radius: 10px;
         background-color: #f08830;
     }
+}
+
+.pagina_cabecalho_botoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .campo_busca {
     margin-top: 20px;
 }
 
-.pagina_cabecalho_botoes {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-}
-
 .filtro_projeto {
 
-    padding: 14px;
+    padding: 10px 14px;
     min-width: 170px;
-    text-align: center;
     font-size: 14px;
     background-color: white;
     border-radius: 5px;
@@ -72,4 +72,17 @@
     align-items: center;
     gap: 6px;
     margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }

@@ -30,7 +30,6 @@
 
 .pagina_cabecalho {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 
     & .botao_novo {
@@ -41,21 +40,19 @@
         padding-right: 20px;
         border-radius: 10px;
         background-color: #f08830;
-        cursor: pointer;
     }
 }
 
 .pagina_cabecalho_botoes {
     display: flex;
     align-items: center;
-    justify-content: right;
+    gap: 15px;
 }
 
 .filtro_projeto {
 
-    padding: 14px;
-    min-width: 170px;
-    text-align: center;
+    padding: 10px 14px;
+    min-width: 170px;    
     font-size: 14px;
     background-color: white;
     border-radius: 5px;
@@ -72,4 +69,17 @@
     align-items: center;
     gap: 6px;
     margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }
