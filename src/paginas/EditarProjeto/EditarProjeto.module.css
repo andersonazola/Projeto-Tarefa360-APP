@@ -4,7 +4,18 @@
     padding: 50px;
 }
 
-@media (max-width: 768px) {
+.botao_salvar 
+{    
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;    
+    height: 5px;
+}
+
+@media (max-width: 768px) 
+{
     .pagina_conteudo {
         padding: 20px;
     }

@@ -142,13 +142,11 @@ export function Tarefas() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <div className={style.pagina_cabecalho}>
-                        <div>
-                            <h3>Tarefas</h3>
-                        </div>
+                    <div className={style.pagina_cabecalho}>                        
+                            <h3>Tarefas</h3>                        
                         <div className={style.pagina_cabecalho_botoes}>
                             <Form>
-                                <FormGroup controlId="formProjeto" className="m-1">
+                                <FormGroup controlId="formProjeto">
                                     <Form.Control className={style.filtro_projeto}
                                         as="select"
                                         name="projeto"

@@ -29,8 +29,7 @@
 }
 
 .pagina_cabecalho {
-    display: flex;
-    align-items: center;
+    display: flex;    
     justify-content: space-between;
 
     & .botao_novo {
@@ -48,14 +47,13 @@
 .pagina_cabecalho_botoes {
     display: flex;
     align-items: center;
-    justify-content: right;
+    gap: 15px;
 }
 
 .filtro_projeto {
 
-    padding: 14px;
-    min-width: 170px;
-    text-align: center;
+    padding: 10px 14px;
+    min-width: 170px;    
     font-size: 14px;
     background-color: white;
     border-radius: 5px;

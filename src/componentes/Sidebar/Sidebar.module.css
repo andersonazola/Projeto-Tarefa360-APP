@@ -15,7 +15,8 @@
     margin-left: 20%;
 }
 
-.sidebar_header {
+.sidebar_header 
+{
     justify-content: center;
     text-align: center;
 
@@ -29,6 +30,44 @@
     & .linha {
         color: rgba(250, 234, 214, 0.4);
     }
+}
+
+.perfil_container 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;    
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.perfil_info 
+{
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.perfil_nome 
+{
+    font-size: 22px;    
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.perfil_avatar 
+{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
 }
 
 @media (max-width : 768px)
@@ -45,5 +84,15 @@
     .pagina_conteudo
     {
         margin-left: 100px;
+    }
+
+    .perfil_nome
+    {
+        display: none;
+    }
+
+    .perfil_avatar
+    {
+        align-items: center;
     }
 }
