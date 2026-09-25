@@ -6,6 +6,7 @@ import { GiWhiteBook } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { PiChartDonutFill } from "react-icons/pi";
 import { PiClipboardTextBold } from "react-icons/pi";
+import { MdDashboard } from "react-icons/md";
 import { HiArrowRight } from "react-icons/hi";
 
 export function Sidebar({ children }) {
@@ -42,26 +43,27 @@ export function Sidebar({ children }) {
                     <hr className={style.linha} />
                 </div>
 
-                {tipoUsuario === 0 ?
-                    (
-
-                        <div className={style.sidebar_corpo}>
-                            <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
-                            <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
-                            <SidebarItem texto="Histórias" link="/historias" logo={<GiWhiteBook />} />
-                            <SidebarItem texto="Sprints" link="/sprints" logo={<PiChartDonutFill />} />
-                            <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold />} />
-                        </div>
-                    )
-                    :
-                    (
-                        <div className={style.sidebar_corpo}>
-                            <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
-                            <SidebarItem texto="Histórias" link="/historias" logo={<GiWhiteBook />} />
-                            <SidebarItem texto="Sprints" link="/sprints" logo={<PiChartDonutFill />} />
-                            <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold />} />
-                        </div>
-                    )}
+                {tipoUsuario === 0 ? 
+                (
+                    <div className={style.sidebar_corpo}>
+                        <SidebarItem texto="Dashboard" link="/dashboard" alt="Dashboard" logo={<MdDashboard />} />
+                        <SidebarItem texto="Usuarios" link="/usuarios" logo={<MdGroup />} />
+                        <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
+                        <SidebarItem texto="Histórias" link="/historias" logo={<GiWhiteBook />} />
+                        <SidebarItem texto="Sprints" link="/sprints" logo={<PiChartDonutFill/>} />
+                        <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold/>} />
+                    </div>
+                ) 
+                : 
+                (
+                    <div className={style.sidebar_corpo}>
+                        <SidebarItem texto="Dashboard" link="/dashboard" logo={<MdDashboard />} />
+                        <SidebarItem texto="Projetos" link="/projetos" logo={<MdFolder />} />
+                        <SidebarItem texto="Histórias" link="/historias" logo={<GiWhiteBook />} />
+                        <SidebarItem texto="Sprints" link="/sprints" logo={<PiChartDonutFill/>} />
+                        <SidebarItem texto="Tarefas" link="/tarefas" logo={<PiClipboardTextBold/>} />
+                    </div>
+                )}
 
             </div>
 

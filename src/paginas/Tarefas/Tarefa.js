@@ -87,7 +87,8 @@ export function Tarefas() {
 
     async function buscarSprints() {
         try {
-            const sprints = await SprintAPI.listarAsync(); 
+            const sprints = await SprintAPI.listarAsync();
+            setSprint(sprints);
         }
         catch (error) {
             console.error('Erro ao buscar sprint:', error);
@@ -114,24 +115,24 @@ export function Tarefas() {
         const filtroHistoria = historiaSelecionada === '' || tarefa.historiaId === Number(historiaSelecionada);
         const filtroSprint = sprintSelecionada === '' || tarefa.sprintId === Number(sprintSelecionada);
         const filtroProjeto = projetoSelecionado === '' || tarefa.projetoId === Number(projetoSelecionado);   // linha adicionada
-        return filtroHistoria && filtroSprint && filtroProjeto;  
+        return filtroHistoria && filtroSprint && filtroProjeto;
     });
 
     const colunas = [
-        {chave: 'nome', titulo: 'Nome'},
-        {chave: 'nomeUsuario', titulo: 'Responsável'},
+        { chave: 'nome', titulo: 'Nome' },
+        { chave: 'nomeUsuario', titulo: 'Responsável' },
         {
             chave: 'acoes',
             titulo: 'Ações',
             render: (tarefa) => (
                 <>
-                <Link to='/tarefa/editar' state={tarefa.id} className={style.botao_editar}>
-                    <MdEdit />
-                </Link>
+                    <Link to='/tarefa/editar' state={tarefa.id} className={style.botao_editar}>
+                        <MdEdit />
+                    </Link>
 
-                <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
-                    <MdDelete />
-                </button>
+                    <button onClick={() => handleClickDeletar(tarefa)} className={style.botao_deletar}>
+                        <MdDelete />
+                    </button>
                 </>
             ),
         },
@@ -142,8 +143,8 @@ export function Tarefas() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <div className={style.pagina_cabecalho}>                        
-                            <h3>Tarefas</h3>                        
+                    <div className={style.pagina_cabecalho}>
+                        <h3>Tarefas</h3>
                         <div className={style.pagina_cabecalho_botoes}>
                             <Form>
                                 <FormGroup controlId="formProjeto">
@@ -160,7 +161,7 @@ export function Tarefas() {
                                     </Form.Control>
                                 </FormGroup>
                             </Form>
-{/* 
+                            {/* 
                             <Form>
                                 <FormGroup controlId="formSprint" className="m-1">
                                     <Form.Control className={style.filtro_projeto}
@@ -200,7 +201,7 @@ export function Tarefas() {
                     </div>
 
                     <div className={style.tabela}>
-                       <Tabela colunas={colunas} dados={tarefasFiltradas} />
+                        <Tabela colunas={colunas} dados={tarefasFiltradas} />
                     </div>
 
                     <Modal show={mostraModal} onHide={handleFecharModal}>

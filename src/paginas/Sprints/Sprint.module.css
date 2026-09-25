@@ -72,4 +72,21 @@
     align-items: center;
     gap: 6px;
     margin-top: 20px;
+
+    & form {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }
