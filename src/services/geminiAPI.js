@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const GEMINI_API_KEY = "AQ.Ab8RN6K9FsLVte9JD1pPRkoDQhrPsvJwujXR2jB5k6lwmt1NZA";
+const GEMINI_API_KEY = "";
 
 const GeminiAPI = {
     async gerarResumoDashboardAsync(nomeProjeto, dados) {
