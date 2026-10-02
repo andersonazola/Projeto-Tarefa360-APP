@@ -1,0 +1,21 @@
+.pagina_conteudo {
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+}
+
+.botao_salvar {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+    height: 5px;
+
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+}

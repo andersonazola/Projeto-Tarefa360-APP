@@ -1,0 +1,10 @@
+.input_busca {
+    justify-content: flex-start;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 14px;
+    box-sizing: border-box;
+    cursor: pointer;
+}

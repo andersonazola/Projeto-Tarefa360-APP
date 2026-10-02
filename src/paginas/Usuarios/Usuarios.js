@@ -8,14 +8,19 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import UsuarioAPI from "../../services/usuarioAPI";
-
+import { Tabela } from "../../componentes/Tabela/Tabela";
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function Usuarios() {
+    const { mostrarAlerta } = useAlert();
+    const [busca, setBusca] = useState("");
 
     const [usuarios, setUsuarios] = useState([]);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
 
+    const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
     const handleClickDeletar = (usuario) => {
         setUsuarioSelecionado(usuario) // vai pegar o usuário selecionado e mandar para o state de usuárioSelecionado e setar o mostraModal para true.
@@ -25,8 +30,9 @@ export function Usuarios() {
 
     const handleDeletar = async () => { // Usada quando confirmada a opção de deletar
         try {
-            await UsuarioAPI.deletarAsync(usuarioSelecionado.id);
-            setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Ysanado filtro para uma listagem mais rápida
+            await UsuarioAPI.deletarAsync(usuarioSelecionado.id, usuarioLogin.id);
+            setUsuarios(usuarios.filter(u => u.id !== usuarioSelecionado.id)); // Usando filtro para uma listagem mais rápida
+            mostrarAlerta('Usuário excluído com sucesso!', 'success');
         } catch (error) {
             console.error("Erro ao deletar usuário:", error);
         } finally {
@@ -39,23 +45,44 @@ export function Usuarios() {
         setUsuarioSelecionado(null);
     };
 
-
-
-
-
-    async function carregarUsuarios() {
+    async function carregarUsuarios(filtro, usuarioLoginId) {
         try {
-            const listaUsuarios = await UsuarioAPI.listarAsync(true);
+            const listaUsuarios = await UsuarioAPI.buscaAsync(filtro, usuarioLoginId.id);
             setUsuarios(listaUsuarios);
         } catch (error) {
             console.error("Erro ao carregar usuários:", error);
         }
     }
 
-    useEffect(() => { // Para toda vez que a página for redenrizada chama a função e a lista seja carregue novamente.
-        carregarUsuarios();
-    }, []);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            carregarUsuarios(busca, usuarioLogin);
+        }, 300);
 
+        return () => clearTimeout(timer);
+    }, [busca]);
+
+
+        const colunas = [
+            { chave: 'nome', titulo: 'Nome'},
+            { chave: 'email', titulo: 'Email'},
+            {
+                chave: 'acoes',
+                titulo: 'Ações',
+
+                render: (usuario) => (
+                    <>
+                        <Link to='/usuario/editar' state={usuario.id} className={style.botao_editar}>
+                            <MdEdit />
+                        </Link>
+
+                        <button onClick={() => handleClickDeletar (usuario)} className={style.botao_deletar}>
+                            <MdDelete />
+                        </button>
+                    </>
+                ),
+            },
+        ];
 
     return (
         <Sidebar>
@@ -66,33 +93,12 @@ export function Usuarios() {
                         <Link to='/usuario/novo' className={style.botao_novo}>+ Novo</Link>
                     </div>
 
-                    <div className={style.tabela}>
-                        <Table responsive>
-                            <thead className={style.tabela_cabecalho}>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody className={style.tabela_corpo}>
-                                {usuarios.map((usuario) => (
+                    <div className={style.campo_busca}>
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
+                    </div>
 
-                                    <tr key={usuario.id}>
-                                        <td>{usuario.nome}</td>
-                                        <td>{usuario.email}</td>
-                                        <td>
-                                            <Link to='/usuario/editar' state={usuario.id} className={style.botaoo_editar}>
-                                                <MdEdit />
-                                            </Link>
-                                            <button onClick={() => handleClickDeletar(usuario)} className={style.botao_deletar}>
-                                                <MdDelete />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                    <div className={style.tabela}>
+                        <Tabela colunas={colunas} dados={usuarios} />
                     </div>
 
                     <Modal show={mostrarModal} onHide={handleFecharModal}>
@@ -103,7 +109,7 @@ export function Usuarios() {
                             Tem certeza que deseja deletar o usuário {usuarioSelecionado?.nome}?
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variante="secondary" onClick={handleFecharModal}>
+                            <Button variant="secondary" onClick={handleFecharModal}>
                                 Cancelar
                             </Button>
                             <Button variant="danger" onClick={handleDeletar}>
@@ -117,4 +123,3 @@ export function Usuarios() {
         </Sidebar>
     )
 }
-

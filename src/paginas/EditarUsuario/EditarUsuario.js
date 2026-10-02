@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import UsuarioAPI from "../../services/usuarioAPI";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
-
+import { useAlert } from '../../componentes/Alert/AlertContext';
+import { MdSaveAs } from "react-icons/md";
 
 
 
 export function EditarUsuario() {
+    const { mostrarAlerta } = useAlert();
+
     const location = useLocation(); // usado para pegar alguma informação que foi passada na rota, nesse caso a identificar o ID de qual usuario irá ser editado
     const navigate = useNavigate();
 
@@ -21,14 +24,15 @@ export function EditarUsuario() {
     const [tipoUsuario, setTipoUsuario] = useState('');
     const [TiposUsuarios, setTipoUsuarios] = useState([]);
 
+    const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            await UsuarioAPI.atualizarAsync(id, nome, email, tipoUsuario);
+            await UsuarioAPI.atualizarAsync(id, nome, email, tipoUsuario, usuarioLogin.id);
             navigate('/usuarios')
         } else {
-            alert('Por favor, preencha todos os campos.');
+            mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
     };
 
@@ -46,7 +50,7 @@ export function EditarUsuario() {
 
         const buscarDadosUsuario = async () => {
             try {
-                const usuario = await UsuarioAPI.obterAsync(id);
+                const usuario = await UsuarioAPI.obterAsync(id, usuarioLogin.id);
                 setTipoUsuario(usuario.tipoUsuario)
                 setNome(usuario.nome)
                 setEmail(usuario.email)
@@ -68,8 +72,8 @@ export function EditarUsuario() {
         <Sidebar>
             <Topbar>
                 <div className={style.pagina_conteudo}>
-                    <h3> Editar Usuário</h3>
-                    <Form onSubmit={handleSubmit}>
+                    <h3>Editar Usuario</h3>
+                    <Form onSubmit={handleSubmit} className={style.formulario}>
                         <Form.Group controlId="formNome" className="mb-3">
                             <Form.Label>Nome</Form.Label>
                             <Form.Control
@@ -78,6 +82,7 @@ export function EditarUsuario() {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                maxLength={70}
                                 required
                             />
                         </Form.Group>
@@ -91,6 +96,7 @@ export function EditarUsuario() {
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                maxLength={40}
                                 required
                             />
                         </Form.Group>
@@ -114,7 +120,10 @@ export function EditarUsuario() {
 
 
                         <Button variant="primary" type="submit" disabled={!isFormValid()}>
-                            Salvar
+                            <div className={style.botao_salvar}>
+                                <MdSaveAs />
+                                Salvar
+                            </div>
                         </Button>
                     </Form>
                 </div>

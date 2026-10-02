@@ -1,0 +1,145 @@
+.pagina_conteudo {
+    width: 100%;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 40px;
+    box-sizing: border-box;
+}
+
+.pagina_cabecalho {
+    margin-bottom: 24px;
+}
+
+.pagina_cabecalho h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #212529;
+    margin: 0;
+}
+
+/* Estilos do Select que fica na Topbar */
+.seletor_topo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.label_topo {
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.select_topo {
+    padding: 8px;
+    width: 17px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    font-size: 14px;
+    min-width: 260px;
+    outline: none;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.select_topo:focus {
+    border-color: #7B7BC9;
+}
+
+/* Cards na horizontal */
+.cards {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.aviso {
+    color: #6c757d;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+/* Área da Inteligência Artificial (Abaixo dos cards)*/
+
+.area_ia {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+
+
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 2px solid #000000;
+}
+
+.ia_cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.ia_cabecalho h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2b2d42;
+    margin: 0;
+}
+
+.botao_ia {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(139, 92, 246, 0.3);
+    transition: transform 0.15s ease;
+}
+
+.botao_ia:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.caixa_resumo_ia {
+    background-color: #f8fafc;
+
+    border-radius: 8px;
+    padding: 16px 20px;
+
+}
+
+.caixa_resumo_ia p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #334155;
+    white-space: pre-line;
+}
+
+.texto_placeholder {
+    color: #94a3b8;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}

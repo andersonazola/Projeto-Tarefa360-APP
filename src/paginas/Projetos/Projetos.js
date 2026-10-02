@@ -1,0 +1,119 @@
+import Table from "react-bootstrap/esm/Table";
+import { Sidebar } from "../../componentes/Sidebar/Sidebar";
+import { Topbar } from "../../componentes/Topbar/Topbar";
+import { Link } from "react-router-dom";
+import style from "./Projetos.module.css"
+import { MdEdit, MdDelete } from "react-icons/md"
+import { useEffect, useState } from "react";
+import Modal from "react-bootstrap/Modal"
+import Button from "react-bootstrap/Button"
+import ProjetoAPI from "../../services/projetoAPI";
+import { Tabela } from "../../componentes/Tabela/Tabela";
+import { useAlert } from '../../componentes/Alert/AlertContext';
+import { InputBusca } from "../../componentes/InputBusca/InputBusca";
+
+export function Projetos ()
+{
+    const { mostrarAlerta } = useAlert();
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [projetoSelecionado, setProjetoSelecionado] = useState(null);
+    const [busca, setBusca] = useState("");
+    const [projetos, setProjetos] = useState([]);
+
+    const handleClickDeletar = (projeto) => {
+        setProjetoSelecionado(projeto);
+        setMostrarModal(true);
+    };
+
+    const handleDeletar = async () => {
+        try {
+            await ProjetoAPI.deletarAsync(projetoSelecionado.id);
+            setProjetos(projetos.filter(p => p.id !== projetoSelecionado.id));
+            mostrarAlerta('Projeto excluído com sucesso!', 'success');            
+        } catch (error) {
+            console.error("Erro ao deletar projeto:", error);
+        } finally {
+            handleFecharModal();
+        }
+    };
+
+    const handleFecharModal = () => {
+        setMostrarModal(false);
+        setProjetoSelecionado(null);
+    };
+
+    async function buscarProjetos(filtro) {
+        try {
+            const listaProjetos = await ProjetoAPI.buscaAsync(filtro);
+            setProjetos(listaProjetos);
+        } catch (error) {
+            console.error("Erro ao carregar projetos:", error);
+        }
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            buscarProjetos(busca);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [busca]);
+
+
+    const colunas = [
+        { chave: 'nome', titulo: 'Nome' },
+        {
+            chave: 'acoes',
+            titulo: 'Ações',
+            render: (projeto) => (
+                <>
+                    <Link to='/projeto/editar' state={projeto.id} className={style.botao_editar}>
+                        <MdEdit />
+                    </Link>
+                    <button onClick={() => handleClickDeletar(projeto)} className={style.botao_deletar}>
+                        <MdDelete />
+                    </button>
+                </>
+            ),
+        },
+    ];
+
+    return (
+        <Sidebar>
+            <Topbar>
+                <div className={style.pagina_conteudo}>
+                    <div className={style.pagina_cabecalho}>
+                        <h3>Projetos</h3>
+                        <Link to='/projeto/novo' className={style.botao_novo}>+ Novo</Link>
+                    </div>
+
+                    <div className={style.campo_busca}>
+                        <InputBusca filtro={busca} aoDigitar={setBusca} />
+                    </div>
+
+                    <div className={style.tabela}>
+                        <Tabela colunas={colunas} dados={projetos} />
+                    </div>
+
+                    <Modal show={mostrarModal} onHide={handleFecharModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Confirmar</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Tem certeza que deseja deletar o projeto {projetoSelecionado?.nome}?
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleFecharModal}>
+                                Cancelar
+                            </Button>
+                            <Button variant="danger" onClick={handleDeletar}>
+                                Deletar
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                </div>
+            </Topbar>
+        </Sidebar>
+    )
+}

@@ -1,0 +1,92 @@
+.pagina_conteudo {
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+}
+
+.tabela {
+    margin-top: 30px;
+}
+
+.tabela_corpo svg {
+    color: #212529;
+
+    margin: 5px;
+    font-size: 25px;
+}
+
+.botao_editar svg:hover {
+    color: #f08830;
+}
+
+.botao_deletar {
+    border: none;
+    background: none;
+
+    & svg:hover {
+        color: #e4504b;
+    }
+}
+
+.pagina_cabecalho {
+    display: flex;
+    justify-content: space-between;
+
+    & .botao_novo {
+        text-decoration: none;
+
+        color: white;
+
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+
+        border-radius: 10px;
+        background-color: #f08830;
+    }
+}
+
+.pagina_cabecalho_botoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.campo_busca {
+    margin-top: 20px;
+}
+
+.filtro_projeto {
+
+    padding: 10px 14px;
+    min-width: 170px;
+    font-size: 14px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.barra_opcoes {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+
+    & form {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .pagina_conteudo {
+        padding: 20px;
+    }
+
+    .pagina_cabecalho {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}

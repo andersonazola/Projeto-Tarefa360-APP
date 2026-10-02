@@ -6,8 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button'
 import UsuarioAPI from "../../services/usuarioAPI";
+import { useAlert } from '../../componentes/Alert/AlertContext';
 
 export function NovoUsuario() {
+    const { mostrarAlerta } = useAlert();
+
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
@@ -17,7 +20,7 @@ export function NovoUsuario() {
 
     const navigate = useNavigate();
 
-
+    const usuarioLogin = JSON.parse(localStorage.getItem("usuario"));
 
     useEffect(() => {
         const fecthTiposUsuarios = async () => {
@@ -32,13 +35,24 @@ export function NovoUsuario() {
     }, []);
 
 
-    const handleSubmit = async (e) => { // É executada quando clicar em salva e chama a função de verificação isFormaValid()
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            await UsuarioAPI.criarAsync(nome, email, senha, tipoUsuario);
-            navigate('/usuarios')
+            try {
+
+
+                await UsuarioAPI.criarAsync(nome, email, senha, tipoUsuario, usuarioLogin.id);
+                navigate('/usuarios')
+            } catch (error) {
+                if (error.response?.status === 401) {
+                    alert('Você não tem permissão para realizar essa ação.');
+                }
+                else {
+                    alert('Erro ao criar usuário.');
+                }
+            }
         } else {
-            alert('Por favor, preencha todos os campos.');
+            mostrarAlerta('Por favor, preencha todos os campos.', 'warning');
         }
     };
 
@@ -63,6 +77,7 @@ export function NovoUsuario() {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                maxLength={70}
                                 required
                             />
                         </Form.Group>
@@ -76,6 +91,7 @@ export function NovoUsuario() {
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                maxLength={40}
                                 required
                             />
                         </Form.Group>
@@ -116,4 +132,4 @@ export function NovoUsuario() {
             </Topbar>
         </Sidebar>
     )
-} 
+}
